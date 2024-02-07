@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Bootstrap -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- Jquery -->
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.min.js"
+      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+      crossorigin="anonymous"
+    ></script>
+
+    <link rel="stylesheet" href="/stylesheets/cobaAdmin.css" />
+
+    <title id="pageTitle">Dashboard</title>
+  </head>
+  <body>
+    <!-- SIDEBAR MENU -->
+    <div class="sidebar">
+      <!-- SIDEBAR HEADER -->
+      <div class="side-header">
+        <img src="/images/logo/7.png" style="width: 80%" />
+        <!-- <h2>Healthy Zoonosis</h2> -->
+      </div>
+
+      <!-- SIDEBAR MENU KONTEN -->
+      <div class="side-content">
+        <div class="side-menu">
+          <ul class="nav flex-column" id="myTab" role="tablist">
+            <!-- sidebar dashboard  -->
+            <li id="Dashboard" class="nav-item hover active" style="margin-bottom: 10px">
+              <div
+                class="a nav-link"
+                id="Dashboards"
+                data-bs-toggle="tab"
+                data-bs-target="#Dashboards-pane"
+                type="button"
+                role="tab"
+                aria-controls="Dashboards-pane"
+                aria-selected="true"
+              >
+              <i class="bi bi-house-door"></i>
+              <small style="margin-left: 5px">Dashboards</small>
+              </div>
+            </li>
+
+            
+            <!-- sidebar penjelajahan -->
+            <li
+              id="DataPelanggan"
+              class="nav-item hover"
+              style="margin-bottom: 10px"
+            >
+              <div
+                class="a nav-link"
+                id="DataPelanggan"
+                data-bs-toggle="tab"
+                data-bs-target="#DataPelanggan-pane"
+                type="button"
+                role="tab"
+                aria-controls="DataPelanggan-pane"
+                aria-selected="false"
+              >
+                
+                <small style="margin-left: 5px">Data Pelanggan</small>
+              </div>
+            </li>
+
+            <!-- sidebar Data Server -->
+            <li id="DataServer" class="nav-item hover" style="margin-bottom: 10px">
+              <div
+                class="a nav-link"
+                id="DataServer"
+                data-bs-toggle="tab"
+                data-bs-target="#DataServer-pane"
+                type="button"
+                role="tab"
+                aria-controls="DataServer-pane"
+                aria-selected="false"
+              >
+                
+                <small style="margin-left: 5px">Data Server</small>
+              </div>
+            </li>
+
+            <!-- sidebar Data Voucher -->
+            <li id="DataVoucher" class="nav-item hover" style="margin-bottom: 10px">
+              <div
+                class="a nav-link"
+                id="DataVoucher"
+                data-bs-toggle="tab"
+                data-bs-target="#DataVoucher-pane"
+                type="button"
+                role="tab"
+                aria-controls="DataVoucher-pane"
+                aria-selected="false"
+              >
+                
+                <small style="margin-left: 5px">Data Voucher</small>
+              </div>
+            </li>
+
+            <!-- sidebar Data Konten -->
+            <li id="DataKonten" class="nav-item hover" style="margin-bottom: 10px">
+              <div
+                class="a nav-link"
+                id="DataKonten"
+                data-bs-toggle="tab"
+                data-bs-target="#DataKonten-pane"
+                type="button"
+                role="tab"
+                aria-controls="DataKonten-pane"
+                aria-selected="false"
+              >
+                
+                <small style="margin-left: 5px">Data Konten</small>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- KONTEN DASHBOARD -->
+    <div class="main-content tab-content">
+      <!-- MAIN KONTEN DASHBOARD -->
+      <div
+        class="tab-pane fade show active"
+        id="Dashboards-pane"
+        role="tabpanel"
+        aria-labelledby="Dashboards"
+        tabindex="0"
+      >
+        <main class="Dashboard">
+          <div class="row judul">
+            <h2 class="fw-bold pt-3" >Daeng Barbershop
+                <div class="underline"></div>
+            </h2>
+            <div class="content-wrap " >
+                <div class="content" >
+                    <section class="info-boxes"  >
+                        <div class="info-box">
+                            <div class="box-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M21 20V4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1zm-2-1H5V5h14v14z"/><path d="M10.381 12.309l3.172 1.586a1 1 0 0 0 1.305-.38l3-5-1.715-1.029-2.523 4.206-3.172-1.586a1.002 1.002 0 0 0-1.305.38l-3 5 1.715 1.029 2.523-4.206z"/></svg>
+                            </div>
+                            <div class="box-content">
+                                <span class="big text-center" id="jlhPelanggan"> </span>
+                                Pelanggan
+                            </div>
+                        </div>
+                        <div class="info-box">
+                            <div class="box-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M20 10H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1V11a1 1 0 0 0-1-1zm-1 10H5v-8h14v8zM5 6h14v2H5zM7 2h10v2H7z"/></svg>
+                            </div>
+                            <div class="box-content">
+                                <span class="big text-center" id="jlhServer"> </span>
+                                Server
+                            </div>
+                        </div>
+                        <div class="info-box">
+                            <div class="box-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M3,21c0,0.553,0.448,1,1,1h16c0.553,0,1-0.447,1-1v-1c0-3.714-2.261-6.907-5.478-8.281C16.729,10.709,17.5,9.193,17.5,7.5 C17.5,4.468,15.032,2,12,2C8.967,2,6.5,4.468,6.5,7.5c0,1.693,0.771,3.209,1.978,4.219C5.261,13.093,3,16.287,3,20V21z M8.5,7.5 C8.5,5.57,10.07,4,12,4s3.5,1.57,3.5,3.5S13.93,11,12,11S8.5,9.43,8.5,7.5z M12,13c3.859,0,7,3.141,7,7H5C5,16.141,8.14,13,12,13z"/></svg>
+                            </div>
+                            <div class="box-content">
+                                <span class="big text-center" id="jlhVoucher"> </span>
+                                Voucher
+                            </div>
+                        </div>
+                        <div class="info-box">
+                            <div class="box-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 3C6.486 3 2 6.364 2 10.5c0 2.742 1.982 5.354 5 6.678V21a.999.999 0 0 0 1.707.707l3.714-3.714C17.74 17.827 22 14.529 22 10.5 22 6.364 17.514 3 12 3zm0 13a.996.996 0 0 0-.707.293L9 18.586V16.5a1 1 0 0 0-.663-.941C5.743 14.629 4 12.596 4 10.5 4 7.468 7.589 5 12 5s8 2.468 8 5.5-3.589 5.5-8 5.5z"/></svg>
+                            </div>
+                            <div class="box-content">
+                                <span class="big text-center" id="jlhCabang"> </span>
+                                Cabang
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+          </div>
+        </main>
+      </div>
+      <!-- MAIN KONTEN DASHBOARD AKHIR -->
+
+      <!-- Penjelajahan mulai -->
+      <div
+        class="tab-pane fade"
+        id="DataPelanggan-pane"
+        role="tabpanel"
+        aria-labelledby="DataPelanggan"
+        tabindex="0"
+      >
+        <main class="Hero">
+          <h1>WElcome</h1>
+        </main>
+      </div>
+      <!-- Penjelajahan Selesai-->
+
+      <!-- Prncarian Mulai -->
+      <div
+        class="tab-pane fade"
+        id="Pencarian-pane"
+        role="tabpanel"
+        aria-labelledby="Pencarian"
+        tabindex="0"
+      >
+        <main class="Pencarian">
+          
+        </main>
+      </div>
+      <!-- Prncarian Selesai -->
+    </div>
+
+    <script>
+      // Mengambil semua elemen menu
+      var menuItems = document.querySelectorAll(".nav-item");
+
+      // Ambil semua elemen <a> pada sidebar
+      const sidebarLinks = document.querySelectorAll(".side-menu li");
+
+      // Tambahkan event listener untuk setiap elemen <a>
+      sidebarLinks.forEach((link) => {
+        link.addEventListener("click", function () {
+          // Menghapus kelas 'active' dari semua elemen sidebar
+          sidebarLinks.forEach((link) => link.classList.remove("active"));
+
+          // Menambahkan kelas 'active' ke elemen yang diklik
+          this.classList.add("active");
+        });
+      });
+
+      // Menambahkan event listener untuk setiap elemen menu
+      menuItems.forEach(function (item) {
+        item.addEventListener("click", function () {
+          // Menghapus kelas "active" dari semua elemen menu
+          menuItems.forEach(function (menuItem) {
+            menuItem.classList.remove("active");
+          });
+
+          // Menambahkan kelas "active" ke elemen menu yang diklik
+          item.classList.add("active");
+        });
+      });
+
+
+
+      // Mengambil data dari database
+      fetch("http://localhost:3000/admin/dataUser", {
+        method: "GET",
+        })
+        .then((response) => response.json())
+        .then((data) => {
+            const idRoles = data.map(user => user.id_role);
+            console.log("id role: ",idRoles);
+
+            // ambil id_role pelanggan
+            const countPelanggan = idRoles.filter(id => id === 3).length;
+            console.log(countPelanggan);
+
+            // ambil id_role server
+            const countServer = idRoles.filter(id => id === 2).length;
+            console.log(countServer);
+
+            // jumlah server
+            $("#jlhServer").html(countServer);
+            // jumlah pelanggan
+            $("#jlhPelanggan").html(countPelanggan);
+        })
+        .catch((error) => console.error('Error:', error));
+
+        // ambil data server
+        fetch("http://localhost:3000/admin/dataServer", {
+        method: "GET",
+        })
+        .then((response) => response.json())
+        .then((data) => {
+            // kirim jlh cabang
+            $("#jlhCabang").html(data.length);
+        })
+        .catch((error) => console.error('Error:', error));
+
+        // ambil data vouchers
+        fetch("http://localhost:3000/admin/dataVoucher", {
+        method: "GET",
+        })
+        .then((response) => response.json())
+        .then((data) => {
+            // kirim jlh cabang
+            $("#jlhVoucher").html(data.length);
+        })
+        .catch((error) => console.error('Error:', error));
+          
+      
+    </script>
+  </body>
+</html>

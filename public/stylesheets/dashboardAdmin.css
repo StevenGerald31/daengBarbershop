@@ -1,9 +1,36 @@
+.main {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  
+}
+.sidebar {
+  background: rgb(43, 39, 52);
+  color: white;
+}
+.sidebar ul {
+  list-style-type: none;
+
+}
+.sidebar li {
+  padding: 10px 5px;
+}
+.content {
+  height: 100vh;
+  overflow-y: auto; 
+  padding: 20px;
+} 
+
+
+
 .content-wrap .info-boxes {
     padding: 1em 2em 1em;
     align-items: center;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
     grid-gap: 2em;
+    
   }
   .content-wrap .info-boxes .info-box {
     background: #fff;
