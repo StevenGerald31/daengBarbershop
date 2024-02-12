@@ -3,7 +3,7 @@ const { sequelize, Sequelize } = require("../../db");
 
 const pageDashboard = async (req, res) => {
     try {
-      return res.render("sever/dashboardServer", {
+      return res.render("server/dashboardServer", {
         baseUrl: getBaseUrl(req),
       });
     } catch (error) {
