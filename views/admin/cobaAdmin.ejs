@@ -206,7 +206,7 @@
       </div>
       <!-- MAIN KONTEN DASHBOARD AKHIR -->
 
-      <!-- Penjelajahan mulai -->
+      <!-- Pelanggan mulai -->
       <div
         class="tab-pane fade"
         id="DataPelanggan-pane"
@@ -215,21 +215,52 @@
         tabindex="0"
       >
         <main class="Hero">
-          <h1>WElcome</h1>
+          <div class="row judul">
+            <h2 class="fw-bold pt-3">Data Pelanggan</h2>
+          </div>
+          <div class="row search  d-flex justify-content-center">
+            <div class="col-6">
+              <input type="email" class="form-control" placeholder="Cari id" id="exampleInputEmail1" aria-describedby="emailHelp">
+            </div>
+            <div class="col-4">
+              <button class="btn btn-primary">Search</button>
+            </div>
+          </div>
+          <div class="row dataPelanggan  ">
+            <div class="col-10">
+              <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th scope="col">id</th>
+                    <th scope="col">Nama</th>
+                    <th scope="col">Alamat</th>
+                    <th scope="col">No. Telp.</th>
+                    <th scope="col">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+                
+              </table>
+            </div>
+          </div>
         </main>
       </div>
       <!-- Penjelajahan Selesai-->
 
-      <!-- Prncarian Mulai -->
+      <!-- Data Server Mulai -->
       <div
         class="tab-pane fade"
-        id="Pencarian-pane"
+        id="DataServer-pane"
         role="tabpanel"
-        aria-labelledby="Pencarian"
+        aria-labelledby="dataServer"
         tabindex="0"
       >
-        <main class="Pencarian">
-          
+        <main class="server">
+          <div class="row judul">
+            <h2 class="fw-bold pt-3">Data Pelanggan</h2>
+          </div>          
         </main>
       </div>
       <!-- Prncarian Selesai -->
@@ -311,6 +342,31 @@
         .then((data) => {
             // kirim jlh cabang
             $("#jlhVoucher").html(data.length);
+        })
+        .catch((error) => console.error('Error:', error));
+
+        // ambil data untuk page Data Pelanggan
+        fetch("http://localhost:3000/admin/dataUser", {
+          method: "GET",
+        })
+        .then((response) => response.json())
+        .then((data) => {
+          // filter data untuk id_role = 3
+          const filteredData = data.filter(user => user.id_role === 3);
+
+          // Dapatkan elemen tbody
+          const tbody = document.querySelector('.row.dataPelanggan .table tbody');
+
+          // Buat dan tambahkan baris
+          filteredData.forEach(user => {
+              const row = document.createElement('tr');
+              ['id_user', 'name', 'alamat', 'no_telp'].forEach(key => {
+                  const td = document.createElement('td');
+                  td.textContent = user[key];
+                  row.appendChild(td);
+              });
+              tbody.appendChild(row);
+          });
         })
         .catch((error) => console.error('Error:', error));
           
