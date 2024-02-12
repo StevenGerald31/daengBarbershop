@@ -161,7 +161,7 @@
             </h2>
             <div class="content-wrap " >
                 <div class="content" >
-                    <section class="info-boxes"  >
+                    <section class="info-boxes d-flex align-items-center justify-content-center"  >
                         <div class="info-box">
                             <div class="box-icon">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M21 20V4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1zm-2-1H5V5h14v14z"/><path d="M10.381 12.309l3.172 1.586a1 1 0 0 0 1.305-.38l3-5-1.715-1.029-2.523 4.206-3.172-1.586a1.002 1.002 0 0 0-1.305.38l-3 5 1.715 1.029 2.523-4.206z"/></svg>
@@ -218,12 +218,17 @@
           <div class="row judul">
             <h2 class="fw-bold pt-3">Data Pelanggan</h2>
           </div>
-          <div class="row search  d-flex justify-content-center">
+          <div class="row searchPelanggan  d-flex justify-content-center">
             <div class="col-6">
               <input type="email" class="form-control" placeholder="Cari id" id="exampleInputEmail1" aria-describedby="emailHelp">
             </div>
             <div class="col-4">
               <button class="btn btn-primary">Search</button>
+            </div>
+          </div>
+          <div class="row buttonTambah mt-3">
+            <div class="col-2">
+              <button class="btn btn-primary">Tambah Data</button>
             </div>
           </div>
           <div class="row dataPelanggan  ">
@@ -259,8 +264,74 @@
       >
         <main class="server">
           <div class="row judul">
-            <h2 class="fw-bold pt-3">Data Pelanggan</h2>
+            <h2 class="fw-bold pt-3">Data Server</h2>
+          </div>
+          <div class="row searchServer  d-flex justify-content-center">
+            <div class="col-6">
+              <input type="email" class="form-control" placeholder="Cari id" id="exampleInputEmail1" aria-describedby="emailHelp">
+            </div>
+            <div class="col-4">
+              <button class="btn btn-primary">Search</button>
+            </div>
+          </div>
+          <div class="row buttonTambah mt-3">
+            <div class="col-2">
+              <button class="btn btn-primary">Tambah Data</button>
+            </div>
+          </div>
+          <div class="row dataServer ">
+            <div class="col-10">
+              <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th scope="col">id</th>
+                    <th scope="col">Nama</th>
+                    <th scope="col">Alamat</th>
+                    <th scope="col">No. Telp.</th>
+                    <th scope="col">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+                
+              </table>
+            </div>
           </div>          
+        </main>
+      </div>
+      <!-- Data Server Selesai -->
+
+      <!-- Data Voucher Mulai -->
+      <div
+        class="tab-pane fade"
+        id="DataVoucher-pane"
+        role="tabpanel"
+        aria-labelledby="dataVoucher"
+        tabindex="0"
+      >
+        <main class="voucher">
+          <div class="row judul">
+            <h2 class="fw-bold pt-3">Data Voucher</h2>
+          </div>
+          
+          <div class="row buttonTambah mt-3">
+            <div class="col-2">
+              <button class="btn btn-primary">Tambah Voucher</button>
+            </div>
+          </div>
+
+          <div class="row voucherHasil mt-5">
+            <div class="judulVoucher">
+              <h4 class="fw-bold">
+                Voucher Tersedia
+              </h4>
+            </div>
+            <div class="cards-container">
+              
+            </div>
+          </div>
+             
         </main>
       </div>
       <!-- Pencarian Selesai -->
@@ -369,6 +440,91 @@
           });
         })
         .catch((error) => console.error('Error:', error));
+
+        // ambil data untuk page Data Pelanggan
+        fetch("http://localhost:3000/admin/dataUser", {
+          method: "GET",
+        })
+        .then((response) => response.json())
+        .then((data) => {
+          // filter data untuk id_role = 3
+          const filteredData = data.filter(user => user.id_role === 2);
+
+          // Dapatkan elemen tbody
+          const tbody = document.querySelector('.row.dataServer .table tbody');
+
+          // Buat dan tambahkan baris
+          filteredData.forEach(user => {
+              const row = document.createElement('tr');
+              ['id_user', 'name', 'alamat', 'no_telp'].forEach(key => {
+                  const td = document.createElement('td');
+                  td.textContent = user[key];
+                  row.appendChild(td);
+              });
+              tbody.appendChild(row);
+          });
+        })
+        .catch((error) => console.error('Error:', error));
+
+        // ambil data vouchers 
+        fetch("http://localhost:3000/admin/dataVoucher", {
+          method: "GET",
+        })
+        .then((response) => response.json())
+        .then((data) => {
+
+          // Dapatkan elemen container
+          const container = document.querySelector('.cards-container');
+
+          // Buat dan tambahkan card untuk setiap item data
+          data.forEach(voucher => {
+              // Buat elemen card
+              const card = document.createElement('div');
+              card.className = 'cardVoucher col-10 ms-5 mt-3 mb-2';
+
+              // Buat elemen row
+              const row = document.createElement('div');
+              row.className = 'row';
+
+              // Buat elemen untuk teks
+              const textCol = document.createElement('div');
+              textCol.className = 'col-10';
+
+              const h2 = document.createElement('h2');
+              h2.className = 'fw-bold';
+              h2.textContent = voucher.kode_voucher;
+
+              const h4 = document.createElement('h4');
+              h4.className = 'fw-bold';
+              h4.textContent = 'Disc ' + `Rp${voucher.diskon}`;
+
+              const p = document.createElement('p');
+              p.textContent = voucher.description;
+
+              textCol.appendChild(h2);
+              textCol.appendChild(h4);
+              textCol.appendChild(p);
+
+              // Buat elemen untuk tombol
+              const buttonCol = document.createElement('div');
+              buttonCol.className = 'col-2 d-flex align-items-center';
+
+              const button = document.createElement('button');
+              button.className = 'btn btn-danger';
+              button.textContent = 'Hapus Voucher';
+
+              buttonCol.appendChild(button);
+
+              // Tambahkan semua elemen ke row dan card
+              row.appendChild(textCol);
+              row.appendChild(buttonCol);
+              card.appendChild(row);
+
+              // Tambahkan card ke container
+              container.appendChild(card);
+          });
+          
+        })
           
       
     </script>
