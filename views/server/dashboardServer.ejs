@@ -186,7 +186,7 @@
         tabindex="0"
       >
         <main class="Booking">
-            <section class="flex-1 overflow-auto p-6">
+        <section class="flex-1 overflow-auto p-6">
             <div class="section-title">
                 <h2>Booking</h2>
                 </div>
@@ -232,7 +232,7 @@
                         </button>
                       </div>
                     </div>
-                  </div>
+                    
                   
                 </section>
               </main>
@@ -280,7 +280,15 @@
                                 <div class="col-12 col-md-8"> <!-- Modified: removed dots from class names -->
                                     <h2>Stock Produk</h2> 
                                 </div>
-                                <div class="col-6 col-md-4"> <!-- Modified: removed dots from class names -->
+                                <div class="row searchServer  d-flex justify-content-center">
+                                  <div class="col-6">
+                                    <input type="email" class="form-control" placeholder="Cari id" id="exampleInputEmail1" aria-describedby="emailHelp">
+                                  </div>
+                                  <div class="col-1">
+                                    <button class="btn btn-primary">Search</button>
+                                  </div>
+                                </div>
+                                <div class="col-16 col-md-14   d-flex justify-content-end"> <!-- Modified: removed dots from class names -->
                                     <a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="bi bi-plus-circle-fill"></i> <span>Tambah Data</span></a>
                                     <a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal"><i class="bi bi-trash-fill"></i> <span>Delete</span></a>						
                                 </div>
@@ -368,7 +376,22 @@
         </main>
       </div>
       <!-- Produk -->
+    
+
+      <!-- Pembelian Produk -->
+      <div
+      class="tab-pane fade"
+      id="PembelianProduk-pane"
+      role="tabpanel"
+      aria-labelledby="PembelianProduk"
+      tabindex="0"
+    >
+        <main class="PembelianProduk">
+          <h2>Masih bingung</h2>
+        </main>
+      </div>
     </div>
+
 
     <script>
       // Mengambil semua elemen menu
@@ -403,7 +426,7 @@
 
 
 
-      // Mengambil data dari database
+      // Mengambil data dari database dashboard   
       fetch("http://localhost:3000/admin/dataUser", {
         method: "GET",
         })
@@ -416,12 +439,6 @@
             const countPelanggan = idRoles.filter(id => id === 3).length;
             console.log(countPelanggan);
 
-            // ambil id_role server
-            const countServer = idRoles.filter(id => id === 2).length;
-            console.log(countServer);
-
-            // jumlah server
-            $("#jlhServer").html(countServer);
             // jumlah pelanggan
             $("#jlhPelanggan").html(countPelanggan);
         })
