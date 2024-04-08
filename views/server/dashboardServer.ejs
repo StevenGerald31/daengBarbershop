@@ -1,461 +1,673 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap"
-      rel="stylesheet"
-    />
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <!-- Bootstrap -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
-      crossorigin="anonymous"
-    />
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-      crossorigin="anonymous"
-    ></script>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet" />
 
-    <!-- Jquery -->
-    <script
-      src="https://code.jquery.com/jquery-3.7.1.min.js"
-      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
-      crossorigin="anonymous"
-    ></script>
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+    crossorigin="anonymous"></script>
 
-    <link rel="stylesheet" href="/stylesheets/dashboardServer.css" />
+<!-- Jquery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="stylesheet" href="/stylesheets/dashboardServer.css" />
 
-    <title id="pageTitle">Dashboard</title>
-  </head>
-  <body>
-    <!-- SIDEBAR MENU -->
-    <div class="sidebar">
-      <!-- SIDEBAR HEADER -->
-      <div class="side-header">
-        <img src="/images/logo/7.png" style="width: 80%" />
-        <!-- <h2>Healthy Zoonosis</h2> -->
+  <title id="pageTitle">Dashboard</title>
+</head>
+
+<body>
+  <!-- SIDEBAR MENU -->
+  <div class="sidebar">
+    <!-- SIDEBAR HEADER -->
+    <div class="side-header">
+      <div class="image">
+        <img src="/image/logoFIX1.png">
       </div>
-
-      <!-- SIDEBAR MENU KONTEN -->
-      <div class="side-content">
-        <div class="side-menu">
-          <ul class="nav flex-column" id="myTab" role="tablist">
-            <!-- sidebar dashboard  -->
-            <li id="Dashboard" class="nav-item hover active" style="margin-bottom: 10px">
-              <div
-                class="a nav-link"
-                id="Dashboards"
-                data-bs-toggle="tab"
-                data-bs-target="#Dashboards-pane"
-                type="button"
-                role="tab"
-                aria-controls="Dashboards-pane"
-                aria-selected="true"
-              >
-              <i class="bi bi-house-door"></i>
-              <small style="margin-left: 5px">Dashboards</small>
-              </div>
-            </li>
-
-            
-            <!-- sidebar Booking -->
-            <li
-              id="Booking"
-              class="nav-item hover"
-              style="margin-bottom: 10px"
-            >
-              <div
-                class="a nav-link"
-                id="Booking"
-                data-bs-toggle="tab"
-                data-bs-target="#Booking-pane"
-                type="button"
-                role="tab"
-                aria-controls="Booking-pane"
-                aria-selected="false"
-              >
-                
-                <small style="margin-left: 5px">Booking</small>
-              </div>
-            </li>
-
-            <!-- sidebar Produk -->
-            <li id="Produk" 
-                class="nav-item hover" 
-                style="margin-bottom: 10px"
-            >
-              <div
-                class="a nav-link"
-                id="Produk"
-                data-bs-toggle="tab"
-                data-bs-target="#Produk-pane"
-                type="button"
-                role="tab"
-                aria-controls="Produk-pane"
-                aria-selected="false"
-              >
-                
-                <small style="margin-left: 5px">Produk</small>
-              </div>
-            </li>
-
-            <!-- sidebar Pembelian Produk -->
-            <li id="PembelianProduk" 
-                class="nav-item hover" 
-                style="margin-bottom: 10px"
-            >
-              <div
-                class="a nav-link"
-                id="PembelianProduk"
-                data-bs-toggle="tab"
-                data-bs-target="#PembelianProduk-pane"
-                type="button"
-                role="tab"
-                aria-controls="PembelianProduk-pane"
-                aria-selected="false"
-              >
-                
-                <small style="margin-left: 5px">Pembelian Produk</small>
-              </div>
-            </li>
-          </ul>
-        </div>
+      <div class="judul">
+        <h2>Halo Server</h2>
       </div>
     </div>
 
-    <!-- KONTEN DASHBOARD -->
-    <div class="main-content tab-content">
-      <!-- MAIN KONTEN DASHBOARD -->
-      <div
-        class="tab-pane fade show active"
-        id="Dashboards-pane"
-        role="tabpanel"
-        aria-labelledby="Dashboards"
-        tabindex="0"
-      >
-        <main class="Dashboard">
-          <div class="row judul">
-            <h2 class="fw-bold pt-3" >Daeng Barbershop
-                <div class="underline"></div>
-            </h2>
-            <div class="content-wrap " >
-                <div class="content" >
-                    <section class="info-boxes"  >
-                        <div class="info-box">
-                            <div class="box-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M21 20V4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1zm-2-1H5V5h14v14z"/><path d="M10.381 12.309l3.172 1.586a1 1 0 0 0 1.305-.38l3-5-1.715-1.029-2.523 4.206-3.172-1.586a1.002 1.002 0 0 0-1.305.38l-3 5 1.715 1.029 2.523-4.206z"/></svg>
-                            </div>
-                            <div class="box-content">
-                                <span class="big text-center" id="jlhPelanggan"> </span>
-                                Pelanggan
-                            </div>
-                        </div>
-                        <div class="info-box">
-                            <div class="box-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M3,21c0,0.553,0.448,1,1,1h16c0.553,0,1-0.447,1-1v-1c0-3.714-2.261-6.907-5.478-8.281C16.729,10.709,17.5,9.193,17.5,7.5 C17.5,4.468,15.032,2,12,2C8.967,2,6.5,4.468,6.5,7.5c0,1.693,0.771,3.209,1.978,4.219C5.261,13.093,3,16.287,3,20V21z M8.5,7.5 C8.5,5.57,10.07,4,12,4s3.5,1.57,3.5,3.5S13.93,11,12,11S8.5,9.43,8.5,7.5z M12,13c3.859,0,7,3.141,7,7H5C5,16.141,8.14,13,12,13z"/></svg>
-                            </div>
-                            <div class="box-content">
-                                <span class="big text-center" id="jlhVoucher"> </span>
-                                Voucher
-                            </div>
-                        </div>
-                    </section>
+    <!-- SIDEBAR MENU KONTEN -->
+    <div class="side-content">
+      <div class="side-menu">
+        <ul class="nav flex-column" id="myTab" role="tablist">
+          <!-- sidebar dashboard  -->
+          <li id="Dashboard" class="nav-item hover active" style="margin-bottom: 10px">
+            <div class="a nav-link" id="Dashboards" data-bs-toggle="tab" data-bs-target="#Dashboards-pane" type="button"
+              role="tab" aria-controls="Dashboards-pane" aria-selected="true">
+              <small style="margin-left: 5px">Dashboards</small>
+            </div>
+          </li>
+
+          <!-- sidebar Data Pelanggan -->
+          <li id="dataPelanggan" class="nav-item hover" style="margin-bottom: 10px">
+            <div class="a nav-link" id="dataPelanggan" data-bs-toggle="tab" data-bs-target="#dataPelanggan-pane"
+              type="button" role="tab" aria-controls="dataPelanggan-pane" aria-selected="false">
+
+              <small style="margin-left: 5px">Data Pelanggan</small>
+            </div>
+          </li>
+
+          <!-- sidebar Booking -->
+          <li id="Booking" class="nav-item hover" style="margin-bottom: 10px">
+            <div class="a nav-link" id="Booking" data-bs-toggle="tab" data-bs-target="#Booking-pane" type="button"
+              role="tab" aria-controls="Booking-pane" aria-selected="false">
+
+              <small style="margin-left: 5px">Booking</small>
+            </div>
+          </li>
+
+          <!-- sidebar Produk -->
+          <li id="Produk" class="nav-item hover" style="margin-bottom: 10px">
+            <div class="a nav-link" id="Produk" data-bs-toggle="tab" data-bs-target="#Produk-pane" type="button"
+              role="tab" aria-controls="Produk-pane" aria-selected="false">
+
+              <small style="margin-left: 5px">Produk</small>
+            </div>
+          </li>
+
+          <!-- sidebar Pembelian Produk -->
+          <li id="PembelianProduk" class="nav-item hover" style="margin-bottom: 10px">
+            <div class="a nav-link" id="PembelianProduk" data-bs-toggle="tab" data-bs-target="#PembelianProduk-pane"
+              type="button" role="tab" aria-controls="PembelianProduk-pane" aria-selected="false">
+
+              <small style="margin-left: 5px">Pembelian Produk</small>
+            </div>
+          </li>
+
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- KONTEN DASHBOARD -->
+  <div class="main-content tab-content">
+    <!-- MAIN KONTEN DASHBOARD -->
+    <div class="tab-pane fade show active" id="Dashboards-pane" role="tabpanel" aria-labelledby="Dashboards"
+      tabindex="0">
+      <main class="Dashboard">
+        <div class="row-judul">
+          <h2 class="fw-bold pt-3">Daeng Barbershop
+            <div class="underline"></div>
+          </h2>
+          <div class="content-wrap ">
+            <div class="content">
+              <section class="info-boxes">
+                <div class="info-box">
+                  <div class="box-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                      <path
+                        d="M21 20V4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1zm-2-1H5V5h14v14z" />
+                      <path
+                        d="M10.381 12.309l3.172 1.586a1 1 0 0 0 1.305-.38l3-5-1.715-1.029-2.523 4.206-3.172-1.586a1.002 1.002 0 0 0-1.305.38l-3 5 1.715 1.029 2.523-4.206z" />
+                    </svg>
+                  </div>
+                  <div class="box-content">
+                    <span class="big text-center" id="jlhPelanggan"> </span>
+                    Pelanggan
+                  </div>
                 </div>
+                <div class="info-box">
+                  <div class="box-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                      <path
+                        d="M3,21c0,0.553,0.448,1,1,1h16c0.553,0,1-0.447,1-1v-1c0-3.714-2.261-6.907-5.478-8.281C16.729,10.709,17.5,9.193,17.5,7.5 C17.5,4.468,15.032,2,12,2C8.967,2,6.5,4.468,6.5,7.5c0,1.693,0.771,3.209,1.978,4.219C5.261,13.093,3,16.287,3,20V21z M8.5,7.5 C8.5,5.57,10.07,4,12,4s3.5,1.57,3.5,3.5S13.93,11,12,11S8.5,9.43,8.5,7.5z M12,13c3.859,0,7,3.141,7,7H5C5,16.141,8.14,13,12,13z" />
+                    </svg>
+                  </div>
+                  <div class="box-content">
+                    <span class="big text-center" id="jlhVoucher"> </span>
+                    Voucher
+                  </div>
+                </div>
+              </section>
             </div>
           </div>
-        </main>
-      </div>
-      <!-- MAIN KONTEN DASHBOARD AKHIR -->
+        </div>
+      </main>
+    </div>
+    <!-- MAIN KONTEN DASHBOARD AKHIR -->
 
-      <!-- Booking -->
-      <div
-        class="tab-pane fade"
-        id="Booking-pane"
-        role="tabpanel"
-        aria-labelledby="Booking"
-        tabindex="0"
-      >
-        <main class="Booking">
-        <section class="flex-1 overflow-auto p-6">
-            <div class="section-title">
-                <h2>Booking</h2>
-                </div>
-                  <div class="grid gap-4">
-                    <div class="rounded-lg border bg-card text-card-foreground shadow-sm p-4" data-v0-t="card">
-                      <div class="flex flex-col space-y-1.5 p-6">
-                        <h3 class="text-2xl font-semibold leading-none tracking-tight">Booking ID #12345</h3>
-                        <p class="text-sm text-muted-foreground">John Doe - 15.00 - Sedang diproses</p> 
-                      </div>
-            
-                      <div class="flex items-center p-6">
-                        <button class="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                          Lihat Detail
-                        </button>
-                      </div>
+    <!-- Data Pelanggan -->
+    <div class="tab-pane fade" id="dataPelanggan-pane" role="tabpanel" aria-labelledby="dataPelanggan">
+      <main class="dataPelanggan">
+        <div class="section-title">
+          <div class="container">
+            <div class="table-wrapper">
+              <div class="table-title">
+                <div class="row">
+                  <div class="col-12 col-md-8">
+                    <br><br>
+                    <h2>Data Pelanggan</h2>
+                    <a href="#editPelangganModal" class="btn btn-success" data-toggle="modal"><i
+                        class="bi bi-plus-circle-fill"></i> <span>Tambah Data</span></a>
+                    <br><br>
+                    <div class="col-12 col-md-4">
+                      <form class="d-flex float-md-right mt-3 mt-md-0 mr-md-3">
+                        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                      </form>
                     </div>
                   </div>
-            
-            
-                  <section class="flex-1 overflow-auto p-6">
-                  <div class="section-title">
-                    <h2>Reservasi</h2>
+                </div>
+                <table class="table table-striped table-hover">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Nama </th>
+                      <th>Alamat</th>
+                      <th>No Telpon</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>001</td>
+                      <td>Dancoeks</td>
+                      <td>Darminto Residence</td>
+                      <td>082166221491</td>
+                      <td>
+                        <a href="#editPelangganModal" class="edit" data-toggle="modal"><i
+                            class="bi bi-pencil-square icon-size"></i></a>
+                        <a href="#deletePelangganModal" class="delete" data-toggle="modal"><i
+                            class="bi bi-trash-fill icon-size"></i></a>
+                    </tr>
+                    <!-- More rows... -->
+                  </tbody>
+                </table>
+                <div class="clearfix">
+                  <div class="hint-text">Showing <b>1</b> out of <b>25</b> entries</div>
+                  <ul class="pagination">
+                    <li class="page-item disabled"><a href="#" class="page-link">Previous</a></li>
+                    <li class="page-item"><a href="#" class="page-link">1</a></li>
+                    <li class="page-item"><a href="#" class="page-link">2</a></li>
+                    <li class="page-item "><a href="#" class="page-link">3</a></li>
+                    <li class="page-item"><a href="#" class="page-link">4</a></li>
+                    <li class="page-item"><a href="#" class="page-link">5</a></li>
+                    <li class="page-item"><a href="#" class="page-link">Next</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <!-- Modal Tambah Produk -->
+            <div class="modal fade" id="editPelangganModal" tabindex="-1" role="dialog"
+              aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Tambah Produk</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <form action="/addproducts" method="POST">
+                      <div class="form-group">
+                        <label for="productId">Product ID</label>
+                        <input type="text" class="form-control" id="productId" placeholder="Enter product ID">
+                      </div>
+                      <div class="form-group">
+                        <label for="productName">Product Name</label>
+                        <input type="text" class="form-control" id="productName" placeholder="Enter product name">
+                      </div>
+                      <div class="form-group">
+                        <label for="productDescription">Product Description</label>
+                        <textarea class="form-control" id="productDescription" rows="3"
+                          placeholder="Enter product description"></textarea>
+                      </div>
+                      <div class="form-group">
+                        <label for="productPrice">Product Price</label>
+                        <input type="number" class="form-control" id="productPrice" placeholder="Enter product price">
+                      </div>
+                      <div class="form-group">
+                        <label for="productStock">Product Stock</label>
+                        <input type="number" class="form-control" id="productStock" placeholder="Enter product stock">
+                      </div>
+                      <div class="form-group">
+                        <label for="productType">Product Type</label>
+                        <select class="form-control" id="productType">
+                          <option value="snack">Snack</option>
+                          <option value="service">Service</option>
+                          <option value="goods">Goods</option>
+                        </select>
+                      </div>
+                      <button type="submit" class="btn btn-primary">Submit</button>
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Modal Hapus Data Pelanggan -->
+            <div class="modal fade" id="deletePelangganModal" tabindex="-1" role="dialog"
+              aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Hapus Produk</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <!-- Isi konfirmasi penghapusan produk di sini -->
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-danger">Delete</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+    <!--Akhir Data Pelanggan-->
+
+    <!-- Booking -->
+    <div class="tab-pane fade" id="Booking-pane" role="tabpanel" aria-labelledby="Booking" tabindex="0">
+      <main class="Booking">
+        <section class="flex-1 overflow-auto p-6">
+          <div class="section-title">
+            <h2>Booking</h2>
+          </div>
+          <div class="grid gap-4">
+            <div class="rounded-lg border bg-card text-card-foreground shadow-sm p-4" data-v0-t="card">
+              <div class="flex flex-col space-y-1.5 p-6">
+                <h3 class="text-2xl font-semibold leading-none tracking-tight">Booking ID #12345</h3>
+                <p class="text-sm text-muted-foreground">John Doe - 15.00 - Sedang diproses</p>
+              </div>
+
+              <div class="flex items-center p-6">
+                <button
+                  class="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2"
+                  data-bs-toggle="modal" data-bs-target="#exampleModal">
+                  Lihat Detail
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <section class="flex-1 overflow-auto p-6">
+            <div class="section-title">
+              <h2>Reservasi</h2>
+            </div>
+            <div class="rounded-lg border bg-card text-card-foreground shadow-sm p-4" data-v0-t="card">
+              <div class="flex flex-col space-y-1.5 p-6">
+                <h3 class="text-2xl font-semibold leading-none tracking-tight">Reservasi #7890</h3>
+                <p class="text-sm text-muted-foreground">Booking ID - 20 Januari 2024 - Aktif</p>
+              </div>
+              <div class="flex items-center p-6">
+                <button
+                  class="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2">
+                  Batalkan Reservasi
+                </button>
+              </div>
+            </div>
+            <div class="rounded-lg border bg-card text-card-foreground shadow-sm p-4" data-v0-t="card">
+              <div class="flex flex-col space-y-1.5 p-6">
+                <h3 class="text-2xl font-semibold leading-none tracking-tight">Reservasi #7891</h3>
+                <p class="text-sm text-muted-foreground">Booking ID - 21 Januari 2024 - Dibatalkan</p>
+              </div>
+              <div class="flex items-center p-6">
+                <button
+                  class="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2">
+                  Batalkan Reservasi
+                </button>
+              </div>
+            </div>
+
+          </section>
+      </main>
+      </section>
+      <div>
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1>Booking </h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="detailModal">
+                <label for="modalHari">Hari</label><br>
+                <label for="modalTanggal">Tanggal</label><br>
+                <label for="modalTime">Pukul</label><br>
+                <label for="modalOrigin">Kegiatan</label><br>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary">Tolak</button>
+                <button type="button" class="btn btn-primary">Terima</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      </main>
+    </div>
+    <!-- Booking -->
+
+    <!-- Produk -->
+    <div class="tab-pane fade" id="Produk-pane" role="tabpanel" aria-labelledby="Produk" tabindex="0">
+      <main class="Produk">
+        <div class="section-title">
+          <div class="container">
+            <div class="table-wrapper">
+              <div class="table-title">
+                <div class="row">
+                  <div class="col-12 col-md-8">
+                    <br><br>
+                    <h2>Stock Produk</h2>
+                    <a href="#addProdukModal" class="btn btn-success" data-toggle="modal"><i
+                        class="bi bi-plus-circle-fill"></i> <span>Tambah Data</span></a>
+                    <br><br>
+                    <div class="col-12 col-md-4">
+                      <form class="d-flex float-md-right mt-3 mt-md-0 mr-md-3">
+                        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                      </form>
                     </div>
-                    <div class="rounded-lg border bg-card text-card-foreground shadow-sm p-4" data-v0-t="card">
-                      <div class="flex flex-col space-y-1.5 p-6">
-                        <h3 class="text-2xl font-semibold leading-none tracking-tight">Reservasi #7890</h3>
-                        <p class="text-sm text-muted-foreground">Booking ID - 20 Januari 2024 - Aktif</p>
-                      </div>
-                      <div class="flex items-center p-6">
-                        <button class="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2">
-                          Batalkan Reservasi
-                        </button>
-                      </div>
-                    </div>
-                    <div class="rounded-lg border bg-card text-card-foreground shadow-sm p-4" data-v0-t="card">
-                      <div class="flex flex-col space-y-1.5 p-6">
-                        <h3 class="text-2xl font-semibold leading-none tracking-tight">Reservasi #7891</h3>
-                        <p class="text-sm text-muted-foreground">Booking ID  - 21 Januari 2024 - Dibatalkan</p>
-                      </div>
-                      <div class="flex items-center p-6">
-                        <button class="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2">
-                          Batalkan Reservasi
-                        </button>
-                      </div>
-                    </div>
-                    
-                  
-                </section>
-              </main>
-            </section>
-            <div>
-              <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                  </div>
+                </div>
+                <div>
+                  <br><br>
+                  <table class="table table-striped table-hover table-bordered table-responsive-sm">
+                    <thead class="thead-dark">
+                      <tr>
+                        <th>ID Barang</th>
+                        <th>Nama Barang</th>
+                        <th>Deskripsi</th>
+                        <th>Stock</th>
+                        <th>Harga</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>ID 3456</td>
+                        <td>Amer</td>
+                        <td>Duhhh Enakk</td>
+                        <td>150</td>
+                        <td>78000</td>
+                        <td>
+                          <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i
+                              class="bi bi-pencil-square icon-size"></i></a>
+                          <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i
+                              class="bi bi-trash-fill icon-size"></i></a>
+                        </td>
+                      </tr>
+                      <!-- More rows... -->
+                    </tbody>
+                  </table>
+                  <div class="clearfix">
+                    <div class="hint-text">Showing <b>3</b> out of <b>25</b> entries</div>
+                    <ul class="pagination">
+                      <li class="page-item disabled"><a href="#" class="page-link">Previous</a></li>
+                      <li class="page-item"><a href="#" class="page-link">1</a></li>
+                      <li class="page-item"><a href="#" class="page-link">2</a></li>
+                      <li class="page-item "><a href="#" class="page-link">3</a></li>
+                      <li class="page-item"><a href="#" class="page-link">4</a></li>
+                      <li class="page-item"><a href="#" class="page-link">5</a></li>
+                      <li class="page-item"><a href="#" class="page-link">Next</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <!-- Modal Tambah Produk -->
+              <div class="modal fade" id="addProdukModal" tabindex="-1" role="dialog"
+                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <h1>Booking </h1>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      <h5 class="modal-title" id="exampleModalLabel">Tambah Produk</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
                     </div>
-                    <div class="detailModal">
-                        <label for="modalHari">Hari</label><br>
-                        <label for="modalTanggal">Tanggal</label><br>
-                        <label for="modalTime">Pukul</label><br>
-                        <label for="modalOrigin">Kegiatan</label><br>
+                    <div class="modal-body p-4" style="background-color: #f8f9fa;">
+                      <form id="addProductForm">
+                        <div class="form-group">
+                          <label for="IDproduct" class="font-weight-bold">ID Product</label>
+                          <div class="input-group">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text"><i class="bi bi-check-all"></i></span>
+                            </div>
+                            <input type="text" class="form-control" id="productName" placeholder="Enter ID product ">
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label for="productName" class="font-weight-bold">Product Name</label>
+                          <div class="input-group">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text"><i class="bi bi-box"></i></span>
+                            </div>
+                            <input type="text" class="form-control" id="productName" placeholder="Enter product name">
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label for="productDescription" class="font-weight-bold">Product Description</label>
+                          <div class="input-group">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text"><i class="bi bi-info-circle"></i></span>
+                            </div>
+                            <textarea class="form-control" id="productDescription" rows="3"
+                              placeholder="Enter product description"></textarea>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label for="productPrice" class="font-weight-bold">Product Price</label>
+                          <div class="input-group">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text"><i class="bi bi-cash"></i></span>
+                            </div>
+                            <input type="number" class="form-control" id="productPrice"
+                              placeholder="Enter product price">
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label for="productStock" class="font-weight-bold">Product Stock</label>
+                          <div class="input-group">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text"><i class="bi bi-stack"></i></span>
+                            </div>
+                            <input type="number" class="form-control" id="productStock"
+                              placeholder="Enter product stock">
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label for="productType" class="font-weight-bold">Product Type</label>
+                          <div class="input-group">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text"><i class="bi bi-tag"></i></span>
+                            </div>
+                            <select class="form-control" id="productType">
+                              <option value="snack">Snack</option>
+                              <option value="service">Service</option>
+                              <option value="goods">Goods</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <br>
+                          <button type="button" id="submitButton" class="btn btn-primary">Submit</button>
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Modal Hapus Produk -->
+              <div class="modal fade" id="deleteEmployeeModal" tabindex="-1" role="dialog"
+                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Hapus Produk</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <!-- Isi konfirmasi penghapusan produk di sini -->
                     </div>
                     <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary">Tolak</button>
-                      <button type="button" class="btn btn-primary">Terima</button>
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      <button type="button" class="btn btn-danger">Delete</button>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-        </main>
-      </div>
-      <!-- Booking -->
+          </div>
+      </main>
+    </div>
+    <!-- PRODUK -->
 
-      <!-- Produk -->
-      <div
-        class="tab-pane fade"
-        id="Produk-pane"
-        role="tabpanel"
-        aria-labelledby="Produk"
-        tabindex="0"
-      >
-        <main class="Produk">
-            <div class="section-title">
-                <div class="container">
-                    <div class="table-wrapper">
-                        <div class="table-title">
-                            <div class="row">
-                                <div class="col-12 col-md-8"> <!-- Modified: removed dots from class names -->
-                                    <h2>Stock Produk</h2> 
-                                </div>
-                                <div class="row searchServer  d-flex justify-content-center">
-                                  <div class="col-6">
-                                    <input type="email" class="form-control" placeholder="Cari id" id="exampleInputEmail1" aria-describedby="emailHelp">
-                                  </div>
-                                  <div class="col-1">
-                                    <button class="btn btn-primary">Search</button>
-                                  </div>
-                                </div>
-                                <div class="col-16 col-md-14   d-flex justify-content-end"> <!-- Modified: removed dots from class names -->
-                                    <a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="bi bi-plus-circle-fill"></i> <span>Tambah Data</span></a>
-                                    <a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal"><i class="bi bi-trash-fill"></i> <span>Delete</span></a>						
-                                </div>
-                            </div>
-                        </div>
-                        <table class="table table-striped table-hover">
-                            <thead>
-                                <tr>
-                                    <th>
-                                        <span class="custom-checkbox">
-                                            <input type="checkbox" id="selectAll">
-                                            <label for="selectAll"></label>
-                                        </span>
-                                    </th>
-                                    <th>ID Barang</th>
-                                    <th>Nama Barang</th>
-                                    <th>Stcok</th>
-                                    <th>Satuan</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        <span class="custom-checkbox">
-                                            <input type="checkbox" id="checkbox1" name="options[]" value="1">
-                                            <label for="checkbox1"></label>
-                                        </span>
-                                    </td>
-                                    <td>ID 3456</td>
-                                    <td>Amer</td>
-                                    <td>12</td>
-                                    <td>PCS</td>
-                                    <td>
-                                        <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="bi bi-pencil-square"></i></a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <span class="custom-checkbox">
-                                            <input type="checkbox" id="checkbox2" name="options[]" value="2">
-                                            <label for="checkbox2"></label>
-                                        </span>
-                                    </td>
-                                    <td>ID 3466</td>
-                                    <td>Aqua</td>
-                                    <td>2</td>
-                                    <td>PCS</td>
-                                    <td>
-                                        <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="bi bi-pencil-square"></i></a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <span class="custom-checkbox">
-                                            <input type="checkbox" id="checkbox3" name="options[]" value="3">
-                                            <label for="checkbox3"></label>
-                                        </span>
-                                    </td>
-                                    <td>ID 3666</td>
-                                    <td>Lee Mineral</td>
-                                    <td>9</td>
-                                    <td>PCS</td>
-                                    <td>
-                                        <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="bi bi-pencil-square"></i></a>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <div class="clearfix">
-                            <div class="hint-text">Showing <b>3</b> out of <b>25</b> entries</div>
-                            <ul class="pagination">
-                                <li class="page-item disabled"><a href="#">Previous</a></li>
-                                <li class="page-item"><a href="#" class="page-link">1</a></li>
-                                <li class="page-item"><a href="#" class="page-link">2</a></li>
-                                <li class="page-item "><a href="#" class="page-link">3</a></li>
-                                <li class="page-item"><a href="#" class="page-link">4</a></li>
-                                <li class="page-item"><a href="#" class="page-link">5</a></li>
-                                <li class="page-item"><a href="#" class="page-link">Next</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </main>
-      </div>
-      <!-- Produk -->
-    
-
-      <!-- Pembelian Produk -->
-      <div
+    <!-- Pembelian Produk-->
+    <div
       class="tab-pane fade"
       id="PembelianProduk-pane"
       role="tabpanel"
       aria-labelledby="PembelianProduk"
       tabindex="0"
-    >
-        <main class="PembelianProduk">
-          <h2>Masih bingung</h2>
-        </main>
-      </div>
+      >
+      <main class="produk">
+        <div class="row judul">
+          <h2 class="fw-bold pt-3">Data Voucher</h2>
+        </div>
+
+        <div class="row buttonTambah mt-3">
+          <div class="col-2">
+            <button class="btn btn-primary">Tambah Voucher</button>
+          </div>
+        </div>
+
+        <div class="row voucherHasil mt-5">
+          <div class="judulVoucher">
+            <h4 class="fw-bold">Voucher Tersedia</h4>
+          </div>
+          <div class="cards-container"></div>
+        </div>
+      </main>
     </div>
 
+  </div>
+  
+  <!-- jQuery and Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 
-    <script>
-      // Mengambil semua elemen menu
-      var menuItems = document.querySelectorAll(".nav-item");
+  <script>
+    // Mengambil semua elemen menu
+    var menuItems = document.querySelectorAll(".nav-item");
 
-      // Ambil semua elemen <a> pada sidebar
-      const sidebarLinks = document.querySelectorAll(".side-menu li");
+    // Ambil semua elemen <a> pada sidebar
+    const sidebarLinks = document.querySelectorAll(".side-menu li");
 
-      // Tambahkan event listener untuk setiap elemen <a>
-      sidebarLinks.forEach((link) => {
-        link.addEventListener("click", function () {
-          // Menghapus kelas 'active' dari semua elemen sidebar
-          sidebarLinks.forEach((link) => link.classList.remove("active"));
+    // Tambahkan event listener untuk setiap elemen <a>
+    sidebarLinks.forEach((link) => {
+      link.addEventListener("click", function () {
+        // Menghapus kelas 'active' dari semua elemen sidebar
+        sidebarLinks.forEach((link) => link.classList.remove("active"));
 
-          // Menambahkan kelas 'active' ke elemen yang diklik
-          this.classList.add("active");
+        // Menambahkan kelas 'active' ke elemen yang diklik
+        this.classList.add("active");
+      });
+    });
+
+    // Menambahkan event listener untuk setiap elemen menu
+    menuItems.forEach(function (item) {
+      item.addEventListener("click", function () {
+        // Menghapus kelas "active" dari semua elemen menu
+        menuItems.forEach(function (menuItem) {
+          menuItem.classList.remove("active");
+        });
+
+        // Menambahkan kelas "active" ke elemen menu yang diklik
+        item.classList.add("active");
+      });
+    });
+
+    // Mengambil data dari database
+    fetch("http://localhost:3000/admin/dataUser", {
+      method: "GET",
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        const idRoles = data.map(user => user.id_role);
+        console.log("id role: ", idRoles);
+
+        // ambil id_role pelanggan
+        const countPelanggan = idRoles.filter(id => id === 3).length;
+        console.log(countPelanggan);
+
+        // ambil id_role server
+        const countServer = idRoles.filter(id => id === 2).length;
+        console.log(countServer);
+
+        // jumlah server
+        $("#jlhServer").html(countServer);
+        // jumlah pelanggan
+        $("#jlhPelanggan").html(countPelanggan);
+      })
+      .catch((error) => console.error('Error:', error));
+
+    // ambil data vouchers
+    fetch("http://localhost:3000/admin/dataVoucher", {
+      method: "GET",
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        // kirim jlh cabang
+        $("#jlhVoucher").html(data.length);
+      })
+      .catch((error) => console.error('Error:', error));
+
+
+    // add data produk
+    $(document).ready(function () {
+      $("#submitButton").on("click", function (e) {
+        e.preventDefault();
+
+        var nama = $("#productName").val();
+        var deskripsi = $("#productDescription").val();
+        var harga = $("#productPrice").val();
+        var stok = $("#productStock").val();
+        var jenisproduk = $("#productType").val();
+
+        $.ajax({
+          url: "http://127.0.0.1:8000/api/produk/tambahjenisproduk",
+          type: "POST",
+          data: {
+            nama: nama,
+            deskripsi: deskripsi,
+            harga: harga,
+            stok: stok,
+            jenisproduk: jenisproduk
+          },
+          success: function (data) {
+            $("#addProdukModal").modal("hide");
+            location.reload();
+          },
+          error: function (jqXHR, textStatus, errorThrown) {
+            console.log(textStatus, errorThrown);
+          }
         });
       });
+    });
+  </script>
+</body>
 
-      // Menambahkan event listener untuk setiap elemen menu
-      menuItems.forEach(function (item) {
-        item.addEventListener("click", function () {
-          // Menghapus kelas "active" dari semua elemen menu
-          menuItems.forEach(function (menuItem) {
-            menuItem.classList.remove("active");
-          });
-
-          // Menambahkan kelas "active" ke elemen menu yang diklik
-          item.classList.add("active");
-        });
-      });
-
-
-
-      // Mengambil data dari database dashboard   
-      fetch("http://localhost:3000/admin/dataUser", {
-        method: "GET",
-        })
-        .then((response) => response.json())
-        .then((data) => {
-            const idRoles = data.map(user => user.id_role);
-            console.log("id role: ",idRoles);
-
-            // ambil id_role pelanggan
-            const countPelanggan = idRoles.filter(id => id === 3).length;
-            console.log(countPelanggan);
-
-            // jumlah pelanggan
-            $("#jlhPelanggan").html(countPelanggan);
-        })
-        .catch((error) => console.error('Error:', error));
-
-        // ambil data vouchers
-        fetch("http://localhost:3000/admin/dataVoucher", {
-        method: "GET",
-        })
-        .then((response) => response.json())
-        .then((data) => {
-            // kirim jlh cabang
-            $("#jlhVoucher").html(data.length);
-        })
-        .catch((error) => console.error('Error:', error));
-          
-      
-    </script>
-  </body>
 </html>

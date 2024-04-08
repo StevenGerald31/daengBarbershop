@@ -42,8 +42,12 @@
     <div class="sidebar">
       <!-- SIDEBAR HEADER -->
       <div class="side-header">
-        <img src="/images/logo/7.png" style="width: 80%" />
-        <!-- <h2>Healthy Zoonosis</h2> -->
+        <div class="image">
+          <img src="/image/logoFIX1.png" />
+        </div>
+        <div class="judul">
+          <h2>Halo Admin</h2>
+        </div>
       </div>
 
       <!-- SIDEBAR MENU KONTEN -->
@@ -51,7 +55,11 @@
         <div class="side-menu">
           <ul class="nav flex-column" id="myTab" role="tablist">
             <!-- sidebar dashboard  -->
-            <li id="Dashboard" class="nav-item hover active" style="margin-bottom: 10px">
+            <li
+              id="Dashboard"
+              class="nav-item hover active"
+              style="margin-bottom: 10px"
+            >
               <div
                 class="a nav-link"
                 id="Dashboards"
@@ -62,12 +70,11 @@
                 aria-controls="Dashboards-pane"
                 aria-selected="true"
               >
-              <i class="bi bi-house-door"></i>
-              <small style="margin-left: 5px">Dashboards</small>
+                <i class="bi bi-house-door"></i>
+                <small style="margin-left: 5px">Dashboards</small>
               </div>
             </li>
 
-            
             <!-- sidebar penjelajahan -->
             <li
               id="DataPelanggan"
@@ -84,13 +91,16 @@
                 aria-controls="DataPelanggan-pane"
                 aria-selected="false"
               >
-                
                 <small style="margin-left: 5px">Data Pelanggan</small>
               </div>
             </li>
 
             <!-- sidebar Data Server -->
-            <li id="DataServer" class="nav-item hover" style="margin-bottom: 10px">
+            <li
+              id="DataServer"
+              class="nav-item hover"
+              style="margin-bottom: 10px"
+            >
               <div
                 class="a nav-link"
                 id="DataServer"
@@ -101,13 +111,16 @@
                 aria-controls="DataServer-pane"
                 aria-selected="false"
               >
-                
                 <small style="margin-left: 5px">Data Server</small>
               </div>
             </li>
 
             <!-- sidebar Data Voucher -->
-            <li id="DataVoucher" class="nav-item hover" style="margin-bottom: 10px">
+            <li
+              id="DataVoucher"
+              class="nav-item hover"
+              style="margin-bottom: 10px"
+            >
               <div
                 class="a nav-link"
                 id="DataVoucher"
@@ -118,13 +131,16 @@
                 aria-controls="DataVoucher-pane"
                 aria-selected="false"
               >
-                
                 <small style="margin-left: 5px">Data Voucher</small>
               </div>
             </li>
 
             <!-- sidebar Data Konten -->
-            <li id="DataKonten" class="nav-item hover" style="margin-bottom: 10px">
+            <li
+              id="DataKonten"
+              class="nav-item hover"
+              style="margin-bottom: 10px"
+            >
               <div
                 class="a nav-link"
                 id="DataKonten"
@@ -135,7 +151,6 @@
                 aria-controls="DataKonten-pane"
                 aria-selected="false"
               >
-                
                 <small style="margin-left: 5px">Data Konten</small>
               </div>
             </li>
@@ -155,51 +170,90 @@
         tabindex="0"
       >
         <main class="Dashboard">
-          <div class="row judul">
-            <h2 class="fw-bold pt-3" >Daeng Barbershop
-                <div class="underline"></div>
-            </h2>
-            <div class="content-wrap " >
-                <div class="content" >
-                    <section class="info-boxes d-flex align-items-center justify-content-center"  >
-                        <div class="info-box">
-                            <div class="box-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M21 20V4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1zm-2-1H5V5h14v14z"/><path d="M10.381 12.309l3.172 1.586a1 1 0 0 0 1.305-.38l3-5-1.715-1.029-2.523 4.206-3.172-1.586a1.002 1.002 0 0 0-1.305.38l-3 5 1.715 1.029 2.523-4.206z"/></svg>
-                            </div>
-                            <div class="box-content">
-                                <span class="big text-center" id="jlhPelanggan"> </span>
-                                Pelanggan
-                            </div>
-                        </div>
-                        <div class="info-box">
-                            <div class="box-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M20 10H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1V11a1 1 0 0 0-1-1zm-1 10H5v-8h14v8zM5 6h14v2H5zM7 2h10v2H7z"/></svg>
-                            </div>
-                            <div class="box-content">
-                                <span class="big text-center" id="jlhServer"> </span>
-                                Server
-                            </div>
-                        </div>
-                        <div class="info-box">
-                            <div class="box-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M3,21c0,0.553,0.448,1,1,1h16c0.553,0,1-0.447,1-1v-1c0-3.714-2.261-6.907-5.478-8.281C16.729,10.709,17.5,9.193,17.5,7.5 C17.5,4.468,15.032,2,12,2C8.967,2,6.5,4.468,6.5,7.5c0,1.693,0.771,3.209,1.978,4.219C5.261,13.093,3,16.287,3,20V21z M8.5,7.5 C8.5,5.57,10.07,4,12,4s3.5,1.57,3.5,3.5S13.93,11,12,11S8.5,9.43,8.5,7.5z M12,13c3.859,0,7,3.141,7,7H5C5,16.141,8.14,13,12,13z"/></svg>
-                            </div>
-                            <div class="box-content">
-                                <span class="big text-center" id="jlhVoucher"> </span>
-                                Voucher
-                            </div>
-                        </div>
-                        <div class="info-box">
-                            <div class="box-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 3C6.486 3 2 6.364 2 10.5c0 2.742 1.982 5.354 5 6.678V21a.999.999 0 0 0 1.707.707l3.714-3.714C17.74 17.827 22 14.529 22 10.5 22 6.364 17.514 3 12 3zm0 13a.996.996 0 0 0-.707.293L9 18.586V16.5a1 1 0 0 0-.663-.941C5.743 14.629 4 12.596 4 10.5 4 7.468 7.589 5 12 5s8 2.468 8 5.5-3.589 5.5-8 5.5z"/></svg>
-                            </div>
-                            <div class="box-content">
-                                <span class="big text-center" id="jlhCabang"> </span>
-                                Cabang
-                            </div>
-                        </div>
-                    </section>
-                </div>
+          <div class="row-judul">
+            <h2 class="fw-bold pt-3">Daeng Barbershop</h2>
+            <div class="content-wrap">
+              <div class="content">
+                <section
+                  class="info-boxes d-flex align-items-center justify-content-center"
+                >
+                  <div class="info-box">
+                    <div class="box-icon">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          d="M21 20V4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1zm-2-1H5V5h14v14z"
+                        />
+                        <path
+                          d="M10.381 12.309l3.172 1.586a1 1 0 0 0 1.305-.38l3-5-1.715-1.029-2.523 4.206-3.172-1.586a1.002 1.002 0 0 0-1.305.38l-3 5 1.715 1.029 2.523-4.206z"
+                        />
+                      </svg>
+                    </div>
+                    <div class="box-content">
+                      <span class="big text-center" id="jlhPelanggan"> </span>
+                      Pelanggan
+                    </div>
+                  </div>
+                  <div class="info-box">
+                    <div class="box-icon">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          d="M20 10H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1V11a1 1 0 0 0-1-1zm-1 10H5v-8h14v8zM5 6h14v2H5zM7 2h10v2H7z"
+                        />
+                      </svg>
+                    </div>
+                    <div class="box-content">
+                      <span class="big text-center" id="jlhServer"> </span>
+                      Server
+                    </div>
+                  </div>
+                  <div class="info-box">
+                    <div class="box-icon">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          d="M3,21c0,0.553,0.448,1,1,1h16c0.553,0,1-0.447,1-1v-1c0-3.714-2.261-6.907-5.478-8.281C16.729,10.709,17.5,9.193,17.5,7.5 C17.5,4.468,15.032,2,12,2C8.967,2,6.5,4.468,6.5,7.5c0,1.693,0.771,3.209,1.978,4.219C5.261,13.093,3,16.287,3,20V21z M8.5,7.5 C8.5,5.57,10.07,4,12,4s3.5,1.57,3.5,3.5S13.93,11,12,11S8.5,9.43,8.5,7.5z M12,13c3.859,0,7,3.141,7,7H5C5,16.141,8.14,13,12,13z"
+                        />
+                      </svg>
+                    </div>
+                    <div class="box-content">
+                      <span class="big text-center" id="jlhVoucher"> </span>
+                      Voucher
+                    </div>
+                  </div>
+                  <div class="info-box">
+                    <div class="box-icon">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          d="M12 3C6.486 3 2 6.364 2 10.5c0 2.742 1.982 5.354 5 6.678V21a.999.999 0 0 0 1.707.707l3.714-3.714C17.74 17.827 22 14.529 22 10.5 22 6.364 17.514 3 12 3zm0 13a.996.996 0 0 0-.707.293L9 18.586V16.5a1 1 0 0 0-.663-.941C5.743 14.629 4 12.596 4 10.5 4 7.468 7.589 5 12 5s8 2.468 8 5.5-3.589 5.5-8 5.5z"
+                        />
+                      </svg>
+                    </div>
+                    <div class="box-content">
+                      <span class="big text-center" id="jlhCabang"> </span>
+                      Cabang
+                    </div>
+                  </div>
+                </section>
+              </div>
             </div>
           </div>
         </main>
@@ -218,9 +272,15 @@
           <div class="row judul">
             <h2 class="fw-bold pt-3">Data Pelanggan</h2>
           </div>
-          <div class="row searchPelanggan  d-flex justify-content-center">
+          <div class="row searchPelanggan d-flex justify-content-center">
             <div class="col-6">
-              <input type="email" class="form-control" placeholder="Cari id" id="exampleInputEmail1" aria-describedby="emailHelp">
+              <input
+                type="email"
+                class="form-control"
+                placeholder="Cari id"
+                id="exampleInputEmail1"
+                aria-describedby="emailHelp"
+              />
             </div>
             <div class="col-4">
               <button class="btn btn-primary">Search</button>
@@ -231,7 +291,7 @@
               <button class="btn btn-primary">Tambah Data</button>
             </div>
           </div>
-          <div class="row dataPelanggan  ">
+          <div class="row dataPelanggan">
             <div class="col-10">
               <table class="table table-bordered">
                 <thead>
@@ -243,10 +303,7 @@
                     <th scope="col">Action</th>
                   </tr>
                 </thead>
-                <tbody>
-
-                </tbody>
-                
+                <tbody></tbody>
               </table>
             </div>
           </div>
@@ -266,9 +323,15 @@
           <div class="row judul">
             <h2 class="fw-bold pt-3">Data Server</h2>
           </div>
-          <div class="row searchServer  d-flex justify-content-center">
+          <div class="row searchServer d-flex justify-content-center">
             <div class="col-6">
-              <input type="email" class="form-control" placeholder="Cari id" id="exampleInputEmail1" aria-describedby="emailHelp">
+              <input
+                type="email"
+                class="form-control"
+                placeholder="Cari id"
+                id="exampleInputEmail1"
+                aria-describedby="emailHelp"
+              />
             </div>
             <div class="col-4">
               <button class="btn btn-primary">Search</button>
@@ -279,7 +342,7 @@
               <button class="btn btn-primary">Tambah Data</button>
             </div>
           </div>
-          <div class="row dataServer ">
+          <div class="row dataServer">
             <div class="col-10">
               <table class="table table-bordered">
                 <thead>
@@ -291,13 +354,10 @@
                     <th scope="col">Action</th>
                   </tr>
                 </thead>
-                <tbody>
-
-                </tbody>
-                
+                <tbody></tbody>
               </table>
             </div>
-          </div>          
+          </div>
         </main>
       </div>
       <!-- Data Server Selesai -->
@@ -314,7 +374,7 @@
           <div class="row judul">
             <h2 class="fw-bold pt-3">Data Voucher</h2>
           </div>
-          
+
           <div class="row buttonTambah mt-3">
             <div class="col-2">
               <button class="btn btn-primary">Tambah Voucher</button>
@@ -323,15 +383,10 @@
 
           <div class="row voucherHasil mt-5">
             <div class="judulVoucher">
-              <h4 class="fw-bold">
-                Voucher Tersedia
-              </h4>
+              <h4 class="fw-bold">Voucher Tersedia</h4>
             </div>
-            <div class="cards-container">
-              
-            </div>
+            <div class="cards-container"></div>
           </div>
-             
         </main>
       </div>
       <!-- Pencarian Selesai -->
@@ -368,165 +423,161 @@
         });
       });
 
-
-
       // Mengambil data dari database
       fetch("http://localhost:3000/admin/dataUser", {
         method: "GET",
-        })
+      })
         .then((response) => response.json())
         .then((data) => {
-            const idRoles = data.map(user => user.id_role);
-            console.log("id role: ",idRoles);
+          const idRoles = data.map((user) => user.id_role);
+          console.log("id role: ", idRoles);
 
-            // ambil id_role pelanggan
-            const countPelanggan = idRoles.filter(id => id === 3).length;
-            console.log(countPelanggan);
+          // ambil id_role pelanggan
+          const countPelanggan = idRoles.filter((id) => id === 3).length;
+          console.log(countPelanggan);
 
-            // ambil id_role server
-            const countServer = idRoles.filter(id => id === 2).length;
-            console.log(countServer);
+          // ambil id_role server
+          const countServer = idRoles.filter((id) => id === 2).length;
+          console.log(countServer);
 
-            // jumlah server
-            $("#jlhServer").html(countServer);
-            // jumlah pelanggan
-            $("#jlhPelanggan").html(countPelanggan);
+          // jumlah server
+          $("#jlhServer").html(countServer);
+          // jumlah pelanggan
+          $("#jlhPelanggan").html(countPelanggan);
         })
-        .catch((error) => console.error('Error:', error));
+        .catch((error) => console.error("Error:", error));
 
-        // ambil data server
-        fetch("http://localhost:3000/admin/dataServer", {
+      // ambil data server
+      fetch("http://localhost:3000/admin/dataServer", {
         method: "GET",
-        })
+      })
         .then((response) => response.json())
         .then((data) => {
-            // kirim jlh cabang
-            $("#jlhCabang").html(data.length);
+          // kirim jlh cabang
+          $("#jlhCabang").html(data.length);
         })
-        .catch((error) => console.error('Error:', error));
+        .catch((error) => console.error("Error:", error));
 
-        // ambil data vouchers
-        fetch("http://localhost:3000/admin/dataVoucher", {
+      // ambil data vouchers
+      fetch("http://localhost:3000/admin/dataVoucher", {
         method: "GET",
-        })
+      })
         .then((response) => response.json())
         .then((data) => {
-            // kirim jlh cabang
-            $("#jlhVoucher").html(data.length);
+          // kirim jlh cabang
+          $("#jlhVoucher").html(data.length);
         })
-        .catch((error) => console.error('Error:', error));
+        .catch((error) => console.error("Error:", error));
 
-        // ambil data untuk page Data Pelanggan
-        fetch("http://localhost:3000/admin/dataUser", {
-          method: "GET",
-        })
+      // ambil data untuk page Data Pelanggan
+      fetch("http://localhost:3000/admin/dataUser", {
+        method: "GET",
+      })
         .then((response) => response.json())
         .then((data) => {
           // filter data untuk id_role = 3
-          const filteredData = data.filter(user => user.id_role === 3);
+          const filteredData = data.filter((user) => user.id_role === 3);
 
           // Dapatkan elemen tbody
-          const tbody = document.querySelector('.row.dataPelanggan .table tbody');
+          const tbody = document.querySelector(
+            ".row.dataPelanggan .table tbody"
+          );
 
           // Buat dan tambahkan baris
-          filteredData.forEach(user => {
-              const row = document.createElement('tr');
-              ['id_user', 'name', 'alamat', 'no_telp'].forEach(key => {
-                  const td = document.createElement('td');
-                  td.textContent = user[key];
-                  row.appendChild(td);
-              });
-              tbody.appendChild(row);
+          filteredData.forEach((user) => {
+            const row = document.createElement("tr");
+            ["id_user", "name", "alamat", "no_telp"].forEach((key) => {
+              const td = document.createElement("td");
+              td.textContent = user[key];
+              row.appendChild(td);
+            });
+            tbody.appendChild(row);
           });
         })
-        .catch((error) => console.error('Error:', error));
+        .catch((error) => console.error("Error:", error));
 
-        // ambil data untuk page Data Pelanggan
-        fetch("http://localhost:3000/admin/dataUser", {
-          method: "GET",
-        })
+      // ambil data untuk page Data Pelanggan
+      fetch("http://localhost:3000/admin/dataUser", {
+        method: "GET",
+      })
         .then((response) => response.json())
         .then((data) => {
           // filter data untuk id_role = 3
-          const filteredData = data.filter(user => user.id_role === 2);
+          const filteredData = data.filter((user) => user.id_role === 2);
 
           // Dapatkan elemen tbody
-          const tbody = document.querySelector('.row.dataServer .table tbody');
+          const tbody = document.querySelector(".row.dataServer .table tbody");
 
           // Buat dan tambahkan baris
-          filteredData.forEach(user => {
-              const row = document.createElement('tr');
-              ['id_user', 'name', 'alamat', 'no_telp'].forEach(key => {
-                  const td = document.createElement('td');
-                  td.textContent = user[key];
-                  row.appendChild(td);
-              });
-              tbody.appendChild(row);
+          filteredData.forEach((user) => {
+            const row = document.createElement("tr");
+            ["id_user", "name", "alamat", "no_telp"].forEach((key) => {
+              const td = document.createElement("td");
+              td.textContent = user[key];
+              row.appendChild(td);
+            });
+            tbody.appendChild(row);
           });
         })
-        .catch((error) => console.error('Error:', error));
+        .catch((error) => console.error("Error:", error));
 
-        // ambil data vouchers 
-        fetch("http://localhost:3000/admin/dataVoucher", {
-          method: "GET",
-        })
+      // ambil data vouchers
+      fetch("http://localhost:3000/admin/dataVoucher", {
+        method: "GET",
+      })
         .then((response) => response.json())
         .then((data) => {
-
           // Dapatkan elemen container
-          const container = document.querySelector('.cards-container');
+          const container = document.querySelector(".cards-container");
 
           // Buat dan tambahkan card untuk setiap item data
-          data.forEach(voucher => {
-              // Buat elemen card
-              const card = document.createElement('div');
-              card.className = 'cardVoucher col-10 ms-5 mt-3 mb-2';
+          data.forEach((voucher) => {
+            // Buat elemen card
+            const card = document.createElement("div");
+            card.className = "cardVoucher col-10 ms-5 mt-3 mb-2";
 
-              // Buat elemen row
-              const row = document.createElement('div');
-              row.className = 'row';
+            // Buat elemen row
+            const row = document.createElement("div");
+            row.className = "row";
 
-              // Buat elemen untuk teks
-              const textCol = document.createElement('div');
-              textCol.className = 'col-10';
+            // Buat elemen untuk teks
+            const textCol = document.createElement("div");
+            textCol.className = "col-10";
 
-              const h2 = document.createElement('h2');
-              h2.className = 'fw-bold';
-              h2.textContent = voucher.kode_voucher;
+            const h2 = document.createElement("h2");
+            h2.className = "fw-bold";
+            h2.textContent = voucher.kode_voucher;
 
-              const h4 = document.createElement('h4');
-              h4.className = 'fw-bold';
-              h4.textContent = 'Disc ' + `Rp${voucher.diskon}`;
+            const h4 = document.createElement("h4");
+            h4.className = "fw-bold";
+            h4.textContent = "Disc " + `Rp${voucher.diskon}`;
 
-              const p = document.createElement('p');
-              p.textContent = voucher.description;
+            const p = document.createElement("p");
+            p.textContent = voucher.description;
 
-              textCol.appendChild(h2);
-              textCol.appendChild(h4);
-              textCol.appendChild(p);
+            textCol.appendChild(h2);
+            textCol.appendChild(h4);
+            textCol.appendChild(p);
 
-              // Buat elemen untuk tombol
-              const buttonCol = document.createElement('div');
-              buttonCol.className = 'col-2 d-flex align-items-center';
+            // Buat elemen untuk tombol
+            const buttonCol = document.createElement("div");
+            buttonCol.className = "col-2 d-flex align-items-center";
 
-              const button = document.createElement('button');
-              button.className = 'btn btn-danger';
-              button.textContent = 'Hapus Voucher';
+            const button = document.createElement("button");
+            button.className = "btn btn-danger";
+            button.textContent = "Hapus Voucher";
 
-              buttonCol.appendChild(button);
+            buttonCol.appendChild(button);
 
-              // Tambahkan semua elemen ke row dan card
-              row.appendChild(textCol);
-              row.appendChild(buttonCol);
-              card.appendChild(row);
+            // Tambahkan semua elemen ke row dan card
+            row.appendChild(textCol);
+            row.appendChild(buttonCol);
+            card.appendChild(row);
 
-              // Tambahkan card ke container
-              container.appendChild(card);
+            // Tambahkan card ke container
+            container.appendChild(card);
           });
-          
-        })
-          
-      
+        });
     </script>
   </body>
 </html>

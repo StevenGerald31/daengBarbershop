@@ -1,4 +1,5 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap");
+/* Global Styles */
+
 body {
   overflow-x: hidden;
   font-family: "Poppins", sans-serif;
@@ -12,187 +13,124 @@ body {
   text-decoration: none;
   list-style-type: none;
   box-sizing: border-box;
-  font-family: "Merriweather", sans-serif;
 }
 
-#menu-toggle {
-  display: none;
-}
-
+/* Style for Sidebar */
 .sidebar {
-  font-family: "Poppins", sans-serif;
+  width: 25rem;
+  height: 100vh;
+  background-color: #031425;
+  color: #ffffff;
   position: fixed;
-  height: 100%;
-  width: 300px;
-  left: 0;
-  bottom: 0;
   top: 0;
-  z-index: 100;
-  border-right: 1px solid var(--black-10, rgba(28, 28, 28, 0.1));
-  background-color: black;
-}
-
-.side-header {
-  font-family: "Poppins", sans-serif;
-  display: flex;
-  align-items: center;
-  margin: 16px;
-  padding-left: 20px;
-}
-
-.side-header h2 {
-  font-family: "Poppins", sans-serif;
-  color: #434952;
-  font-size: 20px;
-  font-style: normal;
-  font-weight: 600;
-  line-height: normal;
-  width: 60px;
-  margin-left: 10px;
-}
-
-.side-content {
-  height: calc(100vh - 100px);
-  overflow: auto;
-}
-
-
-
-/* width */
-.side-content::-webkit-scrollbar {
-  width: 5px;
-}
-
-/* Track */
-.side-content::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 5px grey;
-  border-radius: 10px;
-}
-
-/* Handle */
-.side-content::-webkit-scrollbar-thumb {
-  background: #b0b0b0;
-  border-radius: 10px;
-}
-
-/* Handle on hover */
-.side-content::-webkit-scrollbar-thumb:hover {
-  background-color: #286f6c;
-}
-
-.nav-link {
-  display: flex;
-  align-items: center;
-}
-
-.sidebar {
+  left: 0;
   overflow-y: auto;
 }
 
-.side-menu {
+.side-header {
+  padding: 3rem;
+}
+.sidebar .side-header h2 {
+  padding: 1rem;
+  font-size: 2rem;
+  text-align: center;
+  color: #ffffff;
+}
+
+.sidebar .side-header img {
   display: flex;
-  flex-direction: column;
-  min-height: 83vh;
-  margin: 16px;
+  flex: 1 1 10rem;
+  width: 100%;
 }
 
-.side-menu .nav {
-  flex: 1;
+.side-content {
+  padding: 1rem;
+  font-size: 1.3rem;
+  text-align: left;
 }
 
-.side-menu .btn {
-  background-color: #286f6c;
+.side-menu ul {
+  padding: 0;
 }
 
-.side-menu .btn:hover {
-  background-color: #b7cfce;
-  color: #286f6c;
+.side-menu li {
+  list-style: none;
+  margin-bottom: 10px;
 }
 
-.side-menu .hover.active {
-  background: white;
-  height: 37px;
-  width: 180px;
-  border-radius: 5px;
+.side-menu .nav-link {
+  color: #ffffff;
+  padding: 16px 40px;
+  display: block;
+  border-radius: 10px;
+  transition: background-color 0.3s ease;
 }
 
-.side-menu .hover.active small {
-  font-weight: 700;
-  font-family: "Poppins", sans-serif;
-  color: black;
+.side-menu .nav-link:hover {
+  background-color: #63778b;
 }
 
-.side-menu .hover :hover {
-  background: #b7cfce;
-  border-radius: 5px;
-}
-
-.side-menu .a small {
-  font-weight: 500;
-  font-family: "Poppins", sans-serif;
-  color: white;
-}
-
-svg a {
-  color: #286f6c;
-}
-
+/* Style for Main Content */
 .main-content {
-  margin-left: 320px;
-  width: calc(100% - 212px);
+  display: flex;
+  margin-left: 40rem;
+  padding: 2rem;
 }
 
-/* Style dashboard start */
-
-
+.Dashboard .row-judul .fw-bold {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  margin: 5rem;
+}
 
 .content-wrap .info-boxes {
-    padding: 1em 2em 1em;
-    align-items: center;
-    justify-content: center;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
-    grid-gap: 2em;
-  }
-  .content-wrap .info-boxes .info-box {
-    background: #fff;
-    height: 100px;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    padding: 0 3em;
-    border: 3px solid #ede8f0;
-    border-radius: 5px;
-  }
-  
-  .content-wrap .info-boxes .info-box .box-icon svg {
-    display: block;
-    width: 48px;
-    height: 48px;
-  }
-  .content-wrap .info-boxes .info-box .box-icon svg path,
-  .content-wrap .info-boxes .info-box .box-icon svg circle {
-    fill: #99a0b0;
-  }
-  .content-wrap .info-boxes .info-box .box-content {
-    padding-left: 1.25em;
-    white-space: nowrap;
-  }
-  .content-wrap .info-boxes .info-box .box-content .big {
-    display: block;
-    font-size: 2em;
-    line-height: 150%;
-    color: #1b253d;
-  }
-  .content-wrap .info-boxes .info-box.active svg circle,
-  .content-wrap .info-boxes .info-box.active svg path {
-    fill: #4b84fe;
-  }
+  padding: 1em 2em 1em;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  grid-gap: 2em;
+}
+.content-wrap .info-boxes .info-box {
+  background: #fff;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 3em;
+  border: 3px solid #ede8f0;
+  border-radius: 5px;
+}
+
+.content-wrap .info-boxes .info-box .box-icon svg {
+  display: block;
+  width: 48px;
+  height: 48px;
+}
+.content-wrap .info-boxes .info-box .box-icon svg path,
+.content-wrap .info-boxes .info-box .box-icon svg circle {
+  fill: #99a0b0;
+}
+.content-wrap .info-boxes .info-box .box-content {
+  padding-left: 1.25em;
+  white-space: nowrap;
+}
+.content-wrap .info-boxes .info-box .box-content .big {
+  display: block;
+  font-size: 2em;
+  line-height: 150%;
+  color: #1b253d;
+}
+.content-wrap .info-boxes .info-box.active svg circle,
+.content-wrap .info-boxes .info-box.active svg path {
+  fill: #4b84fe;
+}
 
 /* search  */
 .Hero .searchPelanggan {
-  margin-left: 320px;
-  margin-top: 30px;
+  margin-left: 40rem;
+  margin-top: 1rem;
 }
 
 .Hero .dataPelanggan {
@@ -214,7 +152,30 @@ svg a {
   border-radius: 7px;
   background: var(--white-100, #fff);
   box-shadow: 0px 1px 7.2px 0px rgba(0, 0, 0, 0.2);
-  border:none;
-  padding: 30px;
+  border: none;
+  padding: 2rem;
 }
 
+/* Style for Table */
+.table {
+  margin-top: 20px;
+}
+
+/* Style for Buttons */
+.btn {
+  margin-top: 10px;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+    margin-bottom: 20px;
+  }
+
+  .main-content {
+    margin-left: 0;
+  }
+}
