@@ -545,18 +545,18 @@
       >
       <main class="produk">
         <div class="row judul">
-          <h2 class="fw-bold pt-3">Data Voucher</h2>
+          <h2 class="fw-bold pt-3">Pembelian Produk</h2>
         </div>
 
         <div class="row buttonTambah mt-3">
           <div class="col-2">
-            <button class="btn btn-primary">Tambah Voucher</button>
+            <button class="btn btn-primary">Cari Produk</button>
           </div>
         </div>
 
-        <div class="row voucherHasil mt-5">
-          <div class="judulVoucher">
-            <h4 class="fw-bold">Voucher Tersedia</h4>
+        <div class="row produkHasil mt-5">
+          <div class="judulProduk">
+            <h4 class="fw-bold">List Produk</h4>
           </div>
           <div class="cards-container"></div>
         </div>
@@ -667,6 +667,63 @@
         });
       });
     });
+
+    //Ambil Data Pembelian Produk
+
+    fetch("http://localhost:3000/server/dataProduk", {
+        method: "GET",
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          // Dapatkan elemen container
+          const container = document.querySelector(".cards-container");
+
+          // Buat dan tambahkan card untuk setiap item data
+          data.forEach((produk) => {
+            // Buat elemen card
+            const card = document.createElement("div");
+            card.className = "cardProduk col-10 ms-5 mt-3 mb-2";
+
+            // Buat elemen row
+            const row = document.createElement("div");
+            row.className = "row";
+
+            // Buat elemen untuk teks
+            const textCol = document.createElement("div");
+            textCol.className = "col-10";
+
+            const h2 = document.createElement("h2");
+            h2.className = "fw-bold";
+            h2.textContent = produk.kode_produk;
+
+        
+
+            const p = document.createElement("p");
+            p.textContent = produk.description;
+
+            textCol.appendChild(h2);
+           
+            textCol.appendChild(p);
+
+            // Buat elemen untuk tombol
+            const buttonCol = document.createElement("div");
+            buttonCol.className = "col-2 d-flex align-items-center";
+
+            const button = document.createElement("button");
+            button.className = "btn btn-danger";
+            button.textContent = "Hapus Produk";
+
+            buttonCol.appendChild(button);
+
+            // Tambahkan semua elemen ke row dan card
+            row.appendChild(textCol);
+            row.appendChild(buttonCol);
+            card.appendChild(row);
+
+            // Tambahkan card ke container
+            container.appendChild(card);
+          });
+        });
   </script>
 </body>
 

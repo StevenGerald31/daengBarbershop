@@ -20,7 +20,6 @@ body {
   width: 25rem;
   height: 100vh;
   background-color: #031425;
-  color: #ffffff;
   position: fixed;
   top: 0;
   left: 0;
@@ -60,20 +59,21 @@ body {
 
 .side-menu .nav-link {
   color: #ffffff;
-  padding: 16px 40px;
+  padding: 1.5rem 2rem;
   display: block;
-  border-radius: 10px;
+  border-radius: 1.2rem;
   transition: background-color 0.3s ease;
 }
 
 .side-menu .nav-link:hover {
-  background-color: #63778b;
+  background-color: #495057;
 }
 
 /* Style for Main Content */
 .main-content {
   display: flex;
-  margin-left: 40rem;
+  justify-content: center;
+  margin-left: 25rem;
   padding: 2rem;
 }
 
