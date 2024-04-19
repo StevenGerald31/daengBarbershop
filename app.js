@@ -3,6 +3,7 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+const session = require('express-session')
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
@@ -11,6 +12,13 @@ const app = express();
 app.listen(3002, () => {
   console.log("Server is running on port 3002");
 });
+
+app.use(session({
+  secret : 'barberShop',
+  resave: false,
+  saveUninitialized: false
+})); 
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
