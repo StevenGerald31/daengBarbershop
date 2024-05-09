@@ -16,16 +16,15 @@
 // };
 
 module.exports = {
-    HOST: "localhost",
-    USER: "root",
-    PASSWORD: "",
-    DB: "daengbarbershop",
-    dialect: "mysql",
-    pool: {
-      max: 5,
-      min: 0,
-      acquire: 30000,
-      idle: 10000,
-    },
-  };
-  
+  HOST: "localhost",
+  USER: "root",
+  PASSWORD: "",
+  DB: "daeng_new",
+  dialect: "mysql",
+  pool: {
+    max: 5,
+    min: 0,
+    acquire: 30000,
+    idle: 10000,
+  },
+};

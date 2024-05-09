@@ -101,10 +101,10 @@ const loginUser = async (req, res) => {
     // Check the id_role of the user
     if (adminuser.id_role === 1) {
       // Render admin page if id_role is 1
-      admin(req, res);
+      res.redirect(`/admin/coba?lokasi=${lokasiUser}`);
     } else if (adminuser.id_role === 2) {
       // Render server page if id_role is 2
-      server(req, res);
+      res.redirect(`/server/dashboard?lokasi=${lokasiUser}`);
     } else {
       // Handle other cases, maybe render a default page or return an error
       return res.status(403).json({ message: "Unauthorized role" });
@@ -140,3 +140,4 @@ const data_booking = async (req, res) => {
 
 
 module.exports = { Landingpage, Loginpage, loginUser, data_booking };
+

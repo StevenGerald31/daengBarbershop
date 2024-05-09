@@ -107,4 +107,19 @@ const pageDashboard = async (req, res) => {
     }
   }
 
+  const dataBooking = async (req, res) => {
+    try {
+      const data = await sequelize.query(
+        "SELECT * FROM bookings WHERE id_lokasi = :lokasi",
+        {
+          replacements: { lokasi: lokasi },
+          type: Sequelize.QueryTypes.SELECT,
+        }
+      );
+
+    } catch (error) {
+      
+    }
+  }
+
 module.exports = {pageDashboard, pageAdmin, dataProduk, dataUser, dataServer, dataVoucher, pageCoba}
