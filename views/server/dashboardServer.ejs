@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sidebar With Bootstrap</title>
+    <title>Daeng Barbershop</title>
     <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
@@ -15,6 +15,13 @@
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- Jquery -->
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.min.js"
+      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
       crossorigin="anonymous"
     ></script>
 
@@ -150,113 +157,34 @@
               <h1 class="fw-bold">Data Pelanggan</h1>
             </div>
           </div>
+          <div class="row m-3 table-pelanggan">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">Nama</th>
+                  <th scope="col">No Telp</th>
+                  <th scope="col">Jenis Kelamin</th>
+                  <th scope="col">Alamat</th>
+                  <th scope="col">Point</th>
+                  <th scope="col">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Rows of data will go here -->
+              </tbody>
+            </table>
+          </div>
         </div>
         <!-- DAta Pelanggan End -->
 
         <!-- Booking Section Start -->
         <div id="booking">
-          <div class="row box">
-            <div class="content-wrap pt-3">
-              <div class="content">
-                <section
-                  class="info-boxes d-flex align-items-center justify-content-center"
-                >
-                  <div class="info-box">
-                    <div class="box-icon">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          d="M21 20V4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1zm-2-1H5V5h14v14z"
-                        />
-                        <path
-                          d="M10.381 12.309l3.172 1.586a1 1 0 0 0 1.305-.38l3-5-1.715-1.029-2.523 4.206-3.172-1.586a1.002 1.002 0 0 0-1.305.38l-3 5 1.715 1.029 2.523-4.206z"
-                        />
-                      </svg>
-                    </div>
-                    <div class="box-content">
-                      <span class="big text-center" id="jlhPelanggan"> </span>
-                      Pelanggan
-                    </div>
-                  </div>
-
-                  <div class="info-box">
-                    <div class="box-icon">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          d="M3,21c0,0.553,0.448,1,1,1h16c0.553,0,1-0.447,1-1v-1c0-3.714-2.261-6.907-5.478-8.281C16.729,10.709,17.5,9.193,17.5,7.5 C17.5,4.468,15.032,2,12,2C8.967,2,6.5,4.468,6.5,7.5c0,1.693,0.771,3.209,1.978,4.219C5.261,13.093,3,16.287,3,20V21z M8.5,7.5 C8.5,5.57,10.07,4,12,4s3.5,1.57,3.5,3.5S13.93,11,12,11S8.5,9.43,8.5,7.5z M12,13c3.859,0,7,3.141,7,7H5C5,16.141,8.14,13,12,13z"
-                        />
-                      </svg>
-                    </div>
-                    <div class="box-content">
-                      <span class="big text-center" id="jlhVoucher"> </span>
-                      Voucher
-                    </div>
-                  </div>
-                </section>
-              </div>
-            </div>
-          </div>
           <div class="row judul pt-4">
             <div class="d-flex justify-content-center">
               <h3 class="fw-bold">Daftar Booking</h3>
             </div>
           </div>
-          <div class="row card-booking mt-2">
-            <div class="row bordered-row m-2 p-2">
-              <div class="col-9">
-                <h4 class="fw-bold">Nama Pemesan :</h4>
-                <h6>Tanggal:</h6>
-                <h6>Pukul:</h6>
-              </div>
-              <div
-                class="col-3 d-flex align-items-center justify-content-center"
-              >
-                <button type="button" class="btn btn-success m-1">
-                  Terima
-                </button>
-                <button type="button" class="btn btn-danger m-1">Tolak</button>
-              </div>
-            </div>
-            <div class="row bordered-row m-2 p-2">
-              <div class="col-9">
-                <h4 class="fw-bold">Nama Pemesan :</h4>
-                <h6>Tanggal:</h6>
-                <h6>Pukul:</h6>
-              </div>
-              <div
-                class="col-3 d-flex align-items-center justify-content-center"
-              >
-                <button type="button" class="btn btn-success m-1">
-                  Terima
-                </button>
-                <button type="button" class="btn btn-danger m-1">Tolak</button>
-              </div>
-            </div>
-            <div class="row bordered-row m-2 p-2">
-              <div class="col-9">
-                <h4 class="fw-bold">Nama Pemesan :</h4>
-                <h6>Tanggal:</h6>
-                <h6>Pukul:</h6>
-              </div>
-              <div
-                class="col-3 d-flex align-items-center justify-content-center"
-              >
-                <button type="button" class="btn btn-success m-1">
-                  Terima
-                </button>
-                <button type="button" class="btn btn-danger m-1">Tolak</button>
-              </div>
-            </div>
-          </div>
+          <div class="row card-booking mt-2"></div>
         </div>
         <!-- Booking Section End -->
 
@@ -290,141 +218,6 @@
 
           <!-- Daftar Produk Start -->
           <div class="row daftar-stok m-2 d-flex justify-content-around">
-            <div class="col-3 mt-3">
-              <div class="card">
-                <div
-                  class="card-img d-flex justify-content-center align-items-center m-1"
-                >
-                  <img
-                    src="/image/minyak-rambut.png"
-                    class="card-img-top"
-                    alt="Nama Produk"
-                  />
-                </div>
-                <div class="card-body">
-                  <h5 class="card-title text-center fw-bold">Nama Produk</h5>
-                  <p class="card-text text-center">Stok tersedia: 10</p>
-                  <div class="d-flex justify-content-center">
-                    <button
-                      type="button"
-                      class="btn btn-primary"
-                      data-bs-toggle="modal"
-                      data-bs-target="#modalStok"
-                    >
-                      Tambah Produk
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-3 mt-3">
-              <div class="card">
-                <div
-                  class="card-img d-flex justify-content-center align-items-center m-1"
-                >
-                  <img
-                    src="/image/minyak-rambut.png"
-                    class="card-img-top"
-                    alt="Nama Produk"
-                  />
-                </div>
-                <div class="card-body">
-                  <h5 class="card-title text-center fw-bold">Nama Produk</h5>
-                  <p class="card-text text-center">Stok tersedia: 10</p>
-                  <div class="d-flex justify-content-center">
-                    <button
-                      type="button"
-                      class="btn btn-primary"
-                      data-bs-toggle="modal"
-                      data-bs-target="#modalStok"
-                    >
-                      Tambah Produk
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-3 mt-3">
-              <div class="card">
-                <div
-                  class="card-img d-flex justify-content-center align-items-center m-1"
-                >
-                  <img
-                    src="/image/minyak-rambut.png"
-                    class="card-img-top"
-                    alt="Nama Produk"
-                  />
-                </div>
-                <div class="card-body">
-                  <h5 class="card-title text-center fw-bold">Nama Produk</h5>
-                  <p class="card-text text-center">Stok tersedia: 10</p>
-                  <div class="d-flex justify-content-center">
-                    <button
-                      type="button"
-                      class="btn btn-primary"
-                      data-bs-toggle="modal"
-                      data-bs-target="#modalStok"
-                    >
-                      Tambah Produk
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-3 mt-3">
-              <div class="card">
-                <div
-                  class="card-img d-flex justify-content-center align-items-center m-1"
-                >
-                  <img
-                    src="/image/minyak-rambut.png"
-                    class="card-img-top"
-                    alt="Nama Produk"
-                  />
-                </div>
-                <div class="card-body">
-                  <h5 class="card-title text-center fw-bold">Nama Produk</h5>
-                  <p class="card-text text-center">Stok tersedia: 10</p>
-                  <div class="d-flex justify-content-center">
-                    <button
-                      type="button"
-                      class="btn btn-primary"
-                      data-bs-toggle="modal"
-                      data-bs-target="#modalStok"
-                    >
-                      Tambah Produk
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-3 mt-3">
-              <div class="card">
-                <div
-                  class="card-img d-flex justify-content-center align-items-center m-1"
-                >
-                  <img
-                    src="/image/minyak-rambut.png"
-                    class="card-img-top"
-                    alt="Nama Produk"
-                  />
-                </div>
-                <div class="card-body">
-                  <h5 class="card-title text-center fw-bold">Nama Produk</h5>
-                  <p class="card-text text-center">Stok tersedia: 10</p>
-                  <div class="d-flex justify-content-center">
-                    <button
-                      type="button"
-                      class="btn btn-primary"
-                      data-bs-toggle="modal"
-                      data-bs-target="#modalStok"
-                    >
-                      Tambah Produk
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
             <!-- Modal -->
             <div
               class="modal fade"
@@ -880,6 +673,145 @@
           profileTab.style.display = "block";
         }
       };
+
+      // ---------------script kebutuhan data--------------------
+
+      // Data Pelanggan
+      fetch("http://localhost:3000/web/pelanggan/:lokasi", {
+        method: "GET",
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log("Data Pelanggan: ", data);
+
+          const tableBody = document.querySelector(".table-pelanggan tbody");
+          tableBody.innerHTML = ""; // clear existing rows
+
+          data.forEach((item) => {
+            const row = `
+              <tr>
+                <td>${item.name}</td>
+                <td>${item.no_telp}</td>
+                <td>${item.jenis_kelamin}</td>
+                <td>${item.alamat}</td>
+                <td>${item.point}</td>
+                <td>
+                  <a href=""><i class="fas fa-edit"></i></a>
+                  <a href=""><i class="fas fa-trash"></i></a>
+                </td> 
+              </tr>
+            `;
+
+            tableBody.innerHTML += row;
+          });
+        });
+
+      // Data Booking
+      fetch("http://localhost:3000/web/booking/:lokasi", {
+        method: "GET",
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log("Data Booking: ", data);
+
+          // Dapatkan elemen parent di mana Anda ingin menambahkan card booking
+          const parentElement = document.querySelector(".card-booking");
+
+          data.forEach((booking) => {
+            const bookingDate = new Date(booking.tanggal_booking);
+            const formattedDate = bookingDate.toLocaleDateString("id-ID", {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            });
+
+            const bookingDateTime = new Date(booking.tanggal_booking);
+            const formattedTime = bookingDateTime
+              .toLocaleTimeString("id-ID", {
+                hour: "2-digit",
+                minute: "2-digit",
+                second: "2-digit",
+                hour12: false,
+                timeZoneName: "short",
+              })
+              .split(" ")[0];
+
+            // Buat elemen DOM untuk card booking
+            const row = document.createElement("div");
+            row.className = "row bordered-row m-2 p-2";
+
+            const col9 = document.createElement("div");
+            col9.className = "col-9";
+
+            const h4 = document.createElement("h4");
+            h4.className = "fw-bold";
+            h4.textContent = `Nama Pemesan: ${booking.name}`;
+
+            const h6Date = document.createElement("h6");
+            h6Date.textContent = `Waktu: ${formattedDate}`;
+
+            const h6Time = document.createElement("h6");
+            h6Time.textContent = `Pukul: ${bookingDateTime}`;
+
+            col9.append(h4, h6Date, h6Time);
+
+            const col3 = document.createElement("div");
+            col3.className =
+              "col-3 d-flex align-items-center justify-content-center";
+
+            const acceptButton = document.createElement("button");
+            acceptButton.type = "button";
+            acceptButton.className = "btn btn-success m-1";
+            acceptButton.textContent = "Terima";
+
+            const rejectButton = document.createElement("button");
+            rejectButton.type = "button";
+            rejectButton.className = "btn btn-danger m-1";
+            rejectButton.textContent = "Tolak";
+
+            col3.append(acceptButton, rejectButton);
+
+            row.append(col9, col3);
+
+            // Tambahkan card booking ke parent element
+            parentElement.appendChild(row);
+          });
+        });
+
+      // DAta Stok Produk
+      fetch("http://localhost:3000/web/stok/:lokasi", {
+        method: "GET",
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log("Data Stok: ", data);
+
+          const daftarStok = document.querySelector(".daftar-stok");
+          daftarStok.innerHTML = ""; // clear existing cards
+
+          data.forEach((item) => {
+            const card = document.createElement("div");
+            card.className = "col-3 mt-3";
+            card.innerHTML = `
+              <div class="card">
+                <div class="card-img d-flex justify-content-center align-items-center m-1">
+                  <img src="/image/minyak-rambut.png" class="card-img-top" alt="${item.nama}" />
+                </div>
+                <div class="card-body">
+                  <h5 class="card-title text-center fw-bold">${item.nama}</h5>
+                  <p class="card-text text-center">Stok tersedia: ${item.stok}</p>
+                  <div class="d-flex justify-content-center">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalStok">
+                      Tambah Produk
+                    </button>
+                  </div>
+                </div>
+              </div>
+            `;
+
+            daftarStok.append(card);
+          });
+        });
     </script>
   </body>
 </html>
