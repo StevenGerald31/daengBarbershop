@@ -3,6 +3,7 @@ const { sequelize, Sequelize } = require("../../db");
 const dataUsers = require("../models/user-models");
 const pageServer = require("../server-modules/server-controller");
 const pageAdmin = require("../admin-modules/admin-controller");
+const axios = require("axios");
 
 const Landingpage = async (req, res) => {
   try {
@@ -36,24 +37,25 @@ const loginUser = async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    const adminuser = await dataUsers.findOne({ where: { email, password } });
-    if (!adminuser) {
+    const response = await axios.post("http://127.0.0.1:8000/api/auth/login", {
+      email: email,
+      password: password,
+    });
+
+    if (response.status != 200) {
       return res.status(401).json({ message: "Invalid email or password" });
     }
+    const user = response.data.user;
 
     req.session.dataUser = {
-      role_user: adminuser.id_role,
-      lokasi: adminuser.id_lokasi,
+      role_user: user.id_role,
+      lokasi: user.id_lokasi,
     };
-
-    const lokasiUser = adminuser.id_lokasi;
-    console.log("ID Lokasi:", lokasiUser);
-
-    // Check the id_role of the user
-    if (adminuser.id_role === 1) {
+    const lokasiUser = user.id_lokasi;
+    if (user.id_role === 1) {
       // Render admin page if id_role is 1
       res.redirect(`/admin/coba?lokasi=${lokasiUser}`);
-    } else if (adminuser.id_role === 2) {
+    } else if (user.id_role === 2) {
       // Render server page if id_role is 2
       res.redirect(`/server/dashboard?lokasi=${lokasiUser}`);
     } else {
