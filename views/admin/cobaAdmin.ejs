@@ -194,7 +194,7 @@
                       </svg>
                     </div>
                     <div class="box-content">
-                      <span class="big text-center" id="jlhPelanggan"> </span>
+                      <span class="big text-center" id="jlhCustomer"> </span>
                       Pelanggan
                     </div>
                   </div>
@@ -423,37 +423,35 @@
         });
       });
 
-      // Mengambil data dari database
-      fetch("http://localhost:3000/admin/dataUser", {
+      // Mengambil data jlh customer
+      fetch("http://127.0.0.1:8000/api/customers", {
         method: "GET",
       })
         .then((response) => response.json())
         .then((data) => {
-          const idRoles = data.map((user) => user.id_role);
-          console.log("id role: ", idRoles);
-
-          // ambil id_role pelanggan
-          const countPelanggan = idRoles.filter((id) => id === 3).length;
-          console.log(countPelanggan);
-
-          // ambil id_role server
-          const countServer = idRoles.filter((id) => id === 2).length;
-          console.log(countServer);
-
-          // jumlah server
-          $("#jlhServer").html(countServer);
-          // jumlah pelanggan
-          $("#jlhPelanggan").html(countPelanggan);
+          jumlah_customer = data.length;
+          $("#jlhCustomer").html(data.length);
         })
         .catch((error) => console.error("Error:", error));
 
-      // ambil data server
-      fetch("http://localhost:3000/admin/dataServer", {
+      // ambil data jlh server
+      fetch("http://127.0.0.1:8000/api/servers", {
         method: "GET",
       })
         .then((response) => response.json())
         .then((data) => {
-          // kirim jlh cabang
+          // kirim jlh server
+          $("#jlhServer").html(data.length);
+        })
+        .catch((error) => console.error("Error:", error));
+
+      // ambil data jlh cabang
+      fetch("http://127.0.0.1:8000/api/lokasis", {
+        method: "GET",
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          // kirim jlh server
           $("#jlhCabang").html(data.length);
         })
         .catch((error) => console.error("Error:", error));
@@ -470,21 +468,18 @@
         .catch((error) => console.error("Error:", error));
 
       // ambil data untuk page Data Pelanggan
-      fetch("http://localhost:3000/admin/dataUser", {
+      fetch("http://127.0.0.1:8000/api/customers", {
         method: "GET",
       })
         .then((response) => response.json())
         .then((data) => {
-          // filter data untuk id_role = 3
-          const filteredData = data.filter((user) => user.id_role === 3);
-
           // Dapatkan elemen tbody
           const tbody = document.querySelector(
             ".row.dataPelanggan .table tbody"
           );
 
           // Buat dan tambahkan baris
-          filteredData.forEach((user) => {
+          data.forEach((user) => {
             const row = document.createElement("tr");
             ["id_user", "name", "alamat", "no_telp"].forEach((key) => {
               const td = document.createElement("td");

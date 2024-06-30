@@ -180,11 +180,11 @@
         <!-- Booking Section Start -->
         <div id="booking">
           <div class="row judul pt-4">
-            <div class="d-flex justify-content-center">
+            <div class="d-flex justify-content-start">
               <h3 class="fw-bold">Daftar Booking</h3>
             </div>
           </div>
-          <div class="row card-booking mt-2"></div>
+          <div class="booking-container"></div>
         </div>
         <!-- Booking Section End -->
 
@@ -714,67 +714,66 @@
         .then((data) => {
           console.log("Data Booking: ", data);
 
-          // Dapatkan elemen parent di mana Anda ingin menambahkan card booking
-          const parentElement = document.querySelector(".card-booking");
+          // Ambil elemen tempat untuk meletakkan kartu booking
+          const bookingContainer = document.querySelector(".booking-container");
 
+          // Iterasi melalui setiap data booking
           data.forEach((booking) => {
-            const bookingDate = new Date(booking.tanggal_booking);
-            const formattedDate = bookingDate.toLocaleDateString("id-ID", {
-              year: "numeric",
-              month: "long",
-              day: "numeric",
-            });
+            // Buat elemen div untuk row daftar-booking
+            const bookingDiv = document.createElement("div");
+            bookingDiv.classList.add("row", "daftar-booking", "mt-2");
 
-            const bookingDateTime = new Date(booking.tanggal_booking);
-            const formattedTime = bookingDateTime
-              .toLocaleTimeString("id-ID", {
-                hour: "2-digit",
-                minute: "2-digit",
-                second: "2-digit",
-                hour12: false,
-                timeZoneName: "short",
-              })
-              .split(" ")[0];
+            // Buat kolom pertama (Id Pelanggan dan Nama)
+            const col1 = document.createElement("div");
+            col1.classList.add("col-md-4");
+            const info1 = document.createElement("div");
+            info1.classList.add("info");
+            const idPelanggan = document.createElement("div");
+            idPelanggan.textContent = `Id Pelanggan: ${booking.id_user}`;
+            const namaPelanggan = document.createElement("div");
+            namaPelanggan.textContent = booking.nama_pelanggan;
+            info1.appendChild(idPelanggan);
+            info1.appendChild(namaPelanggan);
+            col1.appendChild(info1);
 
-            // Buat elemen DOM untuk card booking
-            const row = document.createElement("div");
-            row.className = "row bordered-row m-2 p-2";
+            // Buat kolom kedua (Waktu)
+            const col2 = document.createElement("div");
+            col2.classList.add("col-md-4");
+            const info2 = document.createElement("div");
+            info2.classList.add("info");
+            const waktuLabel = document.createElement("div");
+            waktuLabel.textContent = "Waktu:";
+            const tanggal = document.createElement("div");
+            tanggal.textContent = booking.tanggal;
+            const jam = document.createElement("div");
+            jam.textContent = booking.tanggal_booking;
+            info2.appendChild(waktuLabel);
+            info2.appendChild(tanggal);
+            info2.appendChild(jam);
+            col2.appendChild(info2);
 
-            const col9 = document.createElement("div");
-            col9.className = "col-9";
-
-            const h4 = document.createElement("h4");
-            h4.className = "fw-bold";
-            h4.textContent = `Nama Pemesan: ${booking.name}`;
-
-            const h6Date = document.createElement("h6");
-            h6Date.textContent = `Waktu: ${formattedDate}`;
-
-            const h6Time = document.createElement("h6");
-            h6Time.textContent = `Pukul: ${bookingDateTime}`;
-
-            col9.append(h4, h6Date, h6Time);
-
+            // Buat kolom ketiga (Tombol Confirm dan Cancel)
             const col3 = document.createElement("div");
-            col3.className =
-              "col-3 d-flex align-items-center justify-content-center";
+            col3.classList.add("col-md-4", "d-flex", "justify-content-center");
+            const buttonsDiv = document.createElement("div");
+            buttonsDiv.classList.add("buttons");
+            const confirmButton = document.createElement("button");
+            confirmButton.classList.add("button", "confirm");
+            confirmButton.textContent = "Confirm";
+            const cancelButton = document.createElement("button");
+            cancelButton.classList.add("button", "cancel");
+            cancelButton.textContent = "Cancel";
+            buttonsDiv.appendChild(confirmButton);
+            buttonsDiv.appendChild(cancelButton);
+            col3.appendChild(buttonsDiv);
 
-            const acceptButton = document.createElement("button");
-            acceptButton.type = "button";
-            acceptButton.className = "btn btn-success m-1";
-            acceptButton.textContent = "Terima";
+            // Masukkan kolom-kolom ke dalam row daftar-booking
+            bookingDiv.appendChild(col1);
+            bookingDiv.appendChild(col2);
+            bookingDiv.appendChild(col3);
 
-            const rejectButton = document.createElement("button");
-            rejectButton.type = "button";
-            rejectButton.className = "btn btn-danger m-1";
-            rejectButton.textContent = "Tolak";
-
-            col3.append(acceptButton, rejectButton);
-
-            row.append(col9, col3);
-
-            // Tambahkan card booking ke parent element
-            parentElement.appendChild(row);
+            // Masukkan row daftar-booking ke dalam container booking
+            bookingContainer.appendChild(bookingDiv);
           });
         });
 
