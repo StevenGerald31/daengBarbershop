@@ -219,7 +219,16 @@ a.sidebar-link:hover {
 }
 
 /* Styling booking card */
-.daftar-booking {
+.daftar-request {
+  background-color: #d9d9d9;
+  padding: 10px;
+  border-radius: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+.daftar-reserved {
   background-color: #d9d9d9;
   padding: 10px;
   border-radius: 20px;

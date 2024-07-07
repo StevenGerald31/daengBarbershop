@@ -140,20 +140,7 @@ const data_pelanggan = async (req, res) => {
   }
 };
 
-// const data_booking = async (req, res) => {
-//   try {
-//     const response = await axios.get(
-//       "http://127.0.0.1:8000/api/bookings/request"
-//     );
-//     const bookings = response.data;
-//     res.json(bookings);
-//   } catch (error) {
-//     console.error(error);
-//     res.status(500).json({ error: "An error occurred while fetching data" });
-//   }
-// };
-
-const data_booking = async (req, res) => {
+const view_data_request = async (req, res) => {
   try {
     // Ambil token dari session
     const token = req.session.dataUser.token;
@@ -175,16 +162,205 @@ const data_booking = async (req, res) => {
       }
     );
 
-    // Ambil array bookings dari response.data
-    const bookings = response.data.bookings;
+    // Ambil array request dari response.data
+    const request = response.data.bookings;
 
-    console.log("Data booking: ", bookings);
-    res.json(bookings);
+    console.log("Data request: ", request);
+    res.json(request);
   } catch (error) {
     console.error(error);
     res.status(error.response?.status || 500).json({
       error: error.response?.data || "An error occurred while fetching data",
     });
+  }
+};
+
+const view_data_reserved = async (req, res) => {
+  try {
+    // Ambil token dari session
+    const token = req.session.dataUser.token;
+
+    // Pastikan token tersedia
+    if (!token) {
+      return res
+        .status(401)
+        .json({ error: "Authentication token not provided" });
+    }
+
+    // Sertakan token dalam header Authorization
+    const response = await axios.get(
+      "http://127.0.0.1:8000/api/bookings/reserved",
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    // Ambil array reserved dari response.data
+    const reserved = response.data.bookings;
+
+    res.json(reserved);
+  } catch (error) {
+    console.error(error);
+    res.status(error.response?.status || 500).json({
+      error: error.response?.data || "An error occurred while fetching data",
+    });
+  }
+};
+
+const view_all_data_booking = async (req, res) => {
+  try {
+    // Ambil token dari session
+    const token = req.session.dataUser.token;
+
+    // Pastikan token tersedia
+    if (!token) {
+      return res
+        .status(401)
+        .json({ error: "Authentication token not provided" });
+    }
+
+    // Sertakan token dalam header Authorization
+    const response = await axios.get(
+      "http://127.0.0.1:8000/api/bookings/showAllServerBookings",
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    // Ambil array reserved dari response.data
+    const allData = response.data.bookings;
+
+    console.log("All Data: ", allData);
+    res.json(allData);
+  } catch (error) {
+    console.error(error);
+    res.status(error.response?.status || 500).json({
+      error: error.response?.data || "An error occurred while fetching data",
+    });
+  }
+};
+
+const confirmBooking = async (req, res) => {
+  const { bookingId } = req.params;
+  const token = req.session.dataUser.token;
+
+  if (!token) {
+    return res
+      .status(401)
+      .json({ message: "Authentication token not provided" });
+  }
+
+  try {
+    const response = await axios.put(
+      `http://127.0.0.1:8000/api/bookings/${bookingId}/confirm`,
+      {},
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    if (response.status === 200) {
+      return res.status(200).json({
+        message: "Booking confirmed successfully",
+        booking: response.data,
+      });
+    } else {
+      return res
+        .status(response.status)
+        .json({ message: response.data.message });
+    }
+  } catch (error) {
+    console.error("Error confirming booking:", error);
+    return res
+      .status(500)
+      .json({ message: "An error occurred while confirming the booking" });
+  }
+};
+
+const finishBooking = async (req, res) => {
+  const { bookingId } = req.params;
+  const token = req.session.dataUser.token;
+
+  if (!token) {
+    return res
+      .status(401)
+      .json({ message: "Authentication token not provided" });
+  }
+
+  try {
+    const response = await axios.put(
+      `http://127.0.0.1:8000/api/bookings/${bookingId}/finish`,
+      {},
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    if (response.status === 200) {
+      return res.status(200).json({
+        message: "Booking confirmed successfully",
+        finish: response.data,
+      });
+    } else {
+      return res
+        .status(response.status)
+        .json({ message: response.data.message });
+    }
+  } catch (error) {
+    console.error("Error confirming booking:", error);
+    return res
+      .status(500)
+      .json({ message: "An error occurred while confirming the booking" });
+  }
+};
+
+const canceledBooking = async (req, res) => {
+  const { bookingId } = req.params;
+  const token = req.session.dataUser.token;
+
+  if (!token) {
+    return res
+      .status(401)
+      .json({ message: "Authentication token not provided" });
+  }
+
+  try {
+    const response = await axios.put(
+      `http://127.0.0.1:8000/api/bookings/${bookingId}/reject`,
+      {},
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    if (response.status === 200) {
+      return res.status(200).json({
+        message: "Booking cancel successfully",
+        cancel: response.data,
+      });
+    } else {
+      return res
+        .status(response.status)
+        .json({ message: response.data.message });
+    }
+  } catch (error) {
+    console.error("Error confirming booking:", error);
+    return res
+      .status(500)
+      .json({ message: "An error occurred while confirming the booking" });
   }
 };
 
@@ -250,7 +426,12 @@ module.exports = {
   Landingpage,
   Loginpage,
   loginUser,
-  data_booking,
+  view_data_request,
+  view_data_reserved,
   data_stok,
   data_pelanggan,
+  confirmBooking,
+  canceledBooking,
+  finishBooking,
+  view_all_data_booking,
 };

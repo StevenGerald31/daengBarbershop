@@ -184,7 +184,13 @@
               <h3 class="fw-bold">Daftar Booking</h3>
             </div>
           </div>
-          <div class="booking-container"></div>
+          <div class="request-container"></div>
+          <div class="row judul pt-4">
+            <div class="d-flex justify-content-start">
+              <h3 class="fw-bold">Daftar Reserved</h3>
+            </div>
+          </div>
+          <div class="reserved-container"></div>
         </div>
         <!-- Booking Section End -->
 
@@ -707,75 +713,274 @@
         });
 
       // Data Booking
-      fetch("http://localhost:3000/web/booking/:lokasi", {
+      fetch("http://localhost:3000/web/request/:lokasi", {
         method: "GET",
       })
         .then((response) => response.json())
         .then((data) => {
-          console.log("Data Booking: ", data);
-
           // Ambil elemen tempat untuk meletakkan kartu booking
-          const bookingContainer = document.querySelector(".booking-container");
+          const requestContainer = document.querySelector(".request-container");
+          if (data.length >= 1) {
+            console.log("Data Request: ", data);
 
-          // Iterasi melalui setiap data booking
-          data.forEach((booking) => {
-            // Buat elemen div untuk row daftar-booking
-            const bookingDiv = document.createElement("div");
-            bookingDiv.classList.add("row", "daftar-booking", "mt-2");
+            // Iterasi melalui setiap data booking
+            data.forEach((request) => {
+              // Buat elemen div untuk row daftar-request
+              const requestDiv = document.createElement("div");
+              requestDiv.classList.add("row", "daftar-request", "mt-2");
 
-            // Buat kolom pertama (Id Pelanggan dan Nama)
-            const col1 = document.createElement("div");
-            col1.classList.add("col-md-4");
-            const info1 = document.createElement("div");
-            info1.classList.add("info");
-            const idPelanggan = document.createElement("div");
-            idPelanggan.textContent = `Id Pelanggan: ${booking.id_user}`;
-            const namaPelanggan = document.createElement("div");
-            namaPelanggan.textContent = booking.nama_pelanggan;
-            info1.appendChild(idPelanggan);
-            info1.appendChild(namaPelanggan);
-            col1.appendChild(info1);
+              // Buat kolom pertama (Id Pelanggan dan Nama)
+              const col1 = document.createElement("div");
+              col1.classList.add("col-md-4");
+              const info1 = document.createElement("div");
+              info1.classList.add("info");
+              const idPelanggan = document.createElement("div");
+              idPelanggan.textContent = `Id Pelanggan: ${request.id_user}`;
+              const namaPelanggan = document.createElement("div");
+              namaPelanggan.textContent = request.nama_pelanggan;
+              info1.appendChild(idPelanggan);
+              info1.appendChild(namaPelanggan);
+              col1.appendChild(info1);
 
-            // Buat kolom kedua (Waktu)
-            const col2 = document.createElement("div");
-            col2.classList.add("col-md-4");
-            const info2 = document.createElement("div");
-            info2.classList.add("info");
-            const waktuLabel = document.createElement("div");
-            waktuLabel.textContent = "Waktu:";
-            const tanggal = document.createElement("div");
-            tanggal.textContent = booking.tanggal;
-            const jam = document.createElement("div");
-            jam.textContent = booking.tanggal_booking;
-            info2.appendChild(waktuLabel);
-            info2.appendChild(tanggal);
-            info2.appendChild(jam);
-            col2.appendChild(info2);
+              // Buat kolom kedua (Waktu)
+              const col2 = document.createElement("div");
+              col2.classList.add("col-md-4");
+              const info2 = document.createElement("div");
+              info2.classList.add("info");
+              const waktuLabel = document.createElement("div");
+              waktuLabel.textContent = "Waktu:";
+              const tanggal = document.createElement("div");
+              tanggal.textContent = request.tanggal;
+              const jam = document.createElement("div");
+              jam.textContent = request.tanggal_booking;
+              info2.appendChild(waktuLabel);
+              info2.appendChild(tanggal);
+              info2.appendChild(jam);
+              col2.appendChild(info2);
 
-            // Buat kolom ketiga (Tombol Confirm dan Cancel)
-            const col3 = document.createElement("div");
-            col3.classList.add("col-md-4", "d-flex", "justify-content-center");
-            const buttonsDiv = document.createElement("div");
-            buttonsDiv.classList.add("buttons");
-            const confirmButton = document.createElement("button");
-            confirmButton.classList.add("button", "confirm");
-            confirmButton.textContent = "Confirm";
-            const cancelButton = document.createElement("button");
-            cancelButton.classList.add("button", "cancel");
-            cancelButton.textContent = "Cancel";
-            buttonsDiv.appendChild(confirmButton);
-            buttonsDiv.appendChild(cancelButton);
-            col3.appendChild(buttonsDiv);
+              // Buat kolom ketiga (Tombol Confirm dan Cancel)
+              const col3 = document.createElement("div");
+              col3.classList.add(
+                "col-md-4",
+                "d-flex",
+                "justify-content-center"
+              );
+              const buttonsDiv = document.createElement("div");
+              buttonsDiv.classList.add("buttons");
+              const confirmButton = document.createElement("button");
+              confirmButton.classList.add("button", "confirm");
+              confirmButton.textContent = "Confirm";
+              const cancelButton = document.createElement("button");
+              cancelButton.classList.add("button", "cancel");
+              cancelButton.textContent = "Cancel";
+              buttonsDiv.appendChild(confirmButton);
+              buttonsDiv.appendChild(cancelButton);
+              col3.appendChild(buttonsDiv);
 
-            // Masukkan kolom-kolom ke dalam row daftar-booking
-            bookingDiv.appendChild(col1);
-            bookingDiv.appendChild(col2);
-            bookingDiv.appendChild(col3);
+              // Add event listener for confirm button
+              confirmButton.addEventListener("click", () =>
+                confirmRequest(request.id_booking)
+              );
+              cancelButton.addEventListener("click", () =>
+                cancelBooking(request.id_booking)
+              );
 
-            // Masukkan row daftar-booking ke dalam container booking
-            bookingContainer.appendChild(bookingDiv);
-          });
+              // Masukkan kolom-kolom ke dalam row daftar-request
+              requestDiv.appendChild(col1);
+              requestDiv.appendChild(col2);
+              requestDiv.appendChild(col3);
+
+              // Masukkan row daftar-request ke dalam container request
+              requestContainer.appendChild(requestDiv);
+            });
+          } else {
+            const noDataText = document.createElement("h4");
+            noDataText.textContent = "Data request booking belum tersedia";
+            requestContainer.appendChild(noDataText);
+          }
         });
+
+      // Data Reserved
+      fetch("http://localhost:3000/web/reserved/:lokasi", {
+        method: "GET",
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log("data: ", data.length);
+          // Ambil elemen tempat meletakkan kartu reserved
+          const reservedContainer = document.querySelector(
+            ".reserved-container"
+          );
+
+          if (data.length >= 1) {
+            console.log("Data Reserved: ", data);
+
+            // Iterasi melalui setiap data reserved
+            data.forEach((reserved) => {
+              // Buat elemen div untuk row daftar-reserved
+              const reservedDiv = document.createElement("div");
+              reservedDiv.classList.add("row", "daftar-reserved", "mt-2");
+
+              // Buat kolom pertama (Id Pelanggan dan Nama)
+              const col1 = document.createElement("div");
+              col1.classList.add("col-md-4");
+              const info1 = document.createElement("div");
+              info1.classList.add("info");
+              const idPelanggan = document.createElement("div");
+              idPelanggan.textContent = `Id Pelanggan: ${reserved.id_user}`;
+              const namaPelanggan = document.createElement("div");
+              namaPelanggan.textContent = reserved.nama_pelanggan;
+              info1.appendChild(idPelanggan);
+              info1.appendChild(namaPelanggan);
+              col1.appendChild(info1);
+
+              // Buat kolom kedua (Waktu)
+              const col2 = document.createElement("div");
+              col2.classList.add("col-md-4");
+              const info2 = document.createElement("div");
+              info2.classList.add("info");
+              const waktuLabel = document.createElement("div");
+              waktuLabel.textContent = "Waktu:";
+              const tanggal = document.createElement("div");
+              tanggal.textContent = reserved.tanggal;
+              const jam = document.createElement("div");
+              jam.textContent = reserved.tanggal_booking;
+              info2.appendChild(waktuLabel);
+              info2.appendChild(tanggal);
+              info2.appendChild(jam);
+              col2.appendChild(info2);
+
+              // Buat kolom ketiga (Tombol Confirm dan Cancel)
+              const col3 = document.createElement("div");
+              col3.classList.add(
+                "col-md-4",
+                "d-flex",
+                "justify-content-center"
+              );
+              const buttonsDiv = document.createElement("div");
+              buttonsDiv.classList.add("buttons");
+              const confirmButton = document.createElement("button");
+              confirmButton.classList.add("button", "confirm");
+              confirmButton.textContent = "Selesai";
+
+              buttonsDiv.appendChild(confirmButton);
+              col3.appendChild(buttonsDiv);
+
+              // Add event listener for confirm button
+              confirmButton.addEventListener("click", () =>
+                finishBooking(reserved.id_booking)
+              );
+
+              // Masukkan kolom-kolom ke dalam row daftar-reserved
+              reservedDiv.appendChild(col1);
+              reservedDiv.appendChild(col2);
+              reservedDiv.appendChild(col3);
+
+              // Masukkan row daftar-reserved ke dalam container reserved
+              reservedContainer.appendChild(reservedDiv);
+            });
+          } else {
+            const noDataText = document.createElement("h4");
+            noDataText.textContent = "Data reserved booking belum tersedia";
+            reservedContainer.appendChild(noDataText);
+          }
+        });
+
+      // Function to confirm booking
+      const finishBooking = (bookingId) => {
+        // Log the bookingId to the console
+        console.log("Confirming booking with ID:", bookingId);
+
+        fetch(`http://localhost:3000/web/booking/finish/${bookingId}`, {
+          method: "PUT",
+        })
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("Network response was not ok");
+            }
+            return response.json();
+          })
+          .then((data) => {
+            if (data.message) {
+              alert(data.message);
+            }
+            if (data.finish) {
+              console.log("Booking Confirmed: ", data.finish);
+              // Optionally update the UI to reflect the booking confirmation
+
+              // Reload the page after confirming booking
+              window.location.reload();
+            }
+          })
+          .catch((error) => {
+            console.error("Error confirming booking: ", error);
+            alert("An error occurred while confirming the booking");
+          });
+      };
+
+      // Function to confirm booking
+      const confirmRequest = (bookingId) => {
+        // Log the bookingId to the console
+        console.log("Confirming booking with ID:", bookingId);
+
+        fetch(`http://localhost:3000/web/booking/confirm/${bookingId}`, {
+          method: "PUT",
+        })
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("Network response was not ok");
+            }
+            return response.json();
+          })
+          .then((data) => {
+            if (data.message) {
+              alert(data.message);
+            }
+            if (data.booking) {
+              console.log("Booking Confirmed: ", data.booking);
+              // Optionally update the UI to reflect the booking confirmation
+
+              // Reload the page after confirming booking
+              window.location.reload();
+            }
+          })
+          .catch((error) => {
+            console.error("Error confirming booking: ", error);
+            alert("An error occurred while confirming the booking");
+          });
+      };
+
+      // Function to confirm booking
+      const cancelBooking = (bookingId) => {
+        // Log the bookingId to the console
+        console.log("Confirming booking with ID:", bookingId);
+
+        fetch(`http://localhost:3000/web/booking/cancel/${bookingId}`, {
+          method: "PUT",
+        })
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("Network response was not ok");
+            }
+            return response.json();
+          })
+          .then((data) => {
+            if (data.message) {
+              alert(data.message);
+            }
+            if (data.cancel) {
+              console.log("cancel Confirmed: ", data.cancel);
+              // Optionally update the UI to reflect the booking confirmation
+
+              // Reload the page after confirming booking
+              window.location.reload();
+            }
+          })
+          .catch((error) => {
+            console.error("Error confirming booking: ", error);
+            alert("An error occurred while confirming the booking");
+          });
+      };
 
       // DAta Stok Produk
       fetch("http://localhost:3000/web/stok/:lokasi", {
