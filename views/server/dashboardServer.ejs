@@ -25,6 +25,12 @@
       crossorigin="anonymous"
     ></script>
 
+    <!-- bootstrap icon -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+
     <link rel="stylesheet" href="/stylesheets/dashboardServer.css" />
   </head>
 
@@ -221,6 +227,138 @@
             </div>
           </div>
           <!-- Form Cari End -->
+
+          <!-- <div class="row daftar-produk m-2 d-flex justify-content-around">
+            <div class="row card-snack">
+              <div class="judul d-flex justify-content-center">
+                <h3 class="fw-bold">Snack</h3>
+              </div>
+
+              <div class="card col-3 m-2">
+                <div
+                  class="card-img d-flex justify-content-center align-items-center m-1"
+                >
+                  <img
+                    src="/image/minyak-rambut.png"
+                    class="card-img-top"
+                    alt="Nama Produk"
+                  />
+                </div>
+                <div class="card-body">
+                  <h6 class="card-title text-center fw-bold">Nama Produk</h6>
+                  <p class="card-text text-center">Rp50.000</p>
+                  <div class="d-flex justify-content-center">
+                    <button type="button" class="btn btn-success m-1">
+                      <i class="bi bi-pencil"></i>
+                    </button>
+                    <button type="button" class="btn btn-danger m-1">
+                      <i class="bi bi-trash3"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="card col-3 m-2">
+                <div
+                  class="card-img d-flex justify-content-center align-items-center m-1"
+                >
+                  <img
+                    src="/image/minyak-rambut.png"
+                    class="card-img-top"
+                    alt="Nama Produk"
+                  />
+                </div>
+                <div class="card-body">
+                  <h6 class="card-title text-center fw-bold">Nama Produk</h6>
+                  <p class="card-text text-center">Rp50.000</p>
+                  <div class="d-flex justify-content-center">
+                    <button type="button" class="btn btn-success m-1">
+                      <i class="bi bi-pencil"></i>
+                    </button>
+                    <button type="button" class="btn btn-danger m-1">
+                      <i class="bi bi-trash3"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row card-barang">
+              <div class="judul d-flex justify-content-center">
+                <h3 class="fw-bold">Barang</h3>
+              </div>
+              <div class="col-3 mt-3">
+                <div class="card">
+                  <div
+                    class="card-img d-flex justify-content-center align-items-center m-1"
+                  >
+                    <img
+                      src="/image/minyak-rambut.png"
+                      class="card-img-top"
+                      alt="Nama Produk"
+                    />
+                  </div>
+                  <div class="card-body">
+                    <h6 class="card-title text-center fw-bold">Nama Produk</h6>
+                    <p class="card-text text-center">Rp50.000</p>
+                    <div class="d-flex justify-content-center">
+                      <button type="button" class="btn btn-success m-1">
+                        <i class="bi bi-pencil"></i>
+                      </button>
+                      <button type="button" class="btn btn-danger m-1">
+                        <i class="bi bi-trash3"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div> -->
+
+          <div class="container" style="padding: 20px">
+            <div class="row daftar-produk m-2 d-flex justify-content-around">
+              <div class="judul d-flex justify-content-center">
+                <h3 class="fw-bold">Snack</h3>
+              </div>
+              <div
+                class="card-snack-container d-flex flex-wrap justify-content-around"
+                style="
+                  display: flex;
+                  flex-wrap: wrap;
+                  justify-content: space-around;
+                "
+              ></div>
+
+              <div class="judul d-flex justify-content-center mt-4">
+                <h3 class="fw-bold">Barang</h3>
+              </div>
+              <div
+                class="card-barang-container d-flex flex-wrap justify-content-around"
+              >
+                <div class="card col-3 m-2">
+                  <div
+                    class="card-img d-flex justify-content-center align-items-center m-1"
+                  >
+                    <img
+                      src="/image/minyak-rambut.png"
+                      class="card-img-top"
+                      alt="Nama Produk"
+                    />
+                  </div>
+                  <div class="card-body">
+                    <h6 class="card-title text-center fw-bold">Nama Produk</h6>
+                    <p class="card-text text-center">Rp50.000</p>
+                    <div class="d-flex justify-content-center">
+                      <button type="button" class="btn btn-success m-1">
+                        <i class="bi bi-pencil"></i>
+                      </button>
+                      <button type="button" class="btn btn-danger m-1">
+                        <i class="bi bi-trash3"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
 
           <!-- Daftar Produk Start -->
           <div class="row daftar-stok m-2 d-flex justify-content-around">
@@ -694,13 +832,18 @@
           tableBody.innerHTML = ""; // clear existing rows
 
           data.forEach((item) => {
+            point = item.point;
+            if (point == null) {
+              point = 0;
+            }
+
             const row = `
               <tr>
                 <td>${item.name}</td>
                 <td>${item.no_telp}</td>
                 <td>${item.jenis_kelamin}</td>
                 <td>${item.alamat}</td>
-                <td>${item.point}</td>
+                <td>${point}</td>
                 <td>
                   <a href=""><i class="fas fa-edit"></i></a>
                   <a href=""><i class="fas fa-trash"></i></a>
@@ -981,6 +1124,93 @@
             alert("An error occurred while confirming the booking");
           });
       };
+
+      // daftar stok produk
+      fetch("http://localhost:3000/web/allDataProduk/:lokasi", {
+        method: "GET",
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log("produk: ", data);
+
+          // ambil data snack
+          const allDataSnack = data.allDataSnack;
+
+          const daftarSnack = document.querySelector(".card-snack-container");
+          daftarSnack.innerHTML = ""; // clear existing cards
+
+          // buat card untuk produk snack
+          allDataSnack.forEach((item) => {
+            const harga = item.harga;
+            const formattedHarga = `Rp${harga.toLocaleString("id-ID")}`;
+            const card = document.createElement("div");
+            card.className = "card col-3 m-2";
+            card.innerHTML = `
+            <div
+                    class="card-img d-flex justify-content-center align-items-center m-1"
+                  >
+                    <img
+                      src="/image/minyak-rambut.png"
+                      class="card-img-top"
+                      alt="Nama Produk"
+                    />
+                  </div>
+                  <div class="card-body">
+                    <h6 class="card-title text-center fw-bold">${item.nama}</h6>
+                    <p class="card-text text-center">${formattedHarga}</p>
+                    <div class="d-flex justify-content-center">
+                      <button type="button" class="btn btn-success m-1">
+                        <i class="bi bi-pencil"></i>
+                      </button>
+                      <button type="button" class="btn btn-danger m-1">
+                        <i class="bi bi-trash3"></i>
+                      </button>
+                    </div>
+                  </div>
+            `;
+
+            daftarSnack.append(card);
+          });
+
+          // ambil data barang
+          const allDataBarang = data.allDataBarang;
+
+          const daftarBarang = document.querySelector(".card-barang-container");
+          daftarBarang.innerHTML = ""; // clear existing cards
+
+          // buat card untuk produk snack
+          allDataBarang.forEach((item) => {
+            const harga = item.harga;
+            const formattedHarga = `Rp${harga.toLocaleString("id-ID")}`;
+            const card = document.createElement("div");
+            card.className = "card col-3 m-2";
+            card.innerHTML = `
+            <div
+                    class="card-img d-flex justify-content-center align-items-center m-1"
+                  >
+                    <img
+                      src="/image/minyak-rambut.png"
+                      class="card-img-top"
+                      alt="Nama Produk"
+                    />
+                  </div>
+                  <div class="card-body">
+                    <h6 class="card-title text-center fw-bold">${item.nama}</h6>
+                    <p class="card-text text-center">${formattedHarga}</p>
+                    <div class="d-flex justify-content-center">
+                      <button type="button" class="btn btn-success m-1">
+                        <i class="bi bi-pencil"></i>
+                      </button>
+                      <button type="button" class="btn btn-danger m-1">
+                        <i class="bi bi-trash3"></i>
+                      </button>
+                    </div>
+                  </div>
+            `;
+
+            daftarBarang.append(card);
+          });
+        });
 
       // DAta Stok Produk
       fetch("http://localhost:3000/web/stok/:lokasi", {

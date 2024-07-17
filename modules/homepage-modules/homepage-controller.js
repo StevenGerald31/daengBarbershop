@@ -364,6 +364,36 @@ const canceledBooking = async (req, res) => {
   }
 };
 
+const view_all_data_produk = async (req, res) => {
+  const token = req.session.dataUser.token;
+
+  if (!token) {
+    return res
+      .status(401)
+      .json({ message: "Authentication token not provided" });
+  }
+
+  try {
+    // Sertakan token dalam header Authorization
+    const response = await axios.get("http://127.0.0.1:8000/api/produk/jenis", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    // Ambil array reserved dari response.data
+    const allDataSnack = response.data.data.snack;
+    const allDataBarang = response.data.data.barang;
+
+    res.json({ allDataSnack, allDataBarang });
+  } catch (error) {
+    console.error("Error confirming booking:", error);
+    return res
+      .status(500)
+      .json({ message: "An error occurred while confirming the booking" });
+  }
+};
+
 const data_reserved = async (req, res) => {
   try {
     // Ambil token dari session
@@ -434,4 +464,5 @@ module.exports = {
   canceledBooking,
   finishBooking,
   view_all_data_booking,
+  view_all_data_produk,
 };
