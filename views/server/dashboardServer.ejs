@@ -225,7 +225,112 @@
                 </button>
               </form>
             </div>
+            <button
+              class="btn btn-success"
+              type="submit"
+              style="max-width: 100px"
+              data-bs-toggle="modal"
+              data-bs-target="#exampleModal"
+            >
+              Tambah Jenis
+            </button>
           </div>
+          <!-- Modal -->
+          <div
+            class="modal fade"
+            id="exampleModal"
+            tabindex="-1"
+            aria-labelledby="exampleModalLabel"
+            aria-hidden="true"
+          >
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="exampleModalLabel">
+                    Tambah Jenis Produk
+                  </h1>
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
+                </div>
+                <div class="modal-body">
+                  <form id="tambahJenisProdukForm">
+                    <div class="mb-3">
+                      <label for="jenisproduk" class="form-label"
+                        >Jenis Produk</label
+                      >
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="jenisproduk"
+                        name="jenisproduk"
+                        required
+                      />
+                    </div>
+                    <div class="mb-3">
+                      <label for="nama" class="form-label">Nama</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="nama"
+                        name="nama"
+                        required
+                      />
+                    </div>
+                    <div class="mb-3">
+                      <label for="deskripsi" class="form-label"
+                        >Deskripsi</label
+                      >
+                      <textarea
+                        class="form-control"
+                        id="deskripsi"
+                        name="deskripsi"
+                        rows="3"
+                        required
+                      ></textarea>
+                    </div>
+                    <div class="mb-3">
+                      <label for="harga" class="form-label">Harga</label>
+                      <input
+                        type="number"
+                        class="form-control"
+                        id="harga"
+                        name="harga"
+                        required
+                      />
+                    </div>
+                    <div class="mb-3">
+                      <label for="gambar" class="form-label">Gambar</label>
+                      <input
+                        type="file"
+                        class="form-control"
+                        id="gambar"
+                        name="gambar"
+                        accept="image/*"
+                        required
+                      />
+                    </div>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-bs-dismiss="modal"
+                  >
+                    Close
+                  </button>
+                  <button type="button" class="btn btn-primary">
+                    Save changes
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <!-- Form Cari End -->
 
           <!-- <div class="row daftar-produk m-2 d-flex justify-content-around">
@@ -316,65 +421,29 @@
           <div class="container" style="padding: 20px">
             <div class="row daftar-produk m-2 d-flex justify-content-around">
               <div class="judul d-flex justify-content-center">
-                <h3 class="fw-bold">Snack</h3>
+                <h3 class="fw-bold">All Produk</h3>
               </div>
               <div
-                class="card-snack-container d-flex flex-wrap justify-content-around"
+                class="card-produk-container d-flex flex-wrap justify-content-around"
                 style="
                   display: flex;
                   flex-wrap: wrap;
                   justify-content: space-around;
                 "
               ></div>
-
-              <div class="judul d-flex justify-content-center mt-4">
-                <h3 class="fw-bold">Barang</h3>
-              </div>
-              <div
-                class="card-barang-container d-flex flex-wrap justify-content-around"
-              >
-                <div class="card col-3 m-2">
-                  <div
-                    class="card-img d-flex justify-content-center align-items-center m-1"
-                  >
-                    <img
-                      src="/image/minyak-rambut.png"
-                      class="card-img-top"
-                      alt="Nama Produk"
-                    />
-                  </div>
-                  <div class="card-body">
-                    <h6 class="card-title text-center fw-bold">Nama Produk</h6>
-                    <p class="card-text text-center">Rp50.000</p>
-                    <div class="d-flex justify-content-center">
-                      <button type="button" class="btn btn-success m-1">
-                        <i class="bi bi-pencil"></i>
-                      </button>
-                      <button type="button" class="btn btn-danger m-1">
-                        <i class="bi bi-trash3"></i>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
             </div>
-          </div>
-
-          <!-- Daftar Produk Start -->
-          <div class="row daftar-stok m-2 d-flex justify-content-around">
-            <!-- Modal -->
             <div
               class="modal fade"
-              id="modalStok"
+              id="updateStockModal"
               tabindex="-1"
-              aria-labelledby="modalStokLabel"
+              aria-labelledby="updateStockModalLabel"
               aria-hidden="true"
             >
               <div class="modal-dialog">
                 <div class="modal-content">
                   <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="modalStokLabel">
-                      Tambah Stok
+                    <h1 class="modal-title fs-5" id="updateStockModalLabel">
+                      Update Stok Produk
                     </h1>
                     <button
                       type="button"
@@ -384,13 +453,19 @@
                     ></button>
                   </div>
                   <div class="modal-body">
-                    <form class="d-flex">
-                      <input
-                        class="form-control me-2"
-                        type="search"
-                        placeholder="Masukkan Jumlah"
-                        aria-label="Cari"
-                      />
+                    <form id="updateStockForm">
+                      <div class="mb-3">
+                        <label for="stock" class="form-label"
+                          >Jumlah Stok Baru</label
+                        >
+                        <input
+                          type="number"
+                          class="form-control"
+                          id="stock"
+                          name="stock"
+                          required
+                        />
+                      </div>
                     </form>
                   </div>
                   <div class="modal-footer">
@@ -401,7 +476,11 @@
                     >
                       Close
                     </button>
-                    <button type="button" class="btn btn-primary">
+                    <button
+                      type="button"
+                      class="btn btn-primary"
+                      id="saveStockButton"
+                    >
                       Save changes
                     </button>
                   </div>
@@ -409,6 +488,7 @@
               </div>
             </div>
           </div>
+
           <!-- DAftar Stok Produk End -->
         </div>
 
@@ -434,126 +514,21 @@
                 </div>
               </div>
               <!-- Form Cari End -->
-              <div class="row daftar-produk m-2 d-flex justify-content-around">
-                <div class="col-3 mt-3">
-                  <div class="card">
-                    <div
-                      class="card-img d-flex justify-content-center align-items-center m-1"
-                    >
-                      <img
-                        src="/image/minyak-rambut.png"
-                        class="card-img-top"
-                        alt="Nama Produk"
-                      />
-                    </div>
-                    <div class="card-body">
-                      <h6 class="card-title text-center fw-bold">
-                        Nama Produk
-                      </h6>
-                      <p class="card-text text-center">Rp50.000</p>
-                      <div class="d-flex justify-content-center">
-                        <button type="button" class="btn btn-primary">
-                          Beli
-                        </button>
-                      </div>
-                    </div>
+              <div class="container" style="padding: 20px">
+                <div
+                  class="row daftar-produk m-2 d-flex justify-content-around"
+                >
+                  <div class="judul d-flex justify-content-center">
+                    <h3 class="fw-bold">All Produk</h3>
                   </div>
-                </div>
-                <div class="col-3 mt-3">
-                  <div class="card">
-                    <div
-                      class="card-img d-flex justify-content-center align-items-center m-1"
-                    >
-                      <img
-                        src="/image/minyak-rambut.png"
-                        class="card-img-top"
-                        alt="Nama Produk"
-                      />
-                    </div>
-                    <div class="card-body">
-                      <h6 class="card-title text-center fw-bold">
-                        Nama Produk
-                      </h6>
-                      <p class="card-text text-center">Rp50.000</p>
-                      <div class="d-flex justify-content-center">
-                        <button type="button" class="btn btn-primary">
-                          Beli
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-3 mt-3">
-                  <div class="card">
-                    <div
-                      class="card-img d-flex justify-content-center align-items-center m-1"
-                    >
-                      <img
-                        src="/image/minyak-rambut.png"
-                        class="card-img-top"
-                        alt="Nama Produk"
-                      />
-                    </div>
-                    <div class="card-body">
-                      <h6 class="card-title text-center fw-bold">
-                        Nama Produk
-                      </h6>
-                      <p class="card-text text-center">Rp50.000</p>
-                      <div class="d-flex justify-content-center">
-                        <button type="button" class="btn btn-primary">
-                          Beli
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-3 mt-3">
-                  <div class="card">
-                    <div
-                      class="card-img d-flex justify-content-center align-items-center m-1"
-                    >
-                      <img
-                        src="/image/minyak-rambut.png"
-                        class="card-img-top"
-                        alt="Nama Produk"
-                      />
-                    </div>
-                    <div class="card-body">
-                      <h6 class="card-title text-center fw-bold">
-                        Nama Produk
-                      </h6>
-                      <p class="card-text text-center">Rp50.000</p>
-                      <div class="d-flex justify-content-center">
-                        <button type="button" class="btn btn-primary">
-                          Beli
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-3 mt-3">
-                  <div class="card">
-                    <div
-                      class="card-img d-flex justify-content-center align-items-center m-1"
-                    >
-                      <img
-                        src="/image/minyak-rambut.png"
-                        class="card-img-top"
-                        alt="Nama Produk"
-                      />
-                    </div>
-                    <div class="card-body">
-                      <h6 class="card-title text-center fw-bold">
-                        Nama Produk
-                      </h6>
-                      <p class="card-text text-center">Rp50.000</p>
-                      <div class="d-flex justify-content-center">
-                        <button type="button" class="btn btn-primary">
-                          Beli
-                        </button>
-                      </div>
-                    </div>
-                  </div>
+                  <div
+                    class="card-produk-pembelian d-flex flex-wrap justify-content-around"
+                    style="
+                      display: flex;
+                      flex-wrap: wrap;
+                      justify-content: space-around;
+                    "
+                  ></div>
                 </div>
               </div>
             </div>
@@ -1126,21 +1101,18 @@
       };
 
       // daftar stok produk
-      fetch("http://localhost:3000/web/allDataProduk/:lokasi", {
+      fetch("http://localhost:3000/web/allDataProduk", {
         method: "GET",
       })
         .then((response) => response.json())
         .then((data) => {
           console.log("produk: ", data);
 
-          // ambil data snack
-          const allDataSnack = data.allDataSnack;
-
-          const daftarSnack = document.querySelector(".card-snack-container");
-          daftarSnack.innerHTML = ""; // clear existing cards
+          const daftarProduk = document.querySelector(".card-produk-container");
+          daftarProduk.innerHTML = ""; // clear existing cards
 
           // buat card untuk produk snack
-          allDataSnack.forEach((item) => {
+          data.forEach((item) => {
             const harga = item.harga;
             const formattedHarga = `Rp${harga.toLocaleString("id-ID")}`;
             const card = document.createElement("div");
@@ -1156,10 +1128,11 @@
                     />
                   </div>
                   <div class="card-body">
-                    <h6 class="card-title text-center fw-bold">${item.nama}</h6>
+                    <h6 class="card-title text-center fw-bold">${item.nama_produk}</h6>
                     <p class="card-text text-center">${formattedHarga}</p>
+                    <p class="card-text text-center">Stok: ${item.stok}</p>
                     <div class="d-flex justify-content-center">
-                      <button type="button" class="btn btn-success m-1">
+                      <button type="button" class="btn btn-success m-1" data-bs-toggle="modal" data-bs-target="#updateStockModal">
                         <i class="bi bi-pencil"></i>
                       </button>
                       <button type="button" class="btn btn-danger m-1">
@@ -1169,17 +1142,23 @@
                   </div>
             `;
 
-            daftarSnack.append(card);
+            daftarProduk.append(card);
           });
+        });
 
-          // ambil data barang
-          const allDataBarang = data.allDataBarang;
+      // daftar stok produk untuk pembelian
+      fetch("http://localhost:3000/web/allDataProduk", {
+        method: "GET",
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log("produk: ", data);
 
-          const daftarBarang = document.querySelector(".card-barang-container");
-          daftarBarang.innerHTML = ""; // clear existing cards
+          const daftarProduk = document.querySelector(".card-produk-pembelian");
+          daftarProduk.innerHTML = ""; // clear existing cards
 
           // buat card untuk produk snack
-          allDataBarang.forEach((item) => {
+          data.forEach((item) => {
             const harga = item.harga;
             const formattedHarga = `Rp${harga.toLocaleString("id-ID")}`;
             const card = document.createElement("div");
@@ -1195,20 +1174,19 @@
                     />
                   </div>
                   <div class="card-body">
-                    <h6 class="card-title text-center fw-bold">${item.nama}</h6>
+                    <h6 class="card-title text-center fw-bold">${item.nama_produk}</h6>
                     <p class="card-text text-center">${formattedHarga}</p>
+                    <p class="card-text text-center">Stok: ${item.stok}</p>
                     <div class="d-flex justify-content-center">
-                      <button type="button" class="btn btn-success m-1">
-                        <i class="bi bi-pencil"></i>
+                      <button type="button" class="btn btn-success m-1" data-bs-toggle="modal" data-bs-target="#updateStockModal">
+                        <i class="bi bi-plus-lg"></i>
                       </button>
-                      <button type="button" class="btn btn-danger m-1">
-                        <i class="bi bi-trash3"></i>
-                      </button>
+                      
                     </div>
                   </div>
             `;
 
-            daftarBarang.append(card);
+            daftarProduk.append(card);
           });
         });
 
@@ -1235,7 +1213,7 @@
                   <h5 class="card-title text-center fw-bold">${item.nama}</h5>
                   <p class="card-text text-center">Stok tersedia: ${item.stok}</p>
                   <div class="d-flex justify-content-center">
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalStok">
+                    <button type="button" class="btn btn-primary" data-product-id="${item.id_produk} data-bs-toggle="modal" data-bs-target="#modalStok">
                       Tambah Produk
                     </button>
                   </div>
@@ -1245,6 +1223,92 @@
 
             daftarStok.append(card);
           });
+        });
+
+      document
+        .getElementById("saveChangesButton")
+        .addEventListener("click", async () => {
+          const form = document.getElementById("tambahJenisProdukForm");
+          const formData = new FormData(form);
+
+          const jenisproduk = formData.get("jenisproduk");
+          const nama = formData.get("nama");
+          const deskripsi = formData.get("deskripsi");
+          const harga = formData.get("harga");
+          const gambar = formData.get("gambar");
+
+          try {
+            const response = await fetch(
+              "http://127.0.0.1:8000/api/tambahJenisProduk",
+              {
+                method: "POST",
+                headers: {
+                  Authorization: `Bearer ${token}`,
+                },
+                body: formData,
+              }
+            );
+
+            if (response.ok) {
+              alert("Jenis produk berhasil ditambahkan.");
+              // Optionally, refresh the page or update the UI accordingly
+            } else {
+              const errorData = await response.json();
+              alert(`Error: ${errorData.message}`);
+            }
+          } catch (error) {
+            console.error("Error:", error);
+            alert("An error occurred. Please try again.");
+          }
+        });
+
+      // update produk
+      let selectedProductId;
+
+      document.addEventListener("click", function (event) {
+        if (event.target.classList.contains("tambah-produk-btn")) {
+          selectedProductId = event.target.getAttribute("data-product-id");
+        }
+      });
+
+      document
+        .getElementById("saveStockButton")
+        .addEventListener("click", async () => {
+          const form = document.getElementById("updateStockForm");
+          const formData = new FormData(form);
+
+          const stok = formData.get("stok");
+
+          try {
+            const response = await fetch(
+              `http://localhost:8000/api/stockproduk/${selectedProductId}`,
+              {
+                method: "PUT",
+                headers: {
+                  Authorization: `Bearer ${token}`,
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ stok }),
+              }
+            );
+
+            if (response.ok) {
+              alert("Stok produk berhasil diperbarui.");
+              // Close the modal
+              const updateStockModal =
+                document.getElementById("updateStockModal");
+              const modalInstance =
+                bootstrap.Modal.getInstance(updateStockModal);
+              modalInstance.hide();
+              // Optionally, refresh the page or update the UI accordingly
+            } else {
+              const errorData = await response.json();
+              alert(`Error: ${errorData.message}`);
+            }
+          } catch (error) {
+            console.error("Error:", error);
+            alert("An error occurred. Please try again.");
+          }
         });
     </script>
   </body>

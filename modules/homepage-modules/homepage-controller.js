@@ -375,22 +375,59 @@ const view_all_data_produk = async (req, res) => {
 
   try {
     // Sertakan token dalam header Authorization
-    const response = await axios.get("http://127.0.0.1:8000/api/produk/jenis", {
+    const response = await axios.get("http://127.0.0.1:8000/api/stockproduk", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
 
     // Ambil array reserved dari response.data
-    const allDataSnack = response.data.data.snack;
-    const allDataBarang = response.data.data.barang;
+    const allDataProduk = response.data;
 
-    res.json({ allDataSnack, allDataBarang });
+    res.json(allDataProduk);
   } catch (error) {
     console.error("Error confirming booking:", error);
     return res
       .status(500)
       .json({ message: "An error occurred while confirming the booking" });
+  }
+};
+
+const tambah_jenis_produk = async (req, res) => {
+  const token = req.session.dataUser.token;
+  const { jenisproduk, nama, deskripsi, harga, gambar } = req.body;
+
+  if (!token) {
+    return res
+      .status(401)
+      .json({ message: "Authentication token not provided" });
+  }
+
+  try {
+    // Sertakan token dalam header Authorization
+    const response = await axios.post(
+      "http://127.0.0.1:8000/api/tambahJenisProduk",
+      {
+        jenisproduk,
+        nama,
+        deskripsi,
+        harga,
+        gambar,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    // Handle the response
+    res.status(response.status).json(response.data);
+  } catch (error) {
+    console.error(error);
+    res
+      .status(500)
+      .json({ message: "An error occurred", error: error.message });
   }
 };
 
@@ -465,4 +502,5 @@ module.exports = {
   finishBooking,
   view_all_data_booking,
   view_all_data_produk,
+  tambah_jenis_produk,
 };
