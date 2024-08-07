@@ -395,7 +395,7 @@ const view_all_data_produk = async (req, res) => {
 
 const tambah_jenis_produk = async (req, res) => {
   const token = req.session.dataUser.token;
-  const { jenisproduk, nama, deskripsi, harga, gambar } = req.body;
+  const { jenisproduk, nama, deskripsi, harga, stok } = req.body;
 
   if (!token) {
     return res
@@ -404,24 +404,51 @@ const tambah_jenis_produk = async (req, res) => {
   }
 
   try {
-    // Sertakan token dalam header Authorization
     const response = await axios.post(
-      "http://127.0.0.1:8000/api/tambahJenisProduk",
-      {
-        jenisproduk,
-        nama,
-        deskripsi,
-        harga,
-        gambar,
-      },
+      "http://127.0.0.1:8000/api/produk/tambahjenisproduk",
+      { jenisproduk, nama, deskripsi, harga, stok },
       {
         headers: {
+          "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
       }
     );
 
-    // Handle the response
+    res.status(response.status).json(response.data);
+  } catch (error) {
+    console.error(error);
+    res
+      .status(500)
+      .json({ message: "An error occurred", error: error.message });
+  }
+};
+
+const update_stok = async (req, res) => {
+  const token = req.session.dataUser?.token;
+  const { stok, id_produk } = req.body;
+
+  if (!token) {
+    return res
+      .status(401)
+      .json({ message: "Authentication token not provided" });
+  }
+
+  try {
+    const response = await axios.put(
+      `http://127.0.0.1:8000/api/stockproduk/${id_produk}`,
+      {
+        stok,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    console.log("tambah stok: ", response.data);
+
     res.status(response.status).json(response.data);
   } catch (error) {
     console.error(error);
@@ -466,36 +493,12 @@ const data_reserved = async (req, res) => {
   }
 };
 
-const cancelled_booking = async (req, res) => {
-  try {
-    const response = await axios.get();
-  } catch (error) {}
-};
-
-const data_stok = async (req, res) => {
-  try {
-    const lokasiUser = req.session.dataUser.lokasi;
-    const stokProduk = await sequelize.query(
-      "SELECT stockproduks.*, produks.nama FROM stockproduks INNER JOIN produks ON stockproduks.id_produk = produks.id_produk WHERE stockproduks.id_lokasi = :lokasi",
-      {
-        replacements: { lokasi: lokasiUser },
-        type: Sequelize.QueryTypes.SELECT,
-      }
-    );
-    res.json(stokProduk);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "An error occurred while fetching data" });
-  }
-};
-
 module.exports = {
   Landingpage,
   Loginpage,
   loginUser,
   view_data_request,
   view_data_reserved,
-  data_stok,
   data_pelanggan,
   confirmBooking,
   canceledBooking,
@@ -503,4 +506,5 @@ module.exports = {
   view_all_data_booking,
   view_all_data_produk,
   tambah_jenis_produk,
+  update_stok,
 };

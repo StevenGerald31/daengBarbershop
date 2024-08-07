@@ -302,7 +302,7 @@
                         required
                       />
                     </div>
-                    <div class="mb-3">
+                    <!-- <div class="mb-3">
                       <label for="gambar" class="form-label">Gambar</label>
                       <input
                         type="file"
@@ -310,6 +310,16 @@
                         id="gambar"
                         name="gambar"
                         accept="image/*"
+                        required
+                      />
+                    </div> -->
+                    <div class="mb-3">
+                      <label for="stok" class="form-label">Jumlah Stok</label>
+                      <input
+                        type="number"
+                        class="form-control"
+                        id="stok"
+                        name="stok"
                         required
                       />
                     </div>
@@ -323,7 +333,11 @@
                   >
                     Close
                   </button>
-                  <button type="button" class="btn btn-primary">
+                  <button
+                    type="button"
+                    class="btn btn-primary"
+                    id="saveChangesButton"
+                  >
                     Save changes
                   </button>
                 </div>
@@ -822,7 +836,7 @@
                 <td>
                   <a href=""><i class="fas fa-edit"></i></a>
                   <a href=""><i class="fas fa-trash"></i></a>
-                </td> 
+                </td>
               </tr>
             `;
 
@@ -1101,23 +1115,26 @@
       };
 
       // daftar stok produk
-      fetch("http://localhost:3000/web/allDataProduk", {
-        method: "GET",
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          console.log("produk: ", data);
+      function loadProduk() {
+        fetch("http://localhost:3000/web/allDataProduk", {
+          method: "GET",
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log("produk: ", data);
 
-          const daftarProduk = document.querySelector(".card-produk-container");
-          daftarProduk.innerHTML = ""; // clear existing cards
+            const daftarProduk = document.querySelector(
+              ".card-produk-container"
+            );
+            daftarProduk.innerHTML = ""; // clear existing cards
 
-          // buat card untuk produk snack
-          data.forEach((item) => {
-            const harga = item.harga;
-            const formattedHarga = `Rp${harga.toLocaleString("id-ID")}`;
-            const card = document.createElement("div");
-            card.className = "card col-3 m-2";
-            card.innerHTML = `
+            // buat card untuk produk snack
+            data.forEach((item) => {
+              const harga = item.harga;
+              const formattedHarga = `Rp${harga.toLocaleString("id-ID")}`;
+              const card = document.createElement("div");
+              card.className = "card col-3 m-2";
+              card.innerHTML = `
             <div
                     class="card-img d-flex justify-content-center align-items-center m-1"
                   >
@@ -1132,7 +1149,7 @@
                     <p class="card-text text-center">${formattedHarga}</p>
                     <p class="card-text text-center">Stok: ${item.stok}</p>
                     <div class="d-flex justify-content-center">
-                      <button type="button" class="btn btn-success m-1" data-bs-toggle="modal" data-bs-target="#updateStockModal">
+                      <button type="button" class=" update-stok btn btn-success m-1" data-bs-toggle="modal" data-bs-target="#updateStockModal" data-id="${item.id_produk}">
                         <i class="bi bi-pencil"></i>
                       </button>
                       <button type="button" class="btn btn-danger m-1">
@@ -1142,9 +1159,13 @@
                   </div>
             `;
 
-            daftarProduk.append(card);
+              daftarProduk.append(card);
+            });
           });
-        });
+      }
+
+      // Initial load
+      loadProduk();
 
       // daftar stok produk untuk pembelian
       fetch("http://localhost:3000/web/allDataProduk", {
@@ -1181,7 +1202,7 @@
                       <button type="button" class="btn btn-success m-1" data-bs-toggle="modal" data-bs-target="#updateStockModal">
                         <i class="bi bi-plus-lg"></i>
                       </button>
-                      
+
                     </div>
                   </div>
             `;
@@ -1190,126 +1211,175 @@
           });
         });
 
-      // DAta Stok Produk
-      fetch("http://localhost:3000/web/stok/:lokasi", {
-        method: "GET",
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          console.log("Data Stok: ", data);
-
-          const daftarStok = document.querySelector(".daftar-stok");
-          daftarStok.innerHTML = ""; // clear existing cards
-
-          data.forEach((item) => {
-            const card = document.createElement("div");
-            card.className = "col-3 mt-3";
-            card.innerHTML = `
-              <div class="card">
-                <div class="card-img d-flex justify-content-center align-items-center m-1">
-                  <img src="/image/minyak-rambut.png" class="card-img-top" alt="${item.nama}" />
-                </div>
-                <div class="card-body">
-                  <h5 class="card-title text-center fw-bold">${item.nama}</h5>
-                  <p class="card-text text-center">Stok tersedia: ${item.stok}</p>
-                  <div class="d-flex justify-content-center">
-                    <button type="button" class="btn btn-primary" data-product-id="${item.id_produk} data-bs-toggle="modal" data-bs-target="#modalStok">
-                      Tambah Produk
-                    </button>
-                  </div>
-                </div>
-              </div>
-            `;
-
-            daftarStok.append(card);
-          });
-        });
-
       document
         .getElementById("saveChangesButton")
-        .addEventListener("click", async () => {
+        .addEventListener("click", () => {
           const form = document.getElementById("tambahJenisProdukForm");
           const formData = new FormData(form);
+          const data = Object.fromEntries(formData.entries());
 
-          const jenisproduk = formData.get("jenisproduk");
-          const nama = formData.get("nama");
-          const deskripsi = formData.get("deskripsi");
-          const harga = formData.get("harga");
-          const gambar = formData.get("gambar");
-
-          try {
-            const response = await fetch(
-              "http://127.0.0.1:8000/api/tambahJenisProduk",
-              {
-                method: "POST",
-                headers: {
-                  Authorization: `Bearer ${token}`,
-                },
-                body: formData,
+          fetch("http://localhost:3000/web/newJenisProduk", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+          })
+            .then((response) => {
+              if (!response.ok) {
+                return response.json().then((error) => {
+                  throw error;
+                });
               }
-            );
+              return response.json();
+            })
+            .then((result) => {
+              console.log("Success:", result);
+              // Handle the successful response here
+              alert("Data berhasil ditambahkan");
 
-            if (response.ok) {
-              alert("Jenis produk berhasil ditambahkan.");
-              // Optionally, refresh the page or update the UI accordingly
-            } else {
-              const errorData = await response.json();
-              alert(`Error: ${errorData.message}`);
-            }
-          } catch (error) {
-            console.error("Error:", error);
-            alert("An error occurred. Please try again.");
+              // Menutup modal setelah sukses
+              const modalElement = document.getElementById("exampleModal");
+              const modalInstance = bootstrap.Modal.getInstance(modalElement);
+              modalInstance.hide();
+
+              // Initial load
+              loadProduk();
+            })
+            .catch((error) => {
+              console.error("Error:", error);
+              // Handle the error response here
+            });
+        });
+
+      // // Ambil modal dan form elemen
+      // const updateStockModal = document.getElementById("updateStockModal");
+      // const updateStockForm = document.getElementById("updateStockForm");
+      // const saveStockButton = document.getElementById("saveStockButton");
+
+      // // Variabel untuk menyimpan ID produk yang akan diupdate
+      // let selectedProductId = null;
+
+      // // Event listener untuk tombol edit (pencil)
+      // document.querySelectorAll(".update-stok").forEach((button) => {
+      //   button.addEventListener("click", (event) => {
+      //     selectedProductId = event.currentTarget.getAttribute("data-id");
+      //     console.log("ID Produk yang dipilih: ", selectedProductId); // Debugging
+      //   });
+      // });
+
+      // // Event listener untuk tombol simpan stok
+      // saveStockButton.addEventListener("click", async () => {
+      //   const stockInput = document.getElementById("stock");
+      //   const newStock = stockInput.value;
+
+      //   console.log("Nilai stok baru: ", newStock); // Debugging
+      //   console.log("Nilai Id: ", selectedProductId); // Debugging
+
+      //   if (!selectedProductId || !newStock) {
+      //     alert("Please select a product and enter a new stock quantity.");
+      //     return;
+      //   }
+
+      //   try {
+      //     const response = await fetch("http://localhost:3000/web/updateStok", {
+      //       method: "PUT",
+      //       headers: {
+      //         "Content-Type": "application/json",
+      //       },
+      //       body: JSON.stringify({
+      //         stok: newStock,
+      //         id_produk: selectedProductId,
+      //       }),
+      //     });
+
+      //     if (!response.ok) {
+      //       const error = await response.json();
+      //       throw new Error(error.message);
+      //     }
+
+      //     const result = await response.json();
+      //     console.log("Stock updated:", result);
+      //     alert("Stock updated successfully");
+
+      //     // Tutup modal
+      //     const modalInstance = bootstrap.Modal.getInstance(updateStockModal);
+      //     modalInstance.hide();
+
+      //     // Refresh data produk
+      //     loadProduk(); // Pastikan loadProduk adalah fungsi yang memuat ulang daftar produk
+      //   } catch (error) {
+      //     console.error("Error updating stock:", error);
+      //     alert("Failed to update stock");
+      //   }
+      // });
+
+      document.addEventListener("DOMContentLoaded", () => {
+        // Ambil modal dan form elemen
+        const updateStockModal = document.getElementById("updateStockModal");
+        const saveStockButton = document.getElementById("saveStockButton");
+
+        // Variabel untuk menyimpan ID produk yang akan diupdate
+        let selectedProductId = null;
+
+        // Event delegation untuk menangani tombol edit (pencil)
+        document.addEventListener("click", (event) => {
+          const button = event.target.closest(".update-stok");
+          if (button) {
+            selectedProductId = button.getAttribute("data-id");
+            console.log("ID Produk yang dipilih: ", selectedProductId); // Debugging
           }
         });
 
-      // update produk
-      let selectedProductId;
+        // Event listener untuk tombol simpan stok
+        saveStockButton.addEventListener("click", async () => {
+          const stockInput = document.getElementById("stock");
+          const newStock = stockInput.value;
 
-      document.addEventListener("click", function (event) {
-        if (event.target.classList.contains("tambah-produk-btn")) {
-          selectedProductId = event.target.getAttribute("data-product-id");
-        }
-      });
+          console.log("Nilai stok baru: ", newStock); // Debugging
+          console.log("Nilai Id: ", selectedProductId); // Debugging
 
-      document
-        .getElementById("saveStockButton")
-        .addEventListener("click", async () => {
-          const form = document.getElementById("updateStockForm");
-          const formData = new FormData(form);
-
-          const stok = formData.get("stok");
+          if (!selectedProductId || !newStock) {
+            alert("Please select a product and enter a new stock quantity.");
+            return;
+          }
 
           try {
             const response = await fetch(
-              `http://localhost:8000/api/stockproduk/${selectedProductId}`,
+              "http://localhost:3000/web/updateStok",
               {
                 method: "PUT",
                 headers: {
-                  Authorization: `Bearer ${token}`,
                   "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ stok }),
+                body: JSON.stringify({
+                  stok: newStock,
+                  id_produk: selectedProductId,
+                }),
               }
             );
 
-            if (response.ok) {
-              alert("Stok produk berhasil diperbarui.");
-              // Close the modal
-              const updateStockModal =
-                document.getElementById("updateStockModal");
-              const modalInstance =
-                bootstrap.Modal.getInstance(updateStockModal);
-              modalInstance.hide();
-              // Optionally, refresh the page or update the UI accordingly
-            } else {
-              const errorData = await response.json();
-              alert(`Error: ${errorData.message}`);
+            if (!response.ok) {
+              const error = await response.json();
+              throw new Error(error.message);
             }
+
+            const result = await response.json();
+            console.log("Stock updated:", result);
+            alert("Stock updated successfully");
+
+            // Tutup modal
+            const modalInstance = bootstrap.Modal.getInstance(updateStockModal);
+            modalInstance.hide();
+
+            // Refresh data produk
+            loadProduk(); // Pastikan loadProduk adalah fungsi yang memuat ulang daftar produk
           } catch (error) {
-            console.error("Error:", error);
-            alert("An error occurred. Please try again.");
+            console.error("Error updating stock:", error);
+            alert("Failed to update stock");
           }
         });
+      });
     </script>
   </body>
 </html>
