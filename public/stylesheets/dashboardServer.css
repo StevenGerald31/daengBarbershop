@@ -204,10 +204,11 @@ a.sidebar-link:hover {
 
 .daftar-pembelian {
   background-color: #88888a;
-  height: 100vh;
+  height: auto;
   border: 1px solid #000; /* Mengatur border */
   border-radius: 20px; /* Mengatur border radius */
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Mengatur shadow */
+  padding: 10px;
 }
 
 .total-pembelian {
