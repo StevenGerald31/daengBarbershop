@@ -426,7 +426,7 @@ const tambah_jenis_produk = async (req, res) => {
 
 const update_stok = async (req, res) => {
   const token = req.session.dataUser?.token;
-  const { stok, id_produk } = req.body;
+  const { stok, id_stockproduk } = req.body;
 
   if (!token) {
     return res
@@ -436,7 +436,7 @@ const update_stok = async (req, res) => {
 
   try {
     const response = await axios.put(
-      `http://127.0.0.1:8000/api/stockproduk/${id_produk}`,
+      `http://127.0.0.1:8000/api/stockproduk/${id_stockproduk}`,
       {
         stok,
       },
@@ -471,7 +471,7 @@ const resetPassword = async (req, res) => {
     const response = await axios.post(
       `http://127.0.0.1:8000/api/changePassword/${id_user}`,
       {
-        newPassword,
+        new_password: newPassword,
       },
       {
         headers: {
