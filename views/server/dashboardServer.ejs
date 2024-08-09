@@ -619,6 +619,68 @@
             </div>
             <!-- Daftar Pesanan End -->
           </div>
+
+          <!-- modal metode pembayaran -->
+          <div
+            class="modal fade"
+            id="metodePembayaran"
+            tabindex="-1"
+            aria-labelledby="metodePembayaranLabel"
+            aria-hidden="true"
+          >
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="metodePembayaranLabel">
+                    Metode Pembayaran
+                  </h1>
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
+                </div>
+                <div class="modal-body">
+                  <form id="metodePembayaranForm">
+                    <div class="mb-3">
+                      <label for="metode_pembayaran" class="form-label"
+                        >Metode Pembayaran</label
+                      >
+                      <select
+                        class="form-control"
+                        id="metode_pembayaran"
+                        name="metode_pembayaran"
+                        required
+                      >
+                        <option value="">Pilih Metode Pembayaran</option>
+                        <option value="Qris">Qris</option>
+                        <option value="Cash">Cash</option>
+                        <option value="Transfer">Transfer</option>
+                        <option value="Point">Point</option>
+                      </select>
+                    </div>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-bs-dismiss="modal"
+                  >
+                    Close
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-success"
+                    id="finishTransaction"
+                  >
+                    Transaksi Selesai
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -1448,7 +1510,8 @@
           <h5 class="card-title">Rekap Total</h5>
           <p class="card-text">Total Item: <span id="total-items">0</span></p>
           <p class="card-text">Total Harga: <span id="total-price">Rp0</span></p>
-          <button type="button" class="btn btn-success d-flex align-items-center" id="checkout-btn">
+          <button type="button" class="btn btn-success d-flex align-items-center d-none" id="checkout-btn" data-bs-toggle="modal"
+                data-bs-target="#metodePembayaran" >
             <i class="bi bi-check-lg me-2"></i> Checkout
           </button>
         </div>
@@ -1552,6 +1615,15 @@
         document.getElementById(
           "total-price"
         ).textContent = `Rp${totalPrice.toLocaleString("id-ID")}`;
+
+        const checkoutBtn = document.getElementById("checkout-btn");
+
+        // Tampilkan tombol checkout jika ada item di keranjang, sembunyikan jika tidak ada
+        if (totalItems > 0) {
+          checkoutBtn.classList.remove("d-none");
+        } else {
+          checkoutBtn.classList.add("d-none");
+        }
       }
     </script>
   </body>
