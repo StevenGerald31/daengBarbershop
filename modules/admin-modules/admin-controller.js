@@ -1,33 +1,5 @@
 const getBaseUrl = require("../../utils/getBaseUrl");
-const { sequelize, Sequelize } = require("../../db");
-
-const pageDashboard = async (req, res) => {
-  try {
-    return res.render("admin/dashboardAdmin", {
-      baseUrl: getBaseUrl(req),
-    });
-  } catch (error) {
-    console.log(error);
-    return res.status(500).json({
-      statusCode: 500,
-      message: "Terjadi Kesalahan Sistem",
-    });
-  }
-};
-
-const pageAdmin = async (req, res) => {
-  try {
-    return res.render("admin", {
-      baseUrl: getBaseUrl(req),
-    });
-  } catch (error) {
-    console.log(error);
-    return res.status(500).json({
-      statusCode: 500,
-      message: "Terjadi Kesalahan Sistem",
-    });
-  }
-};
+const axios = require("axios");
 
 const pageCoba = async (req, res) => {
   try {
@@ -43,64 +15,75 @@ const pageCoba = async (req, res) => {
   }
 };
 
-const dataProduk = async (req, res) => {
+const data_pelanggan = async (req, res) => {
   try {
-    const data = await sequelize.query("SELECT * FROM produks", {
-      type: Sequelize.QueryTypes.SELECT,
-    });
-
-    res.json(data);
+    const response = await axios.get("http://127.0.0.1:8000/api/customers");
+    const pelanggan = response.data;
+    res.json(pelanggan);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "An error occurred while fetching data" });
   }
 };
 
-const dataUser = async (req, res) => {
+const data_server = async (req, res) => {
   try {
-    const data = await sequelize.query("SELECT * FROM users", {
-      type: Sequelize.QueryTypes.SELECT,
-    });
-
-    res.json(data);
+    const response = await axios.get("http://127.0.0.1:8000/api/servers");
+    const server = response.data;
+    res.json(server);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "An error occurred while fetching data" });
   }
 };
 
-const dataServer = async (req, res) => {
+const data_lokasi = async (req, res) => {
   try {
-    const data = await sequelize.query("SELECT * FROM lokasis", {
-      type: Sequelize.QueryTypes.SELECT,
-    });
-
-    res.json(data);
+    const response = await axios.get("http://127.0.0.1:8000/api/lokasis");
+    const lokasi = response.data;
+    res.json(lokasi);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "An error occurred while fetching data" });
   }
 };
 
-const dataVoucher = async (req, res) => {
+const tambah_server = async (req, res) => {
+  const {
+    name,
+    password,
+    no_telp,
+    tanggal_lahir,
+    jenis_kelamin,
+    alamat,
+    email,
+    id_lokasi,
+  } = req.body;
   try {
-    const data = await sequelize.query("SELECT * FROM vouchers", {
-      type: Sequelize.QueryTypes.SELECT,
+    const response = await axios.post("http://127.0.0.1:8000/api/addServer", {
+      name,
+      password,
+      no_telp,
+      tanggal_lahir,
+      jenis_kelamin,
+      alamat,
+      email,
+      id_lokasi,
     });
 
-    res.json(data);
+    res.status(response.status).json(response.data);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "An error occurred while fetching data" });
+    res
+      .status(500)
+      .json({ message: "An error occurred", error: error.message });
   }
 };
 
 module.exports = {
-  pageDashboard,
-  pageAdmin,
-  dataProduk,
-  dataUser,
-  dataServer,
-  dataVoucher,
   pageCoba,
+  data_pelanggan,
+  data_server,
+  data_lokasi,
+  tambah_server,
 };

@@ -33,6 +33,12 @@
       crossorigin="anonymous"
     ></script>
 
+    <!-- bootstrap icon -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+
     <link rel="stylesheet" href="/stylesheets/cobaAdmin.css" />
 
     <title id="pageTitle">Dashboard</title>
@@ -115,26 +121,6 @@
               </div>
             </li>
 
-            <!-- sidebar Data Voucher -->
-            <li
-              id="DataVoucher"
-              class="nav-item hover"
-              style="margin-bottom: 10px"
-            >
-              <div
-                class="a nav-link"
-                id="DataVoucher"
-                data-bs-toggle="tab"
-                data-bs-target="#DataVoucher-pane"
-                type="button"
-                role="tab"
-                aria-controls="DataVoucher-pane"
-                aria-selected="false"
-              >
-                <small style="margin-left: 5px">Data Voucher</small>
-              </div>
-            </li>
-
             <!-- sidebar Data Konten -->
             <li
               id="DataKonten"
@@ -194,7 +180,7 @@
                       </svg>
                     </div>
                     <div class="box-content">
-                      <span class="big text-center" id="jlhCustomer"> </span>
+                      <span class="big text-center" id="jlhPelanggan"> </span>
                       Pelanggan
                     </div>
                   </div>
@@ -216,7 +202,7 @@
                       Server
                     </div>
                   </div>
-                  <div class="info-box">
+                  <!-- <div class="info-box">
                     <div class="box-icon">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -233,7 +219,7 @@
                       <span class="big text-center" id="jlhVoucher"> </span>
                       Voucher
                     </div>
-                  </div>
+                  </div> -->
                   <div class="info-box">
                     <div class="box-icon">
                       <svg
@@ -292,18 +278,26 @@
             </div>
           </div>
           <div class="row dataPelanggan">
-            <div class="col-10">
-              <table class="table table-bordered">
+            <div class="row pt-3">
+              <div class="d-flex justify-content-center">
+                <h1 class="fw-bold">Data Pelanggan</h1>
+              </div>
+            </div>
+            <div class="row m-3 table-pelanggan">
+              <table class="table">
                 <thead>
                   <tr>
-                    <th scope="col">id</th>
                     <th scope="col">Nama</th>
+                    <th scope="col">No Telp</th>
+                    <th scope="col">Jenis Kelamin</th>
                     <th scope="col">Alamat</th>
-                    <th scope="col">No. Telp.</th>
+                    <th scope="col">Point</th>
                     <th scope="col">Action</th>
                   </tr>
                 </thead>
-                <tbody></tbody>
+                <tbody>
+                  <!-- Rows of data will go here -->
+                </tbody>
               </table>
             </div>
           </div>
@@ -311,15 +305,15 @@
       </div>
       <!-- Penjelajahan Selesai-->
 
-      <!-- Data Server Mulai -->
+      <!-- Pelanggan mulai -->
       <div
         class="tab-pane fade"
         id="DataServer-pane"
         role="tabpanel"
-        aria-labelledby="dataServer"
+        aria-labelledby="DataServer"
         tabindex="0"
       >
-        <main class="server">
+        <main class="Hero">
           <div class="row judul">
             <h2 class="fw-bold pt-3">Data Server</h2>
           </div>
@@ -339,240 +333,379 @@
           </div>
           <div class="row buttonTambah mt-3">
             <div class="col-2">
-              <button class="btn btn-primary">Tambah Data</button>
+              <button
+                class="btn btn-primary"
+                data-bs-toggle="modal"
+                data-bs-target="#addServerModal"
+              >
+                Tambah Server
+              </button>
             </div>
           </div>
           <div class="row dataServer">
-            <div class="col-10">
-              <table class="table table-bordered">
+            <div class="row pt-3">
+              <div class="d-flex justify-content-center">
+                <h1 class="fw-bold">Data Server</h1>
+              </div>
+            </div>
+            <div class="row m-3 table-server">
+              <table class="table">
                 <thead>
                   <tr>
-                    <th scope="col">id</th>
                     <th scope="col">Nama</th>
+                    <th scope="col">No Telp</th>
+                    <th scope="col">Jenis Kelamin</th>
                     <th scope="col">Alamat</th>
-                    <th scope="col">No. Telp.</th>
                     <th scope="col">Action</th>
                   </tr>
                 </thead>
-                <tbody></tbody>
+                <tbody>
+                  <!-- Rows of data will go here -->
+                </tbody>
               </table>
             </div>
           </div>
-        </main>
-      </div>
-      <!-- Data Server Selesai -->
+          <!-- Modal -->
+          <div
+            class="modal fade"
+            id="addServerModal"
+            tabindex="-1"
+            aria-labelledby="addServerModalLabel"
+            aria-hidden="true"
+            data-bs-backdrop="false"
+          >
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="addServerModalLabel">
+                    Tambah Server
+                  </h5>
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
+                </div>
+                <div class="modal-body">
+                  <form action="" id="tambahServer">
+                    <div class="mb-3">
+                      <label for="name" class="form-label">Nama</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="name"
+                        name="name"
+                        required
+                      />
+                    </div>
+                    <!-- <div class="mb-3">
+                      <label for="password" class="form-label">Password</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="password"
+                        name="password"
+                        required
+                        minlength="8"
+                      />
+                    </div> -->
+                    <div class="mb-3">
+                      <label for="password" class="form-label">Password</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="password"
+                        name="password"
+                        required
+                        minlength="8"
+                        oninput="checkPassword()"
+                      />
+                      <div
+                        id="password-warning"
+                        style="color: red; display: none"
+                      >
+                        Password must be at least 8 characters long.
+                      </div>
+                    </div>
+                    <div class="mb-3">
+                      <label for="no_telp" class="form-label">Nomor HP</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="no_telp"
+                        name="no_telp"
+                        required
+                      />
+                    </div>
+                    <div class="mb-3">
+                      <label for="tanggal_lahir" class="form-label"
+                        >Tanggal Lahir</label
+                      >
+                      <input
+                        type="date"
+                        class="form-control"
+                        id="tanggal_lahir"
+                        name="tanggal_lahir"
+                        required
+                      />
+                    </div>
+                    <div class="mb-3">
+                      <label for="jenis_kelamin" class="form-label"
+                        >Jenis Kelamin</label
+                      >
+                      <select
+                        class="form-control"
+                        id="jenis_kelamin"
+                        name="jenis_kelamin"
+                        required
+                      >
+                        <option value="">Pilih Jenis Kelamin</option>
+                        <option value="laki-laki">Laki-laki</option>
+                        <option value="perempuan">Perempuan</option>
+                      </select>
+                    </div>
+                    <div class="mb-3">
+                      <label for="alamat" class="form-label">Alamat</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="alamat"
+                        name="alamat"
+                        required
+                      />
+                    </div>
+                    <div class="mb-3">
+                      <label for="email" class="form-label">Email</label>
+                      <input
+                        type="email"
+                        class="form-control"
+                        id="email"
+                        name="email"
+                        required
+                      />
+                    </div>
 
-      <!-- Data Voucher Mulai -->
-      <div
-        class="tab-pane fade"
-        id="DataVoucher-pane"
-        role="tabpanel"
-        aria-labelledby="dataVoucher"
-        tabindex="0"
-      >
-        <main class="voucher">
-          <div class="row judul">
-            <h2 class="fw-bold pt-3">Data Voucher</h2>
-          </div>
-
-          <div class="row buttonTambah mt-3">
-            <div class="col-2">
-              <button class="btn btn-primary">Tambah Voucher</button>
+                    <div class="mb-3">
+                      <label for="id_lokasi" class="form-label"
+                        >Pilih Lokasi</label
+                      >
+                      <select
+                        class="form-control"
+                        id="id_lokasi"
+                        name="id_lokasi"
+                        required
+                      >
+                        <option value="">Pilih lokasi</option>
+                      </select>
+                    </div>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-bs-dismiss="modal"
+                  >
+                    Close
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-primary"
+                    id="saveNewServer"
+                  >
+                    Save changes
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
-
-          <div class="row voucherHasil mt-5">
-            <div class="judulVoucher">
-              <h4 class="fw-bold">Voucher Tersedia</h4>
-            </div>
-            <div class="cards-container"></div>
-          </div>
         </main>
       </div>
+      <!-- Penjelajahan Selesai-->
+
       <!-- Pencarian Selesai -->
     </div>
 
     <script>
-      // Mengambil semua elemen menu
-      var menuItems = document.querySelectorAll(".nav-item");
-
-      // Ambil semua elemen <a> pada sidebar
-      const sidebarLinks = document.querySelectorAll(".side-menu li");
-
-      // Tambahkan event listener untuk setiap elemen <a>
-      sidebarLinks.forEach((link) => {
-        link.addEventListener("click", function () {
-          // Menghapus kelas 'active' dari semua elemen sidebar
-          sidebarLinks.forEach((link) => link.classList.remove("active"));
-
-          // Menambahkan kelas 'active' ke elemen yang diklik
-          this.classList.add("active");
-        });
-      });
-
-      // Menambahkan event listener untuk setiap elemen menu
-      menuItems.forEach(function (item) {
-        item.addEventListener("click", function () {
-          // Menghapus kelas "active" dari semua elemen menu
-          menuItems.forEach(function (menuItem) {
-            menuItem.classList.remove("active");
-          });
-
-          // Menambahkan kelas "active" ke elemen menu yang diklik
-          item.classList.add("active");
-        });
-      });
-
-      // Mengambil data jlh customer
-      fetch("http://127.0.0.1:8000/api/customers", {
+      // jlh pelanggan
+      fetch("http://localhost:3000/admin/pelanggan", {
         method: "GET",
       })
         .then((response) => response.json())
         .then((data) => {
-          jumlah_customer = data.length;
-          $("#jlhCustomer").html(data.length);
-        })
-        .catch((error) => console.error("Error:", error));
+          console.log("Jlh Pelanggan: ", data.length);
 
-      // ambil data jlh server
-      fetch("http://127.0.0.1:8000/api/servers", {
+          $("#jlhPelanggan").html(data.length);
+        });
+
+      // jlh server
+      fetch("http://localhost:3000/admin/server", {
         method: "GET",
       })
         .then((response) => response.json())
         .then((data) => {
-          // kirim jlh server
+          console.log("Jlh Server: ", data.length);
+
           $("#jlhServer").html(data.length);
-        })
-        .catch((error) => console.error("Error:", error));
+        });
 
-      // ambil data jlh cabang
-      fetch("http://127.0.0.1:8000/api/lokasis", {
+      // jlh cabang
+      fetch("http://localhost:3000/admin/lokasi", {
         method: "GET",
       })
         .then((response) => response.json())
         .then((data) => {
-          // kirim jlh server
+          console.log("Jlh Cabang: ", data);
+
           $("#jlhCabang").html(data.length);
-        })
-        .catch((error) => console.error("Error:", error));
+        });
 
-      // ambil data vouchers
-      fetch("http://localhost:3000/admin/dataVoucher", {
+      // Data Pelanggan
+      fetch("http://localhost:3000/admin/pelanggan", {
         method: "GET",
       })
         .then((response) => response.json())
         .then((data) => {
-          // kirim jlh cabang
-          $("#jlhVoucher").html(data.length);
-        })
-        .catch((error) => console.error("Error:", error));
+          console.log("Data Pelanggan: ", data);
 
-      // ambil data untuk page Data Pelanggan
-      fetch("http://127.0.0.1:8000/api/customers", {
-        method: "GET",
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          // Dapatkan elemen tbody
-          const tbody = document.querySelector(
-            ".row.dataPelanggan .table tbody"
-          );
+          const tableBody = document.querySelector(".table-pelanggan tbody");
+          tableBody.innerHTML = ""; // clear existing rows
 
-          // Buat dan tambahkan baris
-          data.forEach((user) => {
-            const row = document.createElement("tr");
-            ["id_user", "name", "alamat", "no_telp"].forEach((key) => {
-              const td = document.createElement("td");
-              td.textContent = user[key];
-              row.appendChild(td);
-            });
-            tbody.appendChild(row);
-          });
-        })
-        .catch((error) => console.error("Error:", error));
+          data.forEach((item) => {
+            point = item.point;
+            if (point == null) {
+              point = 0;
+            }
 
-      // ambil data untuk page Data Pelanggan
-      fetch("http://localhost:3000/admin/dataUser", {
-        method: "GET",
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          // filter data untuk id_role = 3
-          const filteredData = data.filter((user) => user.id_role === 2);
+            const row = `
+              <tr>
+                <td>${item.name}</td>
+                <td>${item.no_telp}</td>
+                <td>${item.jenis_kelamin}</td>
+                <td>${item.alamat}</td>
+                <td>${point}</td>
+                <td>
+                 <button type="button" class="btn btn-success m-1" data-bs-toggle="modal" data-bs-target="#resetPassword" id-user="${item.id_user}"">
+                        <i class="bi bi bi-pencil"></i>
+                      </button>
+                  
+                </td>
+              </tr>
+            `;
 
-          // Dapatkan elemen tbody
-          const tbody = document.querySelector(".row.dataServer .table tbody");
-
-          // Buat dan tambahkan baris
-          filteredData.forEach((user) => {
-            const row = document.createElement("tr");
-            ["id_user", "name", "alamat", "no_telp"].forEach((key) => {
-              const td = document.createElement("td");
-              td.textContent = user[key];
-              row.appendChild(td);
-            });
-            tbody.appendChild(row);
-          });
-        })
-        .catch((error) => console.error("Error:", error));
-
-      // ambil data vouchers
-      fetch("http://localhost:3000/admin/dataVoucher", {
-        method: "GET",
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          // Dapatkan elemen container
-          const container = document.querySelector(".cards-container");
-
-          // Buat dan tambahkan card untuk setiap item data
-          data.forEach((voucher) => {
-            // Buat elemen card
-            const card = document.createElement("div");
-            card.className = "cardVoucher col-10 ms-5 mt-3 mb-2";
-
-            // Buat elemen row
-            const row = document.createElement("div");
-            row.className = "row";
-
-            // Buat elemen untuk teks
-            const textCol = document.createElement("div");
-            textCol.className = "col-10";
-
-            const h2 = document.createElement("h2");
-            h2.className = "fw-bold";
-            h2.textContent = voucher.kode_voucher;
-
-            const h4 = document.createElement("h4");
-            h4.className = "fw-bold";
-            h4.textContent = "Disc " + `Rp${voucher.diskon}`;
-
-            const p = document.createElement("p");
-            p.textContent = voucher.description;
-
-            textCol.appendChild(h2);
-            textCol.appendChild(h4);
-            textCol.appendChild(p);
-
-            // Buat elemen untuk tombol
-            const buttonCol = document.createElement("div");
-            buttonCol.className = "col-2 d-flex align-items-center";
-
-            const button = document.createElement("button");
-            button.className = "btn btn-danger";
-            button.textContent = "Hapus Voucher";
-
-            buttonCol.appendChild(button);
-
-            // Tambahkan semua elemen ke row dan card
-            row.appendChild(textCol);
-            row.appendChild(buttonCol);
-            card.appendChild(row);
-
-            // Tambahkan card ke container
-            container.appendChild(card);
+            tableBody.innerHTML += row;
           });
         });
+
+      // Data Server
+
+      function loadServer() {
+        fetch("http://localhost:3000/admin/server", {
+          method: "GET",
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log("Data server: ", data);
+
+            const tableBody = document.querySelector(".table-server tbody");
+            tableBody.innerHTML = ""; // clear existing rows
+
+            data.forEach((item) => {
+              const row = `
+              <tr>
+                <td>${item.name}</td>
+                <td>${item.no_telp}</td>
+                <td>${item.jenis_kelamin}</td>
+                <td>${item.alamat}</td>
+                <td>
+                 <button type="button" class="btn btn-success m-1" data-bs-toggle="modal" data-bs-target="#resetPassword" id-user="${item.id_user}"">
+                        <i class="bi bi bi-pencil"></i>
+                      </button>
+                  
+                </td>
+              </tr>
+            `;
+
+              tableBody.innerHTML += row;
+            });
+          });
+      }
+
+      loadServer();
+
+      // pilihan lokasi:
+      fetch("http://localhost:3000/admin/lokasi", {
+        method: "GET",
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log("lokasi: ", data);
+
+          // Get the select element
+          const lokasiSelect = document.getElementById("id_lokasi");
+
+          data.forEach((lokasi) => {
+            const option = document.createElement("option");
+            option.value = lokasi.id_lokasi;
+            option.textContent = lokasi.nama;
+            lokasiSelect.appendChild(option);
+          });
+        })
+        .catch((error) => {
+          console.error("Error fetching lokasi data:", error);
+        });
+
+      // script tambah server
+      document.getElementById("saveNewServer").addEventListener("click", () => {
+        const form = document.getElementById("tambahServer");
+        const formData = new FormData(form);
+        const data = Object.fromEntries(formData.entries());
+
+        fetch("http://localhost:3000/admin/tambahServer", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        })
+          .then((response) => {
+            if (!response.ok) {
+              return response.json().then((error) => {
+                throw error;
+              });
+            }
+            return response.json();
+          })
+          .then((result) => {
+            console.log("Success:", result);
+            // Handle the successful response here
+            alert("Data berhasil ditambahkan");
+
+            // Menutup modal setelah sukses
+            const modalElement = document.getElementById("addServerModal");
+            const modalInstance = bootstrap.Modal.getInstance(modalElement);
+            modalInstance.hide();
+
+            // Initial load
+            loadServer();
+          })
+          .catch((error) => {
+            console.error("Error adding new server:", error);
+            alert("Error adding new server");
+          });
+      });
+
+      function checkPassword() {
+        const passwordInput = document.getElementById("password");
+        const warningMessage = document.getElementById("password-warning");
+
+        if (passwordInput.value.length < 8) {
+          warningMessage.style.display = "block";
+        } else {
+          warningMessage.style.display = "none";
+        }
+      }
     </script>
   </body>
 </html>
