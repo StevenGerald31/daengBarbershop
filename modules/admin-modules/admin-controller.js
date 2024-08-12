@@ -80,10 +80,43 @@ const tambah_server = async (req, res) => {
   }
 };
 
+const resetPassword = async (req, res) => {
+  const token = req.session.dataUser.token;
+  const { newPassword, id_user } = req.body;
+
+  // Pastikan token tersedia
+  if (!token) {
+    return res.status(401).json({ error: "Authentication token not provided" });
+  }
+
+  try {
+    const response = await axios.post(
+      `http://127.0.0.1:8000/api/changePassword/${id_user}`,
+      {
+        new_password: newPassword,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    res.status(response.status).json(response.data);
+  } catch (error) {
+    console.error(error);
+    res
+      .status(500)
+      .json({ message: "An error occurred", error: error.message });
+  }
+};
+
 module.exports = {
   pageCoba,
   data_pelanggan,
   data_server,
   data_lokasi,
   tambah_server,
+  resetPassword,
 };

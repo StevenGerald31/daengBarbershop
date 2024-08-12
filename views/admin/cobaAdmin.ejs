@@ -305,7 +305,7 @@
       </div>
       <!-- Penjelajahan Selesai-->
 
-      <!-- Pelanggan mulai -->
+      <!-- Server mulai -->
       <div
         class="tab-pane fade"
         id="DataServer-pane"
@@ -365,7 +365,66 @@
               </table>
             </div>
           </div>
-          <!-- Modal -->
+
+          <!-- modal ganti password  -->
+          <div
+            class="modal fade"
+            id="resetPassword"
+            tabindex="-1"
+            aria-labelledby="resetPasswordLabel"
+            aria-hidden="true"
+          >
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="resetPasswordLabel">
+                    Reset Password
+                  </h1>
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
+                </div>
+                <div class="modal-body">
+                  <form id="resetPasswordForm">
+                    <div class="mb-3">
+                      <label for="password" class="form-label"
+                        >Password Baru</label
+                      >
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="password"
+                        name="password"
+                        required
+                      />
+                    </div>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-bs-dismiss="modal"
+                  >
+                    Close
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-primary"
+                    id="saveNewPassButton"
+                  >
+                    Save changes
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Reset password Selesai -->
+
+          <!-- Modal Tambah Server-->
           <div
             class="modal fade"
             id="addServerModal"
@@ -522,7 +581,7 @@
           </div>
         </main>
       </div>
-      <!-- Penjelajahan Selesai-->
+      <!-- Tambah Server Selesai-->
 
       <!-- Pencarian Selesai -->
     </div>
@@ -619,7 +678,7 @@
                 <td>${item.jenis_kelamin}</td>
                 <td>${item.alamat}</td>
                 <td>
-                 <button type="button" class="btn btn-success m-1" data-bs-toggle="modal" data-bs-target="#resetPassword" id-user="${item.id_user}"">
+                 <button type="button" class="btn btn-success m-1" data-bs-toggle="modal" data-bs-target="#resetPassword" data-id-user="${item.id_user}"">
                         <i class="bi bi bi-pencil"></i>
                       </button>
                   
@@ -706,6 +765,74 @@
           warningMessage.style.display = "none";
         }
       }
+
+      // script reset password
+      // Ambil elemen modal dan form
+      const resetPasswordModal = document.getElementById("resetPassword");
+      const resetPasswordForm = document.getElementById("resetPasswordForm");
+      const saveNewPassButton = document.getElementById("saveNewPassButton");
+
+      // Variabel untuk menyimpan ID pengguna yang akan diupdate
+      // let selectedUserId = null;
+
+      // // Event listener untuk tombol reset password
+      // document.querySelectorAll("#userlist").forEach((button) => {
+      //   button.addEventListener("click", (event) => {
+      //     selectedUserId = event.target
+      //       .closest("button")
+      //       .getAttribute("id-user");
+      //     console.log("ID Pengguna yang dipilih: ", selectedUserId); // Debugging
+      //   });
+      // });
+
+      // Event listener untuk tombol simpan password baru
+      saveNewPassButton.addEventListener("click", async () => {
+        const passwordInput = document.getElementById("password");
+        const newPassword = passwordInput.value;
+
+        console.log("Password baru: ", newPassword); // Debugging
+        console.log("ID Pengguna: ", selectedUserId); // Debugging
+
+        if (!selectedUserId || !newPassword) {
+          alert("Please select a user and enter a new password.");
+          return;
+        }
+
+        try {
+          const response = await fetch(
+            "http://localhost:3000/admin/resetPassword",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                newPassword,
+                id_user: selectedUserId,
+              }),
+            }
+          );
+
+          if (!response.ok) {
+            const error = await response.json();
+            throw new Error(error.message);
+          }
+
+          const result = await response.json();
+          console.log("Password updated:", result);
+          alert("Password updated successfully");
+
+          // Tutup modal
+          const modalInstance = bootstrap.Modal.getInstance(resetPasswordModal);
+          modalInstance.hide();
+
+          // Opsional: Refresh data pengguna jika perlu
+          // loadUsers(); // Pastikan loadUsers adalah fungsi yang memuat ulang daftar pengguna
+        } catch (error) {
+          console.error("Error updating password:", error);
+          alert("Failed to update password");
+        }
+      });
     </script>
   </body>
 </html>
