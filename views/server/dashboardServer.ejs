@@ -654,11 +654,21 @@
                         required
                       >
                         <option value="">Pilih Metode Pembayaran</option>
-                        <option value="Qris">Qris</option>
+                        <option value="Qrish">Qris</option>
                         <option value="Cash">Cash</option>
                         <option value="Transfer">Transfer</option>
                         <option value="Point">Point</option>
                       </select>
+                    </div>
+                    <div class="mb-3">
+                      <label for="no_telp" class="form-label">Nomor HP</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="no_telp"
+                        name="no_telp"
+                        required
+                      />
                     </div>
                   </form>
                 </div>
@@ -1448,24 +1458,27 @@
 
       // script untuk pembelian
 
-      // daftar stok produk untuk pembelian
-      fetch("http://localhost:3000/web/allDataProduk", {
-        method: "GET",
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          console.log("produk: ", data);
+      function produkPembelian() {
+        // daftar stok produk untuk pembelian
+        fetch("http://localhost:3000/web/allDataProduk", {
+          method: "GET",
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log("produk: ", data);
 
-          const daftarProduk = document.querySelector(".card-produk-pembelian");
-          daftarProduk.innerHTML = ""; // clear existing cards
+            const daftarProduk = document.querySelector(
+              ".card-produk-pembelian"
+            );
+            daftarProduk.innerHTML = ""; // clear existing cards
 
-          // buat card untuk produk snack
-          data.forEach((item) => {
-            const harga = item.harga;
-            const formattedHarga = `Rp${harga.toLocaleString("id-ID")}`;
-            const card = document.createElement("div");
-            card.className = "card col-3 m-2";
-            card.innerHTML = `
+            // buat card untuk produk snack
+            data.forEach((item) => {
+              const harga = item.harga;
+              const formattedHarga = `Rp${harga.toLocaleString("id-ID")}`;
+              const card = document.createElement("div");
+              card.className = "card col-3 m-2";
+              card.innerHTML = `
               <div class="card-img d-flex justify-content-center align-items-center m-1">
                 <img
                   src="/image/minyak-rambut.png"
@@ -1485,21 +1498,24 @@
               </div>
             `;
 
-            daftarProduk.append(card);
-          });
+              daftarProduk.append(card);
+            });
 
-          // Event listener untuk tombol tambah ke keranjang
-          document.querySelectorAll(".add-to-cart").forEach((button) => {
-            button.addEventListener("click", (event) => {
-              const button = event.currentTarget;
-              const id = button.getAttribute("data-id");
-              const nama = button.getAttribute("data-nama");
-              const harga = button.getAttribute("data-harga");
+            // Event listener untuk tombol tambah ke keranjang
+            document.querySelectorAll(".add-to-cart").forEach((button) => {
+              button.addEventListener("click", (event) => {
+                const button = event.currentTarget;
+                const id = button.getAttribute("data-id");
+                const nama = button.getAttribute("data-nama");
+                const harga = button.getAttribute("data-harga");
 
-              addToCart(id, nama, harga);
+                addToCart(id, nama, harga);
+              });
             });
           });
-        });
+      }
+
+      produkPembelian();
 
       // Tambahkan card rekap di bawah semua item
       const container = document.querySelector(".container-item-pembelian");
@@ -1625,6 +1641,142 @@
           checkoutBtn.classList.add("d-none");
         }
       }
+
+      document
+        .getElementById("finishTransaction")
+        .addEventListener("click", () => {
+          const metode_pembayaran =
+            document.getElementById("metode_pembayaran").value;
+          const no_telp = document.getElementById("no_telp").value;
+
+          if (!metode_pembayaran || !no_telp) {
+            alert("Silakan isi semua field sebelum melanjutkan.");
+            return;
+          }
+
+          const items = [];
+          document.querySelectorAll(".item").forEach((item) => {
+            const id_produk = item.getAttribute("data-id");
+            const kuantitas = item.querySelector(".quantity").textContent;
+
+            items.push({
+              id_produk: parseInt(id_produk),
+              kuantitas: parseInt(kuantitas),
+            });
+          });
+
+          // const checkoutData = {
+          //   metode_pembayaran: metode_pembayaran,
+          //   no_telp: no_telp, // Now using the phone number instead of user ID
+          //   items: items,
+          // };
+
+          // fetch("http://localhost:3000/web/checkout", {
+          //   method: "POST",
+          //   headers: {
+          //     "Content-Type": "application/json",
+          //   },
+          //   body: JSON.stringify(checkoutData),
+          // })
+          //   .then((response) => response.json())
+          //   .then((data) => {
+          //     console.log("Transaksi berhasil:", data);
+
+          //     // Handle the successful response here
+          //     alert("Transaksi Berhasil");
+
+          //     // Menutup modal setelah sukses
+          //     const modalElement = document.getElementById("metodePembayaran");
+          //     const modalInstance = bootstrap.Modal.getInstance(modalElement);
+          //     modalInstance.hide();
+
+          //     // Initial load
+          //     produkPembelian();
+
+          //     // Clear only the items in the "item pembelian" container
+          //     document
+          //       .querySelectorAll(".item")
+          //       .forEach((item) => item.remove());
+
+          //     // Optionally, reset the total items and total price display
+          //     document.getElementById("total-items").textContent = "0";
+          //     document.getElementById("total-price").textContent = "Rp0";
+
+          //     // Hide the checkout button
+          //     document.getElementById("checkout-btn").classList.add("d-none");
+
+          //     // Hide the checkout button
+          //     document.getElementById("checkout-btn").classList.add("d-none");
+          //   })
+          //   .catch((error) => {
+          //     console.error(error);
+          //   });
+
+          const checkoutData = {
+            metode_pembayaran: metode_pembayaran,
+            no_telp: no_telp, // Now using the phone number instead of user ID
+            items: items,
+          };
+
+          fetch("http://localhost:3000/web/checkout", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(checkoutData),
+          })
+            .then((response) => {
+              // Cek jika statusnya 400 (bad request)
+              if (response.status === 400) {
+                return response.json().then((data) => {
+                  // Cek jika errornya karena poin tidak cukup
+                  if (data.error === "Point tidak cukup") {
+                    throw new Error(
+                      "Poin yang Anda miliki tidak cukup untuk melakukan pembayaran"
+                    );
+                  }
+                  // Lemparkan error lain jika ada
+                  throw new Error(
+                    data.error || "Terjadi kesalahan saat melakukan transaksi"
+                  );
+                });
+              }
+
+              // Jika respons sukses, return JSON-nya
+              return response.json();
+            })
+            .then((data) => {
+              console.log("Transaksi berhasil:", data);
+
+              // Tampilkan alert transaksi berhasil
+              alert("Transaksi Berhasil");
+
+              // Menutup modal setelah sukses
+              const modalElement = document.getElementById("metodePembayaran");
+              const modalInstance = bootstrap.Modal.getInstance(modalElement);
+              modalInstance.hide();
+
+              // Initial load
+              produkPembelian();
+
+              // Hapus hanya item di container "item pembelian"
+              document
+                .querySelectorAll(".item")
+                .forEach((item) => item.remove());
+
+              // Reset tampilan total items dan total price
+              document.getElementById("total-items").textContent = "0";
+              document.getElementById("total-price").textContent = "Rp0";
+
+              // Sembunyikan tombol checkout
+              document.getElementById("checkout-btn").classList.add("d-none");
+            })
+            .catch((error) => {
+              // Menampilkan alert dengan pesan error yang sesuai
+              alert(error.message);
+              console.error("Terjadi kesalahan:", error);
+            });
+        });
     </script>
   </body>
 </html>

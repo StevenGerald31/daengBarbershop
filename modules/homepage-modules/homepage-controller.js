@@ -490,6 +490,56 @@ const resetPassword = async (req, res) => {
   }
 };
 
+const checkout = async (req, res) => {
+  const token = req.session.dataUser.token;
+  const { metode_pembayaran, no_telp, items } = req.body;
+
+  // Pastikan token tersedia
+  if (!token) {
+    return res.status(401).json({ error: "Authentication token not provided" });
+  }
+
+  try {
+    const response = await axios.post(
+      `http://127.0.0.1:8000/api/transaction`,
+      {
+        metode_pembayaran: metode_pembayaran,
+        no_telp: no_telp,
+        items: items,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    // Cek jika responsenya adalah 400 dan errornya karena point tidak cukup
+    if (
+      response.status === 400 &&
+      response.data.error === "Pengguna tidak memiliki cukup point"
+    ) {
+      return res.status(400).json({ error: "Point tidak cukup" });
+    }
+
+    // Jika transaksi berhasil, teruskan data ke frontend
+    res.status(response.status).json(response.data);
+  } catch (error) {
+    console.error(error);
+
+    // Jika error dari server Laravel
+    if (error.response && error.response.status === 400) {
+      return res.status(400).json({ error: error.response.data.error });
+    }
+
+    // Jika terjadi error lain
+    res
+      .status(500)
+      .json({ message: "An error occurred", error: error.message });
+  }
+};
+
 const data_reserved = async (req, res) => {
   try {
     // Ambil token dari session
@@ -540,4 +590,5 @@ module.exports = {
   tambah_jenis_produk,
   update_stok,
   resetPassword,
+  checkout,
 };

@@ -11,6 +11,7 @@ router.get("/allData/:lokasi", homepageController.view_all_data_booking);
 router.get("/allDataProduk", homepageController.view_all_data_produk);
 router.post("/newJenisProduk", homepageController.tambah_jenis_produk);
 router.put("/updateStok", homepageController.update_stok);
+router.post("/checkout", homepageController.checkout);
 router.get("/pelanggan/:lokasi", homepageController.data_pelanggan);
 router.post("/resetPassword", homepageController.resetPassword);
 router.put("/booking/confirm/:bookingId", homepageController.confirmBooking);
