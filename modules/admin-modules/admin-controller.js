@@ -26,6 +26,17 @@ const data_pelanggan = async (req, res) => {
   }
 };
 
+const data_konten = async (req, res) => {
+  try {
+    const response = await axios.get("http://127.0.0.1:8000/api/contents");
+    const content = response.data;
+    res.json(content);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "An error occurred while fetching data" });
+  }
+};
+
 const data_server = async (req, res) => {
   try {
     const response = await axios.get("http://127.0.0.1:8000/api/servers");
@@ -112,6 +123,26 @@ const resetPassword = async (req, res) => {
   }
 };
 
+const tambah_konten = async (req, res) => {
+  const { title, description, image_path, expiry_date } = req.body;
+
+  try {
+    const response = await axios.post("http://127.0.0.1:8000/api/contents", {
+      title,
+      description,
+      image_path,
+      expiry_date,
+    });
+
+    res.status(response.status).json(response.data);
+  } catch (error) {
+    console.error(error);
+    res
+      .status(500)
+      .json({ message: "An error occurred", error: error.message });
+  }
+};
+
 module.exports = {
   pageCoba,
   data_pelanggan,
@@ -119,4 +150,6 @@ module.exports = {
   data_lokasi,
   tambah_server,
   resetPassword,
+  data_konten,
+  tambah_konten,
 };

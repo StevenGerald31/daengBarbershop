@@ -373,6 +373,7 @@
             tabindex="-1"
             aria-labelledby="resetPasswordLabel"
             aria-hidden="true"
+            data-bs-backdrop="false"
           >
             <div class="modal-dialog">
               <div class="modal-content">
@@ -399,7 +400,15 @@
                         id="password"
                         name="password"
                         required
+                        minlength="8"
+                        oninput="checkPassword()"
                       />
+                      <div
+                        class="password-warning"
+                        style="color: red; display: none"
+                      >
+                        Password must be at least 8 characters long.
+                      </div>
                     </div>
                   </form>
                 </div>
@@ -481,7 +490,7 @@
                         oninput="checkPassword()"
                       />
                       <div
-                        id="password-warning"
+                        class="password-warning"
                         style="color: red; display: none"
                       >
                         Password must be at least 8 characters long.
@@ -583,7 +592,147 @@
       </div>
       <!-- Tambah Server Selesai-->
 
-      <!-- Pencarian Selesai -->
+      <!-- konten start -->
+      <div
+        class="tab-pane fade"
+        id="DataKonten-pane"
+        role="tabpanel"
+        aria-labelledby="DataKonten"
+        tabindex="=0"
+      >
+        <main class="Hero">
+          <div class="row judul">
+            <h2 class="fw-bold pt-3">Data Konten</h2>
+          </div>
+          <div
+            class="col-12 buttonAction d-flex justify-content-start align-items-center mt-3 mb-3"
+          >
+            <div class="buttonTambahKonten me-2">
+              <button
+                class="btn btn-success"
+                data-bs-toggle="modal"
+                data-bs-target="#addKontenModal"
+              >
+                <i class="bi bi-plus me-2"></i>
+                Tambah Konten
+              </button>
+            </div>
+            <div class="buttonHapusKontenExp">
+              <button
+                class="btn btn-danger"
+                data-bs-toggle="modal"
+                data-bs-target="#hapusKontenExpModal"
+              >
+                <i class="bi bi-trash me-2"></i>
+                Hapus Konten Expired
+              </button>
+            </div>
+          </div>
+
+          <div
+            class="card-konten-container d-flex flex-wrap justify-content-around"
+            style="
+              display: flex;
+              flex-wrap: wrap;
+              justify-content: space-around;
+            "
+          ></div>
+        </main>
+
+        <!-- mdoal tambah content -->
+        <div
+          class="modal fade"
+          id="addKontenModal"
+          tabindex="-1"
+          aria-labelledby="addKontenModalLabel"
+          aria-hidden="true"
+          data-bs-backdrop="false"
+        >
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="addKontenModalLabel">
+                  Tambah Konten
+                </h5>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div class="modal-body">
+                <form action="" id="tambahKonten">
+                  <div class="mb-3">
+                    <label for="title" class="form-label">Judul</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="title"
+                      name="title"
+                      required
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <label for="image_path" class="form-label"
+                      >Upload Gambar</label
+                    >
+                    <input
+                      type="file"
+                      class="form-control"
+                      id="image_path"
+                      name="image_path"
+                      accept="image/*"
+                      required
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <label for="description" class="form-label"
+                      >Deskripsi</label
+                    >
+                    <textarea
+                      class="form-control"
+                      id="description"
+                      name="description"
+                      rows="3"
+                      required
+                    ></textarea>
+                  </div>
+
+                  <div class="mb-3">
+                    <label for="expiry_date" class="form-label"
+                      >Tanggal Expired</label
+                    >
+                    <input
+                      type="date"
+                      class="form-control"
+                      id="expiry_date"
+                      name="expiry_date"
+                      required
+                    />
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                >
+                  Close
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                  id="saveNewKonten"
+                >
+                  Save changes
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <script>
@@ -645,7 +794,7 @@
                 <td>${item.alamat}</td>
                 <td>${point}</td>
                 <td>
-                 <button type="button" class="btn btn-success m-1" data-bs-toggle="modal" data-bs-target="#resetPassword" id-user="${item.id_user}"">
+                 <button type="button newPassword" class="btn btn-success m-1" data-bs-toggle="modal" data-bs-target="#resetPassword" id-user="${item.id_user}"">
                         <i class="bi bi bi-pencil"></i>
                       </button>
                   
@@ -679,7 +828,7 @@
                 <td>${item.alamat}</td>
                 <td>
                  <button type="button" class="btn btn-success m-1" data-bs-toggle="modal" data-bs-target="#resetPassword" data-id-user="${item.id_user}"">
-                        <i class="bi bi bi-pencil"></i>
+                        <i class="bi bi bi-pencil" ></i>
                       </button>
                   
                 </td>
@@ -757,7 +906,7 @@
 
       function checkPassword() {
         const passwordInput = document.getElementById("password");
-        const warningMessage = document.getElementById("password-warning");
+        const warningMessage = document.querySelector(".password-warning");
 
         if (passwordInput.value.length < 8) {
           warningMessage.style.display = "block";
@@ -766,72 +915,210 @@
         }
       }
 
-      // script reset password
-      // Ambil elemen modal dan form
-      const resetPasswordModal = document.getElementById("resetPassword");
-      const resetPasswordForm = document.getElementById("resetPasswordForm");
-      const saveNewPassButton = document.getElementById("saveNewPassButton");
+      // // script reset password
+      // // Ambil elemen modal dan form
+      // const resetPasswordModal = document.getElementById("resetPassword");
+      // const resetPasswordForm = document.getElementById("resetPasswordForm");
 
-      // Variabel untuk menyimpan ID pengguna yang akan diupdate
-      // let selectedUserId = null;
+      // const saveNewPassButton = document.getElementById("saveNewPassButton");
 
-      // // Event listener untuk tombol reset password
-      // document.querySelectorAll("#userlist").forEach((button) => {
-      //   button.addEventListener("click", (event) => {
-      //     selectedUserId = event.target
-      //       .closest("button")
-      //       .getAttribute("id-user");
-      //     console.log("ID Pengguna yang dipilih: ", selectedUserId); // Debugging
-      //   });
+      // // Event listener untuk tombol simpan password baru
+      // saveNewPassButton.addEventListener("click", async () => {
+      //   const passwordInput = document.getElementById("password");
+      //   const newPassword = passwordInput.value;
+      //   const selectedUserId = resetPasswordForm.getAttribute("data-id-user");
+
+      //   console.log("Password baru: ", newPassword); // Debugging
+      //   console.log("ID Pengguna: ", selectedUserId); // Debugging
+
+      //   if (!selectedUserId || !newPassword) {
+      //     alert("Please select a user and enter a new password.");
+      //     return;
+      //   }
+
+      //   try {
+      //     const response = await fetch(
+      //       "http://localhost:3000/admin/resetPassword",
+      //       {
+      //         method: "POST",
+      //         headers: {
+      //           "Content-Type": "application/json",
+      //         },
+      //         body: JSON.stringify({
+      //           newPassword,
+      //           id_user: selectedUserId,
+      //         }),
+      //       }
+      //     );
+
+      //     if (!response.ok) {
+      //       const error = await response.json();
+      //       throw new Error(error.message);
+      //     }
+
+      //     const result = await response.json();
+      //     console.log("Password updated:", result);
+      //     alert("Password updated successfully");
+
+      //     // Tutup modal
+      //     const modalInstance = bootstrap.Modal.getInstance(resetPasswordModal);
+      //     modalInstance.hide();
+
+      //     // Opsional: Refresh data pengguna jika perlu
+      //     // loadUsers(); // Pastikan loadUsers adalah fungsi yang memuat ulang daftar pengguna
+      //   } catch (error) {
+      //     console.error("Error updating password:", error);
+      //     alert("Failed to update password");
+      //   }
       // });
 
-      // Event listener untuk tombol simpan password baru
-      saveNewPassButton.addEventListener("click", async () => {
-        const passwordInput = document.getElementById("password");
-        const newPassword = passwordInput.value;
+      // Script for Reset Password
+      document.addEventListener("DOMContentLoaded", () => {
+        const resetPasswordModal = document.getElementById("resetPassword");
+        const resetPasswordForm = document.getElementById("resetPasswordForm");
 
-        console.log("Password baru: ", newPassword); // Debugging
-        console.log("ID Pengguna: ", selectedUserId); // Debugging
+        // Listen for the event when the modal is shown
+        resetPasswordModal.addEventListener("show.bs.modal", (event) => {
+          // Button that triggered the modal
+          const button = event.relatedTarget;
+          // Extract info from data-* attributes
+          const userId = button.getAttribute("data-id-user");
+          // Update the form's data-id-user attribute
+          resetPasswordForm.setAttribute("data-id-user", userId);
+        });
 
-        if (!selectedUserId || !newPassword) {
-          alert("Please select a user and enter a new password.");
-          return;
-        }
+        const saveNewPassButton = document.getElementById("saveNewPassButton");
 
-        try {
-          const response = await fetch(
-            "http://localhost:3000/admin/resetPassword",
-            {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({
-                newPassword,
-                id_user: selectedUserId,
-              }),
-            }
-          );
+        saveNewPassButton.addEventListener("click", async () => {
+          const passwordInput = document.getElementById("password");
+          const newPassword = passwordInput.value;
+          const selectedUserId = resetPasswordForm.getAttribute("data-id-user");
 
-          if (!response.ok) {
-            const error = await response.json();
-            throw new Error(error.message);
+          if (!selectedUserId || !newPassword) {
+            alert("Please select a user and enter a new password.");
+            return;
           }
 
-          const result = await response.json();
-          console.log("Password updated:", result);
-          alert("Password updated successfully");
+          try {
+            const response = await fetch(
+              "http://localhost:3000/admin/resetPassword",
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  newPassword,
+                  id_user: selectedUserId,
+                }),
+              }
+            );
 
-          // Tutup modal
-          const modalInstance = bootstrap.Modal.getInstance(resetPasswordModal);
-          modalInstance.hide();
+            if (!response.ok) {
+              const error = await response.json();
+              throw new Error(error.message);
+            }
 
-          // Opsional: Refresh data pengguna jika perlu
-          // loadUsers(); // Pastikan loadUsers adalah fungsi yang memuat ulang daftar pengguna
-        } catch (error) {
-          console.error("Error updating password:", error);
-          alert("Failed to update password");
-        }
+            const result = await response.json();
+            console.log("Password updated:", result);
+            alert("Password updated successfully");
+
+            const modalInstance =
+              bootstrap.Modal.getInstance(resetPasswordModal);
+            modalInstance.hide();
+          } catch (error) {
+            console.error("Error updating password:", error);
+            alert("Failed to update password");
+          }
+        });
+      });
+
+      function loadKonten() {
+        fetch("http://localhost:3000/admin/konten", {
+          method: "GET",
+        })
+          .then((response) => response.json())
+          .then((responseData) => {
+            console.log("Data konten: ", responseData);
+
+            const kontenContainer = document.querySelector(
+              ".card-konten-container"
+            );
+            kontenContainer.innerHTML = ""; // Clear existing rows
+
+            // Access the array in responseData.data
+            const kontenArray = responseData.data;
+
+            // Create a card for each konten item
+            kontenArray.forEach((item) => {
+              const card = document.createElement("div");
+              card.className = "card col-3 m-2";
+              card.innerHTML = `
+          <div
+                    class="card-img d-flex justify-content-center align-items-center m-1"
+                  >
+                    <img
+                      src="/image/minyak-rambut.png"
+                      class="card-img-top"
+                      alt="Nama Produk"
+                    />
+                  </div>
+          <div class="card-body">
+            <h5 class="card-title">${item.title}</h5>
+            <p class="card-text">
+              ${item.description}
+            </p>
+          </div>
+          <div class="card-footer">
+            <small class="text-muted">Expires on: ${item.expiry_date}</small>
+          </div>
+        `;
+
+              kontenContainer.appendChild(card);
+            });
+          })
+          .catch((error) => console.error("Error:", error));
+      }
+
+      loadKonten();
+
+      // script save new content
+      document.getElementById("saveNewKonten").addEventListener("click", () => {
+        const form = document.getElementById("tambahKonten");
+        const formData = new FormData(form);
+        const data = Object.fromEntries(formData.entries());
+
+        fetch("http://localhost:3000/admin/tambahKonten", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        })
+          .then((response) => {
+            if (!response.ok) {
+              return response.json().then((error) => {
+                throw error;
+              });
+            }
+            return response.json();
+          })
+          .then((result) => {
+            console.log("Success:", result);
+            alert("Data berhasil ditambahkan");
+
+            // Menutup modal setelah sukses
+            const modalElement = document.getElementById("addKontenModal");
+            const modalInstance = bootstrap.Modal.getInstance(modalElement);
+            modalInstance.hide();
+
+            // Initial load
+            loadKonten();
+          })
+          .catch((error) => {
+            console.error("Error adding new content:", error);
+            alert("Error adding new content");
+          });
       });
     </script>
   </body>
