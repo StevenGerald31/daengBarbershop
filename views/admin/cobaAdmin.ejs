@@ -272,11 +272,6 @@
               <button class="btn btn-primary">Search</button>
             </div>
           </div>
-          <div class="row buttonTambah mt-3">
-            <div class="col-2">
-              <button class="btn btn-primary">Tambah Data</button>
-            </div>
-          </div>
           <div class="row dataPelanggan">
             <div class="row pt-3">
               <div class="d-flex justify-content-center">
@@ -292,7 +287,6 @@
                     <th scope="col">Jenis Kelamin</th>
                     <th scope="col">Alamat</th>
                     <th scope="col">Point</th>
-                    <th scope="col">Action</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -792,12 +786,7 @@
                 <td>${item.jenis_kelamin}</td>
                 <td>${item.alamat}</td>
                 <td>${point}</td>
-                <td>
-                 <button type="button newPassword" class="btn btn-success m-1" data-bs-toggle="modal" data-bs-target="#resetPassword" id-user="${item.id_user}"">
-                        <i class="bi bi bi-pencil"></i>
-                      </button>
-                  
-                </td>
+                
               </tr>
             `;
 

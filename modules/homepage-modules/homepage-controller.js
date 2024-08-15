@@ -426,8 +426,7 @@ const tambah_jenis_produk = async (req, res) => {
 
 const update_Produk = async (req, res) => {
   const token = req.session.dataUser.token;
-  const { id_produk } = req.params;
-  const { nama, deskripsi, harga, gambar, jenisproduk } = req.body;
+  const { nama, deskripsi, harga, gambar, jenisproduk, id_produk } = req.body;
 
   if (!token) {
     return res
@@ -438,7 +437,7 @@ const update_Produk = async (req, res) => {
   try {
     const response = await axios.put(
       `http://127.0.0.1:8000/api/produk/update/${id_produk}`,
-      { nama, deskripsi, harga, gambar, jenisproduk },
+      { nama, deskripsi, harga, gambar, jenisproduk, id_produk },
       {
         headers: {
           "Content-Type": "application/json",
@@ -458,7 +457,7 @@ const update_Produk = async (req, res) => {
 
 const hapus_Produk = async (req, res) => {
   const token = req.session.dataUser.token;
-  const { id_produk } = req.params;
+  const { id_produk } = req.body;
 
   if (!token) {
     return res

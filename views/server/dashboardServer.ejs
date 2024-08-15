@@ -1365,8 +1365,8 @@
                       <button type="button" class=" update-stok btn btn-success m-1" data-bs-toggle="modal" data-bs-target="#updateStockModal" data-id="${item.id_stockproduk}">
                         <i class="bi bi-pencil"></i>
                       </button>
-                      <button type="button" class="update-produk btn btn-primary m-1" data-bs-toggle="modal" data-bs-target="#updateProdukModal" data-id="${item.id_stockproduk}">Update</button>
-                      <button type="button" class="hapus-produk btn btn-danger m-1" data-id="${item.id_stockproduk}">Hapus</button>
+                      <button type="button" class="update-produk btn btn-primary m-1" data-bs-toggle="modal" data-bs-target="#updateProdukModal" data-id="${item.id_produk}">Update</button>
+                      <button type="button" class="hapus-produk btn btn-danger m-1" data-id="${item.id_produk}">Hapus</button>
                     </div>
                   </div>
             `;
@@ -1533,7 +1533,7 @@
                   },
                   body: JSON.stringify({
                     ...data,
-                    id_stockproduk: selectedProductId,
+                    id_produk: selectedProductId,
                   }),
                 }
               );
