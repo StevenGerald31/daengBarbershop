@@ -10,5 +10,7 @@ router.get("/konten", adminController.data_konten);
 router.post("/tambahKonten", adminController.tambah_konten);
 router.post("/tambahServer", adminController.tambah_server);
 router.post("/resetPassword", adminController.resetPassword);
+router.delete("/deleteContent/:id", adminController.delete_konten);
+router.delete("/deleteExpiredContent", adminController.deleteExpiredContent);
 
 module.exports = router;

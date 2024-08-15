@@ -620,8 +620,7 @@
             <div class="buttonHapusKontenExp">
               <button
                 class="btn btn-danger"
-                data-bs-toggle="modal"
-                data-bs-target="#hapusKontenExpModal"
+                onclick="confirmDeleteExpiredContents()"
               >
                 <i class="bi bi-trash me-2"></i>
                 Hapus Konten Expired
@@ -1054,25 +1053,26 @@
               const card = document.createElement("div");
               card.className = "card col-3 m-2";
               card.innerHTML = `
-          <div
-                    class="card-img d-flex justify-content-center align-items-center m-1"
-                  >
-                    <img
-                      src="/image/minyak-rambut.png"
-                      class="card-img-top"
-                      alt="Nama Produk"
-                    />
-                  </div>
-          <div class="card-body">
-            <h5 class="card-title">${item.title}</h5>
-            <p class="card-text">
-              ${item.description}
-            </p>
-          </div>
-          <div class="card-footer">
-            <small class="text-muted">Expires on: ${item.expiry_date}</small>
-          </div>
-        `;
+            <div class="card-img d-flex justify-content-center align-items-center m-1">
+              <img
+                src="/image/minyak-rambut.png"
+                class="card-img-top"
+                alt="Nama Produk"
+              />
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">${item.title}</h5>
+              <p class="card-text">
+                ${item.description}
+              </p>
+              <button class="btn btn-danger" onclick="deleteKonten(${item.id})">
+                Hapus Konten
+              </button>
+            </div>
+            <div class="card-footer">
+              <small class="text-muted">Expires on: ${item.expiry_date}</small>
+            </div>
+          `;
 
               kontenContainer.appendChild(card);
             });
@@ -1080,6 +1080,66 @@
           .catch((error) => console.error("Error:", error));
       }
 
+      function deleteKonten(id) {
+        if (confirm("Yakin ingin menghapus konten ini?")) {
+          fetch(`http://localhost:3000/admin/deleteContent/${id}`, {
+            method: "DELETE",
+          })
+            .then((response) => {
+              if (!response.ok) {
+                return response.json().then((error) => {
+                  throw error;
+                });
+              }
+              return response.json();
+            })
+            .then((result) => {
+              console.log("Content deleted:", result);
+              alert("Konten berhasil dihapus");
+              loadKonten(); // Reload the content
+            })
+            .catch((error) => {
+              console.error("Error deleting content:", error.message || error);
+              alert("Error deleting content: " + (error.message || error));
+            });
+        }
+      }
+
+      function confirmDeleteExpiredContents() {
+        if (confirm("Yakin ingin menghapus semua konten yang telah expired?")) {
+          deleteExpiredContents();
+        }
+      }
+
+      function deleteExpiredContents() {
+        fetch("http://localhost:3000/admin/deleteExpiredContent", {
+          method: "DELETE",
+        })
+          .then((response) => {
+            if (!response.ok) {
+              return response.json().then((error) => {
+                throw error;
+              });
+            }
+            return response.json();
+          })
+          .then((result) => {
+            console.log("Expired contents deleted:", result);
+            alert("Konten yang telah expired berhasil dihapus");
+            loadKonten(); // Reload the content
+          })
+          .catch((error) => {
+            console.error(
+              "Error deleting expired contents:",
+              error.message || error
+            );
+            alert(
+              "Error deleting expired contents: " + (error.message || error)
+            );
+          });
+      }
+
+      // Initial load
       loadKonten();
 
       // script save new content

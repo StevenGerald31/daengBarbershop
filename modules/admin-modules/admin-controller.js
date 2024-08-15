@@ -143,6 +143,40 @@ const tambah_konten = async (req, res) => {
   }
 };
 
+const delete_konten = async (req, res) => {
+  const { id } = req.params;
+  console.log(`Menghapus konten dengan ID: ${id}`); // Logging tambahan
+
+  try {
+    const response = await axios.delete(
+      `http://127.0.0.1:8000/api/contents/${id}`
+    );
+    console.log("Response from API:", response.data); // Logging respons dari API
+
+    res.status(response.status).json(response.data);
+  } catch (error) {
+    console.error("Error during delete:", error.message); // Logging error lebih jelas
+    res
+      .status(500)
+      .json({ message: "An error occurred", error: error.message });
+  }
+};
+
+const deleteExpiredContent = async (req, res) => {
+  try {
+    const response = await axios.delete(
+      "http://localhost:8000/api/contents/expired/delete"
+    );
+
+    res.status(response.status).json(response.data);
+  } catch (error) {
+    console.error("Error deleting expired contents:", error.message || error);
+    res
+      .status(500)
+      .json({ message: "An error occurred", error: error.message });
+  }
+};
+
 module.exports = {
   pageCoba,
   data_pelanggan,
@@ -152,4 +186,6 @@ module.exports = {
   resetPassword,
   data_konten,
   tambah_konten,
+  delete_konten,
+  deleteExpiredContent,
 };
