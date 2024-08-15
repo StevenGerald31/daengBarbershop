@@ -292,7 +292,108 @@
               Tambah Jenis
             </button>
           </div>
-          <!-- Modal -->
+
+          <!-- Modal Update Produk -->
+          <div
+            class="modal fade"
+            id="updateProdukModal"
+            tabindex="-1"
+            aria-labelledby="updateProdukModalLabel"
+            aria-hidden="true"
+          >
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="updateProdukModalLabel">
+                    Update Produk
+                  </h1>
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
+                </div>
+                <div class="modal-body">
+                  <form id="updateProdukForm">
+                    <div class="mb-3">
+                      <label for="namaProduk" class="form-label">Nama</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="namaProduk"
+                        name="nama"
+                        required
+                      />
+                    </div>
+                    <div class="mb-3">
+                      <label for="deskripsiProduk" class="form-label"
+                        >Deskripsi</label
+                      >
+                      <textarea
+                        class="form-control"
+                        id="deskripsiProduk"
+                        name="deskripsi"
+                        rows="3"
+                        required
+                      ></textarea>
+                    </div>
+                    <div class="mb-3">
+                      <label for="hargaProduk" class="form-label">Harga</label>
+                      <input
+                        type="number"
+                        class="form-control"
+                        id="hargaProduk"
+                        name="harga"
+                        required
+                      />
+                    </div>
+                    <div class="mb-3">
+                      <label for="jenisProduk" class="form-label"
+                        >Jenis Produk</label
+                      >
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="jenisProduk"
+                        name="jenisproduk"
+                        required
+                      />
+                    </div>
+                    <div class="mb-3">
+                      <label for="gambarProduk" class="form-label"
+                        >Gambar (Opsional)</label
+                      >
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="gambarProduk"
+                        name="gambar"
+                      />
+                    </div>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-bs-dismiss="modal"
+                  >
+                    Close
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-primary"
+                    id="saveProdukButton"
+                  >
+                    Save changes
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Modal Tambah Jenis-->
           <div
             class="modal fade"
             id="exampleModal"
@@ -1264,9 +1365,8 @@
                       <button type="button" class=" update-stok btn btn-success m-1" data-bs-toggle="modal" data-bs-target="#updateStockModal" data-id="${item.id_stockproduk}">
                         <i class="bi bi-pencil"></i>
                       </button>
-                      <button type="button" class="btn btn-danger m-1">
-                        <i class="bi bi-trash3"></i>
-                      </button>
+                      <button type="button" class="update-produk btn btn-primary m-1" data-bs-toggle="modal" data-bs-target="#updateProdukModal" data-id="${item.id_stockproduk}">Update</button>
+                      <button type="button" class="hapus-produk btn btn-danger m-1" data-id="${item.id_stockproduk}">Hapus</button>
                     </div>
                   </div>
             `;
@@ -1384,6 +1484,120 @@
           } catch (error) {
             console.log("Error updating stock:", error.message);
             alert("Failed to update stock");
+          }
+        });
+      });
+
+      document.addEventListener("DOMContentLoaded", () => {
+        let selectedProductId = null;
+
+        // Event delegation untuk tombol update produk
+        document.addEventListener("click", (event) => {
+          const button = event.target.closest(".update-produk");
+          if (button) {
+            selectedProductId = button.getAttribute("data-id");
+            const productCard = button.closest(".card-body");
+            document.getElementById("namaProduk").value =
+              productCard.querySelector(".card-title").textContent;
+            document.getElementById("hargaProduk").value = productCard
+              .querySelector(".card-text:nth-of-type(1)")
+              .textContent.replace("Rp", "")
+              .replace(",", "")
+              .trim();
+            document.getElementById("deskripsiProduk").value = ""; // Assuming the description will be fetched separately
+            document.getElementById("jenisProduk").value = ""; // Assuming the product type will be fetched separately
+            document.getElementById("gambarProduk").value = ""; // Optional field
+          }
+        });
+
+        // Event listener untuk menyimpan perubahan update produk
+        document
+          .getElementById("saveProdukButton")
+          .addEventListener("click", async () => {
+            const form = document.getElementById("updateProdukForm");
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData.entries());
+
+            if (!selectedProductId) {
+              alert("Please select a product to update.");
+              return;
+            }
+
+            try {
+              const response = await fetch(
+                "http://localhost:3000/web/updateProduk",
+                {
+                  method: "PUT",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify({
+                    ...data,
+                    id_stockproduk: selectedProductId,
+                  }),
+                }
+              );
+
+              if (!response.ok) {
+                const error = await response.json();
+                throw new Error(error.message);
+              }
+
+              const result = await response.json();
+              console.log("Produk updated:", result);
+              alert("Produk updated successfully");
+
+              // Tutup modal
+              const modalInstance = bootstrap.Modal.getInstance(
+                document.getElementById("updateProdukModal")
+              );
+              modalInstance.hide();
+
+              // Refresh data produk
+              loadProduk();
+            } catch (error) {
+              console.log("Error updating produk:", error.message);
+              alert("Failed to update produk");
+            }
+          });
+
+        // Event delegation untuk tombol hapus produk
+        document.addEventListener("click", async (event) => {
+          const button = event.target.closest(".hapus-produk");
+          if (button) {
+            const productId = button.getAttribute("data-id");
+            const confirmDelete = confirm(
+              "Apakah Anda yakin ingin menghapus produk ini?"
+            );
+            if (confirmDelete) {
+              try {
+                const response = await fetch(
+                  "http://localhost:3000/web/hapusProduk",
+                  {
+                    method: "DELETE",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ id_stockproduk: productId }),
+                  }
+                );
+
+                if (!response.ok) {
+                  const error = await response.json();
+                  throw new Error(error.message);
+                }
+
+                const result = await response.json();
+                console.log("Produk deleted:", result);
+                alert("Produk deleted successfully");
+
+                // Refresh data produk
+                loadProduk();
+              } catch (error) {
+                console.log("Error deleting produk:", error.message);
+                alert("Failed to delete produk");
+              }
+            }
           }
         });
       });

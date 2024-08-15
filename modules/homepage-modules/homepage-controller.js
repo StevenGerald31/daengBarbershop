@@ -424,6 +424,69 @@ const tambah_jenis_produk = async (req, res) => {
   }
 };
 
+const update_Produk = async (req, res) => {
+  const token = req.session.dataUser.token;
+  const { id_produk } = req.params;
+  const { nama, deskripsi, harga, gambar, jenisproduk } = req.body;
+
+  if (!token) {
+    return res
+      .status(401)
+      .json({ message: "Authentication token not provided" });
+  }
+
+  try {
+    const response = await axios.put(
+      `http://127.0.0.1:8000/api/produk/update/${id_produk}`,
+      { nama, deskripsi, harga, gambar, jenisproduk },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    res.status(response.status).json(response.data);
+  } catch (error) {
+    console.error("Error updating product:", error);
+    res
+      .status(500)
+      .json({ message: "An error occurred while updating the product" });
+  }
+};
+
+const hapus_Produk = async (req, res) => {
+  const token = req.session.dataUser.token;
+  const { id_produk } = req.params;
+
+  if (!token) {
+    return res
+      .status(401)
+      .json({ message: "Authentication token not provided" });
+  }
+
+  try {
+    const response = await axios.delete(
+      `http://127.0.0.1:8000/api/produk/hapus/${id_produk}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    res
+      .status(response.status)
+      .json({ message: "Produk deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting product:", error);
+    res
+      .status(500)
+      .json({ message: "An error occurred while deleting the product" });
+  }
+};
+
 const update_stok = async (req, res) => {
   const token = req.session.dataUser?.token;
   const { stok, id_stockproduk } = req.body;
@@ -589,6 +652,8 @@ module.exports = {
   view_all_data_produk,
   tambah_jenis_produk,
   update_stok,
+  update_Produk,
+  hapus_Produk,
   resetPassword,
   checkout,
 };
