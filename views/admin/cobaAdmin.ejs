@@ -745,6 +745,74 @@
             </div>
           </div>
 
+          <!-- Modal Edit Lokasi-->
+          <div
+            class="modal"
+            id="editLokasiModal"
+            tabindex="-1"
+            aria-labelledby="editLokasiModalLabel"
+            aria-hidden="true"
+            data-bs-backdrop="false"
+          >
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Edit Lokasi</h5>
+                  <button type="button" class="close" data-dismiss="modal">
+                    &times;
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <form id="editLokasiForm">
+                    <div class="form-group">
+                      <label for="editNama">Nama</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="editNama"
+                        required
+                      />
+                    </div>
+                    <div class="form-group">
+                      <label for="editAlamat">Alamat</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="editAlamat"
+                        required
+                      />
+                    </div>
+                    <div class="form-group">
+                      <label for="editKota">Kota</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="editKota"
+                        required
+                      />
+                    </div>
+                    <div class="form-group">
+                      <label for="editKodepos">Kode Pos</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="editKodepos"
+                        required
+                      />
+                    </div>
+                    <button
+                      type="button"
+                      class="btn btn-primary"
+                      id="saveEditBtn"
+                    >
+                      Save
+                    </button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <!-- Modal Tambah Lokasi-->
           <div
             class="modal fade"
@@ -768,14 +836,14 @@
                   ></button>
                 </div>
                 <div class="modal-body">
-                  <form action="" id="tambahLokasi">
+                  <form id="tambahLokasi">
                     <div class="mb-3">
-                      <label for="name" class="form-label">Nama</label>
+                      <label for="nama" class="form-label">Nama</label>
                       <input
                         type="text"
                         class="form-control"
-                        id="name"
-                        name="name"
+                        id="nama"
+                        name="nama"
                         required
                       />
                     </div>
@@ -1151,156 +1219,6 @@
         }
       }
 
-      //Script Load Lokasi
-      document.addEventListener("DOMContentLoaded", function () {
-        loadLokasi(); // Load lokasi data when the page loads
-
-        // Fetch data from the server and populate the table
-        function loadLokasi() {
-          fetch("http://localhost:3000/admin/lokasi")
-            .then((response) => response.json())
-            .then((data) => {
-              const lokasiTableBody = document.querySelector(
-                ".table-lokasi tbody"
-              );
-              lokasiTableBody.innerHTML = ""; // Clear the table body
-
-              data.forEach((lokasi) => {
-                const row = document.createElement("tr");
-
-                row.innerHTML = `
-            <td>${lokasi.nama}</td>
-            <td>${lokasi.alamat}</td>
-            <td>${lokasi.kota}</td>
-            <td>${lokasi.kodepos}</td>
-            <td>
-              <button class="btn btn-warning" onclick="editLokasi(${lokasi.id_lokasi})">Edit</button>
-              <button class="btn btn-danger" onclick="deleteLokasi(${lokasi.id_lokasi})">Delete</button>
-            </td>
-          `;
-
-                lokasiTableBody.appendChild(row);
-              });
-            })
-            .catch((error) => {
-              console.error("Error loading lokasi data:", error);
-            });
-        }
-
-        // Tambah lokasi baru
-        document
-          .getElementById("saveNewLokasi")
-          .addEventListener("click", async () => {
-            const name = document.getElementById("name").value;
-            const alamat = document.getElementById("alamat").value;
-            const kota = document.getElementById("kota").value;
-            const kodepos = document.getElementById("kodepos").value;
-
-            try {
-              await axios.post(
-                "http://localhost:3000/admin/tambahLokasi",
-                {
-                  nama: name,
-                  alamat: alamat,
-                  kota: kota,
-                  kodepos: kodepos,
-                },
-                {
-                  headers: {
-                    "Content-Type": "application/json",
-                  },
-                }
-              );
-
-              $("#addLokasiModal").modal("hide");
-              fetchLokasi(); // Refresh the data after adding new lokasi
-            } catch (error) {
-              console.error("Error adding lokasi:", error);
-            }
-          });
-
-        // Function to delete a lokasi
-        window.deleteLokasi = function (id_lokasi) {
-          if (confirm("Apakah Anda yakin ingin menghapus lokasi ini?")) {
-            fetch(`http://localhost:3000/admin/deleteLokasi/${id_lokasi}`, {
-              method: "DELETE",
-            })
-              .then((response) => {
-                if (!response.ok) {
-                  throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                return response.json();
-              })
-              .then((data) => {
-                alert("Lokasi berhasil dihapus!");
-                loadLokasi(); // Reload lokasi data after deletion
-              })
-              .catch((error) => {
-                console.error("Error deleting lokasi:", error);
-              });
-          }
-        };
-
-        // Function to edit a lokasi
-        window.editLokasi = function (id_lokasi) {
-          // Fetch lokasi data to pre-fill the form
-          fetch(`http://localhost:3000/admin/lokasi/${id_lokasi}`, {
-            method: "GET",
-          })
-            .then((response) => response.json())
-            .then((data) => {
-              // Pre-fill the form with the lokasi data
-              document.getElementById("editIdLokasi").value = data.id_lokasi;
-              document.getElementById("editName").value = data.nama;
-              document.getElementById("editAlamat").value = data.alamat;
-              document.getElementById("editKota").value = data.kota;
-              document.getElementById("editKodePos").value = data.kodepos;
-
-              // Show the modal
-              const editModal = new bootstrap.Modal(
-                document.getElementById("editLokasiModal")
-              );
-              editModal.show();
-            })
-            .catch((error) => {
-              console.error("Error fetching lokasi data:", error);
-            });
-        };
-
-        // Save changes button in the edit modal
-        document
-          .getElementById("saveEditLokasi")
-          .addEventListener("click", function () {
-            const id_lokasi = document.getElementById("editIdLokasi").value;
-            const nama = document.getElementById("editName").value;
-            const alamat = document.getElementById("editAlamat").value;
-            const kota = document.getElementById("editKota").value;
-            const kodepos = document.getElementById("editKodePos").value;
-
-            fetch(`http://localhost:3000/admin/editLokasi`, {
-              method: "PUT",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({
-                id_lokasi,
-                nama,
-                alamat,
-                kota,
-                kodepos,
-              }),
-            })
-              .then((response) => response.json())
-              .then((data) => {
-                alert("Lokasi berhasil diperbarui!");
-                loadLokasi(); // Reload lokasi data after update
-              })
-              .catch((error) => {
-                console.error("Error updating lokasi:", error);
-              });
-          });
-      });
-
       // script reset password
       // // Ambil elemen modal dan form
       // const resetPasswordModal = document.getElementById("resetPassword");
@@ -1418,6 +1336,110 @@
           }
         });
       });
+
+      //Script Load Lokasi
+      document.addEventListener("DOMContentLoaded", function () {
+        loadLokasi(); // Load lokasi data when the page loads
+
+        // Fetch data from the server and populate the table
+        function loadLokasi() {
+          fetch("http://localhost:3000/admin/lokasi")
+            .then((response) => response.json())
+            .then((data) => {
+              const lokasiTableBody = document.querySelector(
+                ".table-lokasi tbody"
+              );
+              lokasiTableBody.innerHTML = ""; // Clear the table body
+
+              data.forEach((lokasi) => {
+                const row = document.createElement("tr");
+
+                row.innerHTML = `
+            <td>${lokasi.nama}</td>
+            <td>${lokasi.alamat}</td>
+            <td>${lokasi.kota}</td>
+            <td>${lokasi.kodepos}</td>
+            <td>
+              <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editLokasiModal" onclick="openEditModal(${lokasi.id_lokasi})">Edit</button>
+              <button class="btn btn-danger" onclick="deleteLokasi(${lokasi.id_lokasi})">Delete</button>
+            </td>
+          `;
+
+                lokasiTableBody.appendChild(row);
+              });
+            })
+            .catch((error) => {
+              console.error("Error loading lokasi data:", error);
+            });
+        }
+
+        document
+          .getElementById("saveNewLokasi")
+          .addEventListener("click", () => {
+            const form = document.getElementById("tambahLokasi");
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData.entries());
+
+            fetch("http://localhost:3000/admin/tambahLokasi", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(data),
+            })
+              .then((response) => {
+                if (!response.ok) {
+                  return response.json().then((error) => {
+                    throw error;
+                  });
+                }
+                return response.json();
+              })
+              .then((result) => {
+                console.log("Success:", result);
+                // Handle the successful response here
+                alert("Data berhasil ditambahkan");
+
+                // Menutup modal setelah sukses
+                const modalElement = document.getElementById("addLokasiModal");
+                const modalInstance = bootstrap.Modal.getInstance(modalElement);
+                modalInstance.hide();
+
+                // Initial load
+                loadLokasi();
+              })
+              .catch((error) => {
+                console.error("Error:", error);
+                // Handle the error response here
+              });
+          });
+
+        // Function to delete a lokasi
+        window.deleteLokasi = function (id_lokasi) {
+          if (confirm("Apakah Anda yakin ingin menghapus lokasi ini?")) {
+            fetch(`http://localhost:3000/admin/deleteLokasi/${id_lokasi}`, {
+              method: "DELETE",
+            })
+              .then((response) => {
+                if (!response.ok) {
+                  throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json();
+              })
+              .then((data) => {
+                alert("Lokasi berhasil dihapus!");
+                loadLokasi(); // Reload lokasi data after deletion
+              })
+              .catch((error) => {
+                console.error("Error deleting lokasi:", error);
+              });
+          }
+        };
+
+        // Function to edit a lokasi
+      });
+
+      // Script for Konten
 
       function loadKonten() {
         fetch("http://localhost:3000/admin/konten", {
