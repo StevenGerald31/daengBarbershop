@@ -59,6 +59,69 @@ const data_lokasi = async (req, res) => {
   }
 };
 
+// Fungsi untuk menambahkan lokasi
+const tambah_lokasi = async (req, res) => {
+  const { nama, alamat, kota, kodepos } = req.body;
+
+  try {
+    const response = await axios.post("http://127.0.0.1:8000/api/lokasis", {
+      nama,
+      alamat,
+      kota,
+      kodepos,
+    });
+
+    res.status(response.status).json(response.data);
+  } catch (error) {
+    console.error(error);
+    res
+      .status(500)
+      .json({ message: "An error occurred", error: error.message });
+  }
+};
+
+// Tambah fungsi untuk delete lokasi
+const delete_lokasi = async (req, res) => {
+  const { id_lokasi } = req.params;
+
+  try {
+    const response = await axios.delete(
+      `http://127.0.0.1:8000/api/lokasis/${id_lokasi}`
+    );
+    res.status(response.status).json(response.data);
+  } catch (error) {
+    console.error("Error during delete:", error.message);
+    res
+      .status(500)
+      .json({ message: "An error occurred", error: error.message });
+  }
+};
+
+// Tambah fungsi untuk edit lokasi
+const edit_lokasi = async (req, res) => {
+  const { id_lokasi } = req.params;
+  const { nama, alamat, kota, kodepos } = req.body;
+
+  try {
+    const response = await axios.put(
+      `http://127.0.0.1:8000/api/lokasis/${id_lokasi}`,
+      {
+        nama,
+        alamat,
+        kota,
+        kodepos,
+      }
+    );
+
+    res.status(response.status).json(response.data);
+  } catch (error) {
+    console.error("Error during update:", error.message);
+    res
+      .status(500)
+      .json({ message: "An error occurred", error: error.message });
+  }
+};
+
 const tambah_server = async (req, res) => {
   const {
     name,
@@ -165,7 +228,7 @@ const delete_konten = async (req, res) => {
 const deleteExpiredContent = async (req, res) => {
   try {
     const response = await axios.delete(
-      "http://localhost:8000/api/contents/expired/delete"
+      "http://127.0.0.1:8000/api/contents/expired/delete"
     );
 
     res.status(response.status).json(response.data);
@@ -182,6 +245,9 @@ module.exports = {
   data_pelanggan,
   data_server,
   data_lokasi,
+  tambah_lokasi,
+  delete_lokasi,
+  edit_lokasi,
   tambah_server,
   resetPassword,
   data_konten,

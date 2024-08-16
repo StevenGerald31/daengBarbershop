@@ -121,6 +121,26 @@
               </div>
             </li>
 
+            <!-- sidebar Data Lokasi -->
+            <li
+              id="DataLokasi"
+              class="nav-item hover"
+              style="margin-bottom: 10px"
+            >
+              <div
+                class="a nav-link"
+                id="DataLokasi"
+                data-bs-toggle="tab"
+                data-bs-target="#DataLokasi-pane"
+                type="button"
+                role="tab"
+                aria-controls="DataLokasi-pane"
+                aria-selected="false"
+              >
+                <small style="margin-left: 5px">Data Lokasi</small>
+              </div>
+            </li>
+
             <!-- sidebar Data Konten -->
             <li
               id="DataKonten"
@@ -255,9 +275,6 @@
         tabindex="0"
       >
         <main class="Hero">
-          <div class="row judul">
-            <h2 class="fw-bold pt-3">Data Pelanggan</h2>
-          </div>
           <div class="row searchPelanggan d-flex justify-content-center">
             <div class="col-6">
               <input
@@ -297,7 +314,7 @@
           </div>
         </main>
       </div>
-      <!-- Penjelajahan Selesai-->
+      <!-- Pelanggan Selesai-->
 
       <!-- Server mulai -->
       <div
@@ -586,6 +603,237 @@
       </div>
       <!-- Tambah Server Selesai-->
 
+      <!-- Lokasi mulai -->
+      <div
+        class="tab-pane fade"
+        id="DataLokasi-pane"
+        role="tabpanel"
+        aria-labelledby="DataLokasi"
+        tabindex="0"
+      >
+        <main class="Hero">
+          <div class="row searchLokasi d-flex justify-content-center">
+            <div class="col-6">
+              <input
+                type="email"
+                class="form-control"
+                placeholder="Cari id"
+                id="exampleInputEmail1"
+                aria-describedby="emailHelp"
+              />
+            </div>
+            <div class="col-4">
+              <button class="btn btn-primary">Search</button>
+            </div>
+          </div>
+          <div class="row dataLokasi">
+            <div class="row pt-3">
+              <div class="d-flex justify-content-center">
+                <h1 class="fw-bold">Data Lokasi</h1>
+              </div>
+            </div>
+            <div class="row buttonTambah mt-3">
+              <div class="col-2">
+                <button
+                  class="btn btn-primary"
+                  data-bs-toggle="modal"
+                  data-bs-target="#addLokasiModal"
+                >
+                  Tambah Lokasi
+                </button>
+              </div>
+            </div>
+            <div class="row m-3 table-lokasi">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Nama</th>
+                    <th scope="col">Alamat</th>
+                    <th scope="col">Kota</th>
+                    <th scope="col">Kode Post</th>
+                    <th scope="col">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- Rows of data will go here -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Modal Edit Lokasi-->
+          <div
+            class="modal fade"
+            id="editLokasiModal"
+            tabindex="-1"
+            aria-labelledby="editLokasiModalLabel"
+            aria-hidden="true"
+          >
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="editLokasiModalLabel">
+                    Edit Lokasi
+                  </h5>
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
+                </div>
+                <div class="modal-body">
+                  <form id="editLokasiForm">
+                    <input type="hidden" id="editIdLokasi" />
+                    <div class="mb-3">
+                      <label for="editName" class="form-label">Nama</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="editName"
+                        required
+                      />
+                    </div>
+                    <div class="mb-3">
+                      <label for="editAlamat" class="form-label">Alamat</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="editAlamat"
+                        required
+                      />
+                    </div>
+                    <div class="mb-3">
+                      <label for="editKota" class="form-label">Kota</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="editKota"
+                        required
+                      />
+                    </div>
+                    <div class="mb-3">
+                      <label for="editKodePos" class="form-label"
+                        >Kode Pos</label
+                      >
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="editKodePos"
+                        required
+                      />
+                    </div>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-bs-dismiss="modal"
+                  >
+                    Close
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-primary"
+                    id="saveEditLokasi"
+                  >
+                    Save changes
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Modal Tambah Lokasi-->
+          <div
+            class="modal fade"
+            id="addLokasiModal"
+            tabindex="-1"
+            aria-labelledby="addLokasiModalLabel"
+            aria-hidden="true"
+            data-bs-backdrop="false"
+          >
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="addLokasiModalLabel">
+                    Tambah Lokasi
+                  </h5>
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
+                </div>
+                <div class="modal-body">
+                  <form action="" id="tambahLokasi">
+                    <div class="mb-3">
+                      <label for="name" class="form-label">Nama</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="name"
+                        name="name"
+                        required
+                      />
+                    </div>
+                    <div class="mb-3">
+                      <label for="alamat" class="form-label">Alamat</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="alamat"
+                        name="alamat"
+                        required
+                      />
+                    </div>
+                    <div class="mb-3">
+                      <label for="kota" class="form-label">Kota</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="kota"
+                        name="kota"
+                        required
+                      />
+                    </div>
+                    <div class="mb-3">
+                      <label for="kodepos" class="form-label">Kode Pos</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="kodepos"
+                        name="kodepos"
+                        required
+                      />
+                    </div>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-bs-dismiss="modal"
+                  >
+                    Close
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-primary"
+                    id="saveNewLokasi"
+                  >
+                    Save changes
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+      <!-- Lokasi Selesai-->
+
       <!-- konten start -->
       <div
         class="tab-pane fade"
@@ -632,7 +880,7 @@
           ></div>
         </main>
 
-        <!-- mdoal tambah content -->
+        <!-- modal tambah content -->
         <div
           class="modal fade"
           id="addKontenModal"
@@ -786,7 +1034,7 @@
                 <td>${item.jenis_kelamin}</td>
                 <td>${item.alamat}</td>
                 <td>${point}</td>
-                
+
               </tr>
             `;
 
@@ -818,7 +1066,7 @@
                  <button type="button" class="btn btn-success m-1" data-bs-toggle="modal" data-bs-target="#resetPassword" data-id-user="${item.id_user}"">
                         <i class="bi bi bi-pencil" ></i>
                       </button>
-                  
+
                 </td>
               </tr>
             `;
@@ -903,7 +1151,157 @@
         }
       }
 
-      // // script reset password
+      //Script Load Lokasi
+      document.addEventListener("DOMContentLoaded", function () {
+        loadLokasi(); // Load lokasi data when the page loads
+
+        // Fetch data from the server and populate the table
+        function loadLokasi() {
+          fetch("http://localhost:3000/admin/lokasi")
+            .then((response) => response.json())
+            .then((data) => {
+              const lokasiTableBody = document.querySelector(
+                ".table-lokasi tbody"
+              );
+              lokasiTableBody.innerHTML = ""; // Clear the table body
+
+              data.forEach((lokasi) => {
+                const row = document.createElement("tr");
+
+                row.innerHTML = `
+            <td>${lokasi.nama}</td>
+            <td>${lokasi.alamat}</td>
+            <td>${lokasi.kota}</td>
+            <td>${lokasi.kodepos}</td>
+            <td>
+              <button class="btn btn-warning" onclick="editLokasi(${lokasi.id_lokasi})">Edit</button>
+              <button class="btn btn-danger" onclick="deleteLokasi(${lokasi.id_lokasi})">Delete</button>
+            </td>
+          `;
+
+                lokasiTableBody.appendChild(row);
+              });
+            })
+            .catch((error) => {
+              console.error("Error loading lokasi data:", error);
+            });
+        }
+
+        // Tambah lokasi baru
+        document
+          .getElementById("saveNewLokasi")
+          .addEventListener("click", async () => {
+            const name = document.getElementById("name").value;
+            const alamat = document.getElementById("alamat").value;
+            const kota = document.getElementById("kota").value;
+            const kodepos = document.getElementById("kodepos").value;
+
+            try {
+              await axios.post(
+                "http://localhost:3000/admin/tambahLokasi",
+                {
+                  nama: name,
+                  alamat: alamat,
+                  kota: kota,
+                  kodepos: kodepos,
+                },
+                {
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                }
+              );
+
+              $("#addLokasiModal").modal("hide");
+              fetchLokasi(); // Refresh the data after adding new lokasi
+            } catch (error) {
+              console.error("Error adding lokasi:", error);
+            }
+          });
+
+        // Function to delete a lokasi
+        window.deleteLokasi = function (id_lokasi) {
+          if (confirm("Apakah Anda yakin ingin menghapus lokasi ini?")) {
+            fetch(`http://localhost:3000/admin/deleteLokasi/${id_lokasi}`, {
+              method: "DELETE",
+            })
+              .then((response) => {
+                if (!response.ok) {
+                  throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json();
+              })
+              .then((data) => {
+                alert("Lokasi berhasil dihapus!");
+                loadLokasi(); // Reload lokasi data after deletion
+              })
+              .catch((error) => {
+                console.error("Error deleting lokasi:", error);
+              });
+          }
+        };
+
+        // Function to edit a lokasi
+        window.editLokasi = function (id_lokasi) {
+          // Fetch lokasi data to pre-fill the form
+          fetch(`http://localhost:3000/admin/lokasi/${id_lokasi}`, {
+            method: "GET",
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              // Pre-fill the form with the lokasi data
+              document.getElementById("editIdLokasi").value = data.id_lokasi;
+              document.getElementById("editName").value = data.nama;
+              document.getElementById("editAlamat").value = data.alamat;
+              document.getElementById("editKota").value = data.kota;
+              document.getElementById("editKodePos").value = data.kodepos;
+
+              // Show the modal
+              const editModal = new bootstrap.Modal(
+                document.getElementById("editLokasiModal")
+              );
+              editModal.show();
+            })
+            .catch((error) => {
+              console.error("Error fetching lokasi data:", error);
+            });
+        };
+
+        // Save changes button in the edit modal
+        document
+          .getElementById("saveEditLokasi")
+          .addEventListener("click", function () {
+            const id_lokasi = document.getElementById("editIdLokasi").value;
+            const nama = document.getElementById("editName").value;
+            const alamat = document.getElementById("editAlamat").value;
+            const kota = document.getElementById("editKota").value;
+            const kodepos = document.getElementById("editKodePos").value;
+
+            fetch(`http://localhost:3000/admin/editLokasi`, {
+              method: "PUT",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                id_lokasi,
+                nama,
+                alamat,
+                kota,
+                kodepos,
+              }),
+            })
+              .then((response) => response.json())
+              .then((data) => {
+                alert("Lokasi berhasil diperbarui!");
+                loadLokasi(); // Reload lokasi data after update
+              })
+              .catch((error) => {
+                console.error("Error updating lokasi:", error);
+              });
+          });
+      });
+
+      // script reset password
       // // Ambil elemen modal dan form
       // const resetPasswordModal = document.getElementById("resetPassword");
       // const resetPasswordForm = document.getElementById("resetPasswordForm");
