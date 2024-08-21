@@ -668,6 +668,7 @@
             tabindex="-1"
             aria-labelledby="editLokasiModalLabel"
             aria-hidden="true"
+            data-bs-backdrop="false"
           >
             <div class="modal-dialog">
               <div class="modal-content">
@@ -686,40 +687,42 @@
                   <form id="editLokasiForm">
                     <input type="hidden" id="editIdLokasi" />
                     <div class="mb-3">
-                      <label for="editName" class="form-label">Nama</label>
+                      <label for="nama" class="form-label">Nama</label>
                       <input
                         type="text"
                         class="form-control"
-                        id="editName"
+                        id="nama"
+                        name="nama"
                         required
                       />
                     </div>
                     <div class="mb-3">
-                      <label for="editAlamat" class="form-label">Alamat</label>
+                      <label for="alamat" class="form-label">Alamat</label>
                       <input
                         type="text"
                         class="form-control"
-                        id="editAlamat"
+                        id="alamat"
+                        name="alamat"
                         required
                       />
                     </div>
                     <div class="mb-3">
-                      <label for="editKota" class="form-label">Kota</label>
+                      <label for="kota" class="form-label">Kota</label>
                       <input
                         type="text"
                         class="form-control"
-                        id="editKota"
+                        id="kota"
+                        name="kota"
                         required
                       />
                     </div>
                     <div class="mb-3">
-                      <label for="editKodePos" class="form-label"
-                        >Kode Pos</label
-                      >
+                      <label for="kodepos" class="form-label">Kode Pos</label>
                       <input
                         type="text"
                         class="form-control"
-                        id="editKodePos"
+                        id="kodepos"
+                        name="kodepos"
                         required
                       />
                     </div>
@@ -740,74 +743,6 @@
                   >
                     Save changes
                   </button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Modal Edit Lokasi-->
-          <div
-            class="modal"
-            id="editLokasiModal"
-            tabindex="-1"
-            aria-labelledby="editLokasiModalLabel"
-            aria-hidden="true"
-            data-bs-backdrop="false"
-          >
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title">Edit Lokasi</h5>
-                  <button type="button" class="close" data-dismiss="modal">
-                    &times;
-                  </button>
-                </div>
-                <div class="modal-body">
-                  <form id="editLokasiForm">
-                    <div class="form-group">
-                      <label for="editNama">Nama</label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="editNama"
-                        required
-                      />
-                    </div>
-                    <div class="form-group">
-                      <label for="editAlamat">Alamat</label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="editAlamat"
-                        required
-                      />
-                    </div>
-                    <div class="form-group">
-                      <label for="editKota">Kota</label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="editKota"
-                        required
-                      />
-                    </div>
-                    <div class="form-group">
-                      <label for="editKodepos">Kode Pos</label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="editKodepos"
-                        required
-                      />
-                    </div>
-                    <button
-                      type="button"
-                      class="btn btn-primary"
-                      id="saveEditBtn"
-                    >
-                      Save
-                    </button>
-                  </form>
                 </div>
               </div>
             </div>
@@ -971,7 +906,7 @@
                 ></button>
               </div>
               <div class="modal-body">
-                <form action="" id="tambahKonten">
+                <form id="tambahKonten">
                   <div class="mb-3">
                     <label for="title" class="form-label">Judul</label>
                     <input
@@ -1360,7 +1295,7 @@
             <td>${lokasi.kota}</td>
             <td>${lokasi.kodepos}</td>
             <td>
-              <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editLokasiModal" onclick="openEditModal(${lokasi.id_lokasi})">Edit</button>
+              <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editLokasiModal" data-id-lokasi="(${lokasi.id_lokasi})">Edit</button>
               <button class="btn btn-danger" onclick="deleteLokasi(${lokasi.id_lokasi})">Delete</button>
             </td>
           `;
@@ -1373,6 +1308,7 @@
             });
         }
 
+        // Function to tambah  lokasi
         document
           .getElementById("saveNewLokasi")
           .addEventListener("click", () => {
@@ -1462,13 +1398,13 @@
               const card = document.createElement("div");
               card.className = "card col-3 m-2";
               card.innerHTML = `
-            <div class="card-img d-flex justify-content-center align-items-center m-1">
-              <img
-                src="/image/minyak-rambut.png"
-                class="card-img-top"
-                alt="Nama Produk"
-              />
-            </div>
+              <div class="card-img d-flex justify-content-center align-items-center m-1">
+            <img
+              src="${item.image_path}" // Menampilkan gambar dari database
+              class="card-img-top"
+              alt="${item.title}" // Menambahkan alt text dengan judul konten
+            />
+          </div>
             <div class="card-body">
               <h5 class="card-title">${item.title}</h5>
               <p class="card-text">
@@ -1552,42 +1488,39 @@
       loadKonten();
 
       // script save new content
-      document.getElementById("saveNewKonten").addEventListener("click", () => {
+      document.addEventListener("DOMContentLoaded", () => {
         const form = document.getElementById("tambahKonten");
-        const formData = new FormData(form);
-        const data = Object.fromEntries(formData.entries());
+        const saveButton = document.getElementById("saveNewKonten");
 
-        fetch("http://localhost:3000/admin/tambahKonten", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
-        })
-          .then((response) => {
+        saveButton.addEventListener("click", async () => {
+          const formData = new FormData(form); // Use FormData to handle the form with file uploads
+
+          try {
+            const response = await fetch(
+              "http://localhost:3000/admin/tambahKonten",
+              {
+                method: "POST",
+                body: formData, // Directly pass the FormData object
+              }
+            );
+
             if (!response.ok) {
-              return response.json().then((error) => {
-                throw error;
-              });
+              const errorData = await response.json();
+              throw new Error(errorData.message || "Error adding new content");
             }
-            return response.json();
-          })
-          .then((result) => {
-            console.log("Success:", result);
-            alert("Data berhasil ditambahkan");
 
-            // Menutup modal setelah sukses
-            const modalElement = document.getElementById("addKontenModal");
-            const modalInstance = bootstrap.Modal.getInstance(modalElement);
-            modalInstance.hide();
+            const data = await response.json();
+            alert("Content added successfully");
+            console.log(data);
 
-            // Initial load
-            loadKonten();
-          })
-          .catch((error) => {
-            console.error("Error adding new content:", error);
-            alert("Error adding new content");
-          });
+            // Optionally, clear the form and close the modal
+            form.reset();
+            $("#addKontenModal").modal("hide"); // Bootstrap modal close
+          } catch (error) {
+            alert(`Error adding new content: ${error.message}`);
+            console.error(error);
+          }
+        });
       });
     </script>
   </body>

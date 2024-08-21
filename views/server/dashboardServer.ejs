@@ -460,7 +460,7 @@
                         required
                       />
                     </div>
-                    <!-- <div class="mb-3">
+                    <div class="mb-3">
                       <label for="gambar" class="form-label">Gambar</label>
                       <input
                         type="file"
@@ -468,9 +468,8 @@
                         id="gambar"
                         name="gambar"
                         accept="image/*"
-                        required
                       />
-                    </div> -->
+                    </div>
                     <div class="mb-3">
                       <label for="stok" class="form-label">Jumlah Stok</label>
                       <input
@@ -838,7 +837,7 @@
                     card.innerHTML = `
                               <div class="card-img d-flex justify-content-center align-items-center m-1">
                                 <img
-                                  src="/image/minyak-rambut.png"
+                                  src="${item.gambar}"
                                   class="card-img-top"
                                   alt="${item.nama_produk}"
                                 />
@@ -1352,7 +1351,7 @@
                     class="card-img d-flex justify-content-center align-items-center m-1"
                   >
                     <img
-                      src="/image/minyak-rambut.png"
+                      src="${item.gambar}"
                       class="card-img-top"
                       alt="Nama Produk"
                     />
@@ -1380,19 +1379,56 @@
       loadProduk();
 
       // script tambah jenis produk
+      // document
+      //   .getElementById("saveChangesButton")
+      //   .addEventListener("click", () => {
+      //     const form = document.getElementById("tambahJenisProdukForm");
+      //     const formData = new FormData(form);
+      //     const data = Object.fromEntries(formData.entries());
+
+      //     fetch("http://localhost:3000/web/newJenisProduk", {
+      //       method: "POST",
+      //       headers: {
+      //         "Content-Type": "application/json",
+      //       },
+      //       body: JSON.stringify(data),
+      //     })
+      //       .then((response) => {
+      //         if (!response.ok) {
+      //           return response.json().then((error) => {
+      //             throw error;
+      //           });
+      //         }
+      //         return response.json();
+      //       })
+      //       .then((result) => {
+      //         console.log("Success:", result);
+      //         // Handle the successful response here
+      //         alert("Data berhasil ditambahkan");
+
+      //         // Menutup modal setelah sukses
+      //         const modalElement = document.getElementById("exampleModal");
+      //         const modalInstance = bootstrap.Modal.getInstance(modalElement);
+      //         modalInstance.hide();
+
+      //         // Initial load
+      //         loadProduk();
+      //       })
+      //       .catch((error) => {
+      //         console.error("Error:", error);
+      //         // Handle the error response here
+      //       });
+      //   });
+
       document
         .getElementById("saveChangesButton")
         .addEventListener("click", () => {
           const form = document.getElementById("tambahJenisProdukForm");
-          const formData = new FormData(form);
-          const data = Object.fromEntries(formData.entries());
+          const formData = new FormData(form); // Use FormData to handle file uploads
 
           fetch("http://localhost:3000/web/newJenisProduk", {
             method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(data),
+            body: formData, // Send FormData which includes file
           })
             .then((response) => {
               if (!response.ok) {
@@ -1404,7 +1440,6 @@
             })
             .then((result) => {
               console.log("Success:", result);
-              // Handle the successful response here
               alert("Data berhasil ditambahkan");
 
               // Menutup modal setelah sukses
@@ -1417,7 +1452,7 @@
             })
             .catch((error) => {
               console.error("Error:", error);
-              // Handle the error response here
+              alert("Error adding new product type");
             });
         });
 

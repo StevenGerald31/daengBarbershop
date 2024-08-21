@@ -1,5 +1,100 @@
 const getBaseUrl = require("../../utils/getBaseUrl");
+const multer = require("multer");
+const path = require("path");
+const fs = require("fs");
 const axios = require("axios");
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "public/storage/images/"); // Ensure this path exists and is writable
+  },
+  filename: (req, file, cb) => {
+    // cb(null, Date.now() + "." + file.mimetype.split("/")[1]);
+    cb(null, new Date().getTime() + "-" + file.originalname);
+  },
+});
+
+const fileFilter = (req, file, cb) => {
+  if (
+    file.mimetype === "image/png" ||
+    file.mimetype === "image/jpg" ||
+    file.mimetype === "image/jpeg"
+    // file.mimetype === "application/pdf" ||
+    // file.mimetype === "text/csv" ||
+    // file.mimetype === "application/vnd.ms-excel" ||
+    // file.mimetype ===
+    //   "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+  ) {
+    cb(null, true);
+  } else {
+    cb(null, false);
+  }
+};
+
+const upload = multer({
+  storage: storage,
+  fileFilter: fileFilter,
+  // fileFilter: (req, file, cb) => {
+  //   const filetypes = /jpeg|jpg|png|gif/;
+  //   const mimetype = filetypes.test(file.mimetype);
+  //   const extname = filetypes.test(
+  //     path.extname(file.originalname).toLowerCase()
+  //   );
+
+  //   if (mimetype && extname) {
+  //     return cb(null, true);
+  //   } else {
+  //     cb(
+  //       "Error: File upload only supports the following filetypes - " +
+  //         filetypes
+  //     );
+  //   }
+  // },
+}).single("image_path"); // Make sure 'image_path' matches the form field name
+
+// Function to add content with image upload
+const tambah_konten = async (req, res) => {
+  upload(req, res, async function (err) {
+    if (err) {
+      console.error("File upload error:", err);
+      return res
+        .status(500)
+        .json({ error: "File upload error: " + err.message });
+    }
+    console.log(req);
+
+    if (!req.file) {
+      return res.status(422).json({ error: "No image file uploaded" });
+    }
+
+    const { title, description, expiry_date } = req.body;
+    const image_path = req.file ? req.file.filename : null;
+
+    // Log the image path to the console
+    console.log("Image Path:", image_path);
+
+    if (!image_path) {
+      console.error("No image file uploaded");
+      return res.status(422).json({ error: "No image file uploaded" });
+    }
+
+    try {
+      const response = await axios.post("http://127.0.0.1:8000/api/contents", {
+        title,
+        description,
+        image_path,
+        expiry_date,
+      });
+
+      res.status(response.status).json(response.data);
+    } catch (error) {
+      console.error("Error during API call:", error);
+      res
+        .status(500)
+        .json({ error: error.response?.data?.message || "Error occurred" });
+    }
+  });
+};
 
 const pageCoba = async (req, res) => {
   try {
@@ -26,17 +121,6 @@ const data_pelanggan = async (req, res) => {
   }
 };
 
-const data_konten = async (req, res) => {
-  try {
-    const response = await axios.get("http://127.0.0.1:8000/api/contents");
-    const content = response.data;
-    res.json(content);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "An error occurred while fetching data" });
-  }
-};
-
 const data_server = async (req, res) => {
   try {
     const response = await axios.get("http://127.0.0.1:8000/api/servers");
@@ -52,9 +136,11 @@ const data_lokasi = async (req, res) => {
   try {
     const response = await axios.get("http://127.0.0.1:8000/api/lokasis");
     const lokasi = response.data;
+
+    // Send data to the client
     res.json(lokasi);
   } catch (error) {
-    console.error(error);
+    console.error("Error fetching data:", error.message);
     res.status(500).json({ error: "An error occurred while fetching data" });
   }
 };
@@ -186,25 +272,49 @@ const resetPassword = async (req, res) => {
   }
 };
 
-const tambah_konten = async (req, res) => {
-  const { title, description, image_path, expiry_date } = req.body;
-
+const data_konten = async (req, res) => {
   try {
-    const response = await axios.post("http://127.0.0.1:8000/api/contents", {
-      title,
-      description,
-      image_path,
-      expiry_date,
-    });
-
-    res.status(response.status).json(response.data);
+    const response = await axios.get("http://127.0.0.1:8000/api/contents");
+    const content = response.data;
+    res.json(content);
   } catch (error) {
     console.error(error);
-    res
-      .status(500)
-      .json({ message: "An error occurred", error: error.message });
+    res.status(500).json({ error: "An error occurred while fetching data" });
   }
 };
+
+// const tambah_konten = async (req, res) => {
+//   upload.single("image")(req, res, async (err) => {
+//     if (err instanceof multer.MulterError) {
+//       return res
+//         .status(500)
+//         .json({ message: "File upload error", error: err.message });
+//     } else if (err) {
+//       return res
+//         .status(500)
+//         .json({ message: "Unknown error occurred", error: err.message });
+//     }
+
+//     const { title, description, expiry_date } = req.body;
+//     const imagePath = req.file ? `/uploads/${req.file.filename}` : null;
+
+//     try {
+//       const response = await axios.post("http://127.0.0.1:8000/api/contents", {
+//         title,
+//         description,
+//         image_path: imagePath,
+//         expiry_date,
+//       });
+
+//       res.status(response.status).json(response.data);
+//     } catch (error) {
+//       console.error(error);
+//       res
+//         .status(500)
+//         .json({ message: "An error occurred", error: error.message });
+//     }
+//   });
+// };
 
 const delete_konten = async (req, res) => {
   const { id } = req.params;

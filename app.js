@@ -5,6 +5,7 @@ const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const session = require("express-session");
 const cors = require("cors");
+const multer = require("multer");
 
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
@@ -18,6 +19,35 @@ app.use(
     saveUninitialized: false,
   })
 );
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "storage/images/"); // Ensure this path exists and is writable
+  },
+  filename: (req, file, cb) => {
+    // cb(null, Date.now() + "." + file.mimetype.split("/")[1]);
+    cb(null, new Date().getTime() + "-" + file.originalname);
+  },
+});
+
+const fileFilter = (req, file, cb) => {
+  if (
+    file.mimetype === "image/png" ||
+    file.mimetype === "image/jpg" ||
+    file.mimetype === "image/jpeg"
+    // file.mimetype === "application/pdf" ||
+    // file.mimetype === "text/csv" ||
+    // file.mimetype === "application/vnd.ms-excel" ||
+    // file.mimetype ===
+    //   "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+  ) {
+    cb(null, true);
+  } else {
+    cb(null, false);
+  }
+};
+
+app.use(multer({ storage: storage, fileFilter: fileFilter }).single("file"));
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));

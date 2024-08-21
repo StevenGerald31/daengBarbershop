@@ -395,7 +395,7 @@ const view_all_data_produk = async (req, res) => {
 
 const tambah_jenis_produk = async (req, res) => {
   const token = req.session.dataUser.token;
-  const { jenisproduk, nama, deskripsi, harga, stok } = req.body;
+  const { jenisproduk, nama, deskripsi, gambar, harga, stok } = req.body;
 
   if (!token) {
     return res
@@ -406,7 +406,7 @@ const tambah_jenis_produk = async (req, res) => {
   try {
     const response = await axios.post(
       "http://127.0.0.1:8000/api/produk/tambahjenisproduk",
-      { jenisproduk, nama, deskripsi, harga, stok },
+      { jenisproduk, nama, deskripsi, gambar, harga, stok },
       {
         headers: {
           "Content-Type": "application/json",
