@@ -7,7 +7,7 @@ router.get("/pelanggan", adminController.data_pelanggan);
 router.get("/server", adminController.data_server);
 router.get("/lokasi", adminController.data_lokasi);
 router.post("/tambahLokasi", adminController.tambah_lokasi);
-router.put("/editLokasi/:id_lokasi", adminController.edit_lokasi);
+router.put("/editLokasi", adminController.edit_lokasi);
 router.delete("/deleteLokasi/:id_lokasi", adminController.delete_lokasi);
 router.get("/konten", adminController.data_konten);
 router.post("/tambahKonten", adminController.tambah_konten);

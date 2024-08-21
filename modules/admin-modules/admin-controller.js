@@ -199,6 +199,8 @@ const edit_lokasi = async (req, res) => {
       }
     );
 
+    console.log("Respons dari server setelah update:", response.data);
+
     res.status(response.status).json(response.data);
   } catch (error) {
     console.error("Error during update:", error.message);

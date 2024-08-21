@@ -1373,6 +1373,50 @@
         };
 
         // Function to edit a lokasi
+        document
+          .getElementById("saveEditLokasi")
+          .addEventListener("click", () => {
+            const form = document.getElementById("editLokasiForm");
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData.entries());
+
+            fetch("http://localhost:3000/admin/editLokasi", {
+              method: "PUT",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                data: data,
+                id_lokasi: selectedLokasi,
+              }),
+            })
+              .then((response) => {
+                if (!response.ok) {
+                  return response.json().then((error) => {
+                    throw error;
+                  });
+                }
+                return response.json();
+              })
+              .then((result) => {
+                console.log("Success:", result);
+                // Handle the successful response here
+                alert("Lokasi Berhasil di Edit");
+
+                // Menutup modal setelah sukses
+                const modalElement = document.getElementById("editLokasiModal");
+                const modalInstance = bootstrap.Modal.getInstance(modalElement);
+                modalInstance.hide();
+
+                // Initial load
+                loadLokasi();
+                console.log("Lokasi terbaru setelah edit:", result);
+              })
+              .catch((error) => {
+                console.error("Error:", error);
+                // Handle the error response here
+              });
+          });
       });
 
       // Script for Konten
