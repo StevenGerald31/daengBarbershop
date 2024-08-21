@@ -185,8 +185,8 @@ const delete_lokasi = async (req, res) => {
 
 // Tambah fungsi untuk edit lokasi
 const edit_lokasi = async (req, res) => {
-  const { id_lokasi } = req.params;
-  const { nama, alamat, kota, kodepos } = req.body;
+  // const { id_lokasi } = req.params;
+  const { nama, alamat, kota, kodepos, id_lokasi } = req.body;
 
   try {
     const response = await axios.put(
@@ -196,6 +196,7 @@ const edit_lokasi = async (req, res) => {
         alamat,
         kota,
         kodepos,
+        id_lokasi,
       }
     );
 

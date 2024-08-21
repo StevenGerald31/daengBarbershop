@@ -1295,7 +1295,7 @@
             <td>${lokasi.kota}</td>
             <td>${lokasi.kodepos}</td>
             <td>
-              <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editLokasiModal" data-id-lokasi="(${lokasi.id_lokasi})">Edit</button>
+              <button class="btn update-lokasi btn-warning" data-bs-toggle="modal" data-bs-target="#editLokasiModal" data-id-lokasi="(${lokasi.id_lokasi})">Edit</button>
               <button class="btn btn-danger" onclick="deleteLokasi(${lokasi.id_lokasi})">Delete</button>
             </td>
           `;
@@ -1372,6 +1372,17 @@
           }
         };
 
+        // Variabel untuk menyimpan ID produk yang akan diupdate
+        let selectedIdLokasi = null;
+
+        document.addEventListener("click", (event) => {
+          const button = event.target.closest(".update-lokasi");
+          if (button) {
+            selectedIdLokasi = button.getAttribute("data-id-lokasi");
+            console.log("ID Produk yang dipilih: ", selectedIdLokasi); // Debugging
+          }
+        });
+
         // Function to edit a lokasi
         document
           .getElementById("saveEditLokasi")
@@ -1387,7 +1398,7 @@
               },
               body: JSON.stringify({
                 data: data,
-                id_lokasi: selectedLokasi,
+                id_lokasi: selectedIdLokasi,
               }),
             })
               .then((response) => {
