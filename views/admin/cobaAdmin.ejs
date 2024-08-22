@@ -1290,18 +1290,29 @@
                 const row = document.createElement("tr");
 
                 row.innerHTML = `
-            <td>${lokasi.nama}</td>
-            <td>${lokasi.alamat}</td>
-            <td>${lokasi.kota}</td>
-            <td>${lokasi.kodepos}</td>
-            <td>
-              <button class="btn update-lokasi btn-warning" data-bs-toggle="modal" data-bs-target="#editLokasiModal" data-id-lokasi="(${lokasi.id_lokasi})">Edit</button>
-              <button class="btn btn-danger" onclick="deleteLokasi(${lokasi.id_lokasi})">Delete</button>
-            </td>
-          `;
+          <td>${lokasi.nama}</td>
+          <td>${lokasi.alamat}</td>
+          <td>${lokasi.kota}</td>
+          <td>${lokasi.kodepos}</td>
+          <td>
+            <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editLokasiModal" data-id-lokasi="${lokasi.id_lokasi}">Edit</button>
+            <button class="btn btn-danger" onclick="deleteLokasi(${lokasi.id_lokasi})">Delete</button>
+          </td>
+        `;
 
                 lokasiTableBody.appendChild(row);
               });
+
+              // Add event listeners for each edit button after the table is populated
+              document
+                .querySelectorAll('[data-bs-toggle="modal"]')
+                .forEach((button) => {
+                  button.addEventListener("click", function () {
+                    const selectedLokasiId =
+                      this.getAttribute("data-id-lokasi");
+                    loadLokasiDetails(selectedLokasiId);
+                  });
+                });
             })
             .catch((error) => {
               console.error("Error loading lokasi data:", error);
@@ -1372,62 +1383,95 @@
           }
         };
 
-        // Variabel untuk menyimpan ID produk yang akan diupdate
-        let selectedIdLokasi = null;
+        //
+        function loadLokasiDetails(id) {
+          document
+            .getElementById("saveEditLokasi")
+            .addEventListener("click", () => {
+              const form = document.getElementById("editLokasiForm");
+              const formData = new FormData(form);
+              const data = Object.fromEntries(formData.entries());
 
-        document.addEventListener("click", (event) => {
-          const button = event.target.closest(".update-lokasi");
-          if (button) {
-            selectedIdLokasi = button.getAttribute("data-id-lokasi");
-            console.log("ID Produk yang dipilih: ", selectedIdLokasi); // Debugging
-          }
-        });
+              const selectedLokasi = form.getAttribute("data-id-lokasi");
+
+              fetch(`http://localhost:8000/api/lokasis/${id}`, {
+                method: "PUT",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify(data),
+              })
+                .then((response) => {
+                  if (!response.ok) {
+                    return response.json().then((error) => {
+                      throw error;
+                    });
+                  }
+                  return response.json();
+                })
+                .then((result) => {
+                  console.log("Success:", result);
+                  alert("Lokasi Berhasil di Edit");
+
+                  // Close the modal after success
+                  const modalElement =
+                    document.getElementById("editLokasiModal");
+                  const modalInstance =
+                    bootstrap.Modal.getInstance(modalElement);
+                  modalInstance.hide();
+
+                  // Reload the lokasi data
+                  loadLokasi();
+                })
+                .catch((error) => {
+                  console.error("Error:", error);
+                  alert("Terjadi kesalahan saat mengedit lokasi.");
+                });
+            });
+        }
 
         // Function to edit a lokasi
-        document
-          .getElementById("saveEditLokasi")
-          .addEventListener("click", () => {
-            const form = document.getElementById("editLokasiForm");
-            const formData = new FormData(form);
-            const data = Object.fromEntries(formData.entries());
+        // document
+        //   .getElementById("saveEditLokasi")
+        //   .addEventListener("click", () => {
+        //     const form = document.getElementById("editLokasiForm");
+        //     const formData = new FormData(form);
+        //     const data = Object.fromEntries(formData.entries());
 
-            fetch("http://localhost:3000/admin/editLokasi", {
-              method: "PUT",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({
-                data: data,
-                id_lokasi: selectedIdLokasi,
-              }),
-            })
-              .then((response) => {
-                if (!response.ok) {
-                  return response.json().then((error) => {
-                    throw error;
-                  });
-                }
-                return response.json();
-              })
-              .then((result) => {
-                console.log("Success:", result);
-                // Handle the successful response here
-                alert("Lokasi Berhasil di Edit");
+        //     const selectedLokasi = form.getAttribute("data-id-lokasi");
 
-                // Menutup modal setelah sukses
-                const modalElement = document.getElementById("editLokasiModal");
-                const modalInstance = bootstrap.Modal.getInstance(modalElement);
-                modalInstance.hide();
+        //     fetch(`http://localhost:3000/admin/editLokasi/${selectedLokasi}`, {
+        //       method: "PUT",
+        //       headers: {
+        //         "Content-Type": "application/json",
+        //       },
+        //       body: JSON.stringify(data),
+        //     })
+        //       .then((response) => {
+        //         if (!response.ok) {
+        //           return response.json().then((error) => {
+        //             throw error;
+        //           });
+        //         }
+        //         return response.json();
+        //       })
+        //       .then((result) => {
+        //         console.log("Success:", result);
+        //         alert("Lokasi Berhasil di Edit");
 
-                // Initial load
-                loadLokasi();
-                console.log("Lokasi terbaru setelah edit:", result);
-              })
-              .catch((error) => {
-                console.error("Error:", error);
-                // Handle the error response here
-              });
-          });
+        //         // Close the modal after success
+        //         const modalElement = document.getElementById("editLokasiModal");
+        //         const modalInstance = bootstrap.Modal.getInstance(modalElement);
+        //         modalInstance.hide();
+
+        //         // Reload the lokasi data
+        //         loadLokasi();
+        //       })
+        //       .catch((error) => {
+        //         console.error("Error:", error);
+        //         alert("Terjadi kesalahan saat mengedit lokasi.");
+        //       });
+        //   });
       });
 
       // Script for Konten
