@@ -1604,8 +1604,15 @@
             );
 
             if (!response.ok) {
-              const errorData = await response.json();
-              throw new Error(errorData.message || "Error adding new content");
+              const contentType = response.headers.get("content-type");
+              if (contentType && contentType.includes("application/json")) {
+                const errorData = await response.json();
+                throw new Error(
+                  errorData.message || "Error adding new content"
+                );
+              } else {
+                throw new Error("Unexpected error: " + response.statusText);
+              }
             }
 
             const data = await response.json();

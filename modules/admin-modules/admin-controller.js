@@ -3,54 +3,17 @@ const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
 const axios = require("axios");
+const formdata = require("form-data");
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "public/storage/images/"); // Ensure this path exists and is writable
-  },
-  filename: (req, file, cb) => {
-    // cb(null, Date.now() + "." + file.mimetype.split("/")[1]);
-    cb(null, new Date().getTime() + "-" + file.originalname);
+//API UTAMA
+const apiClient = axios.create({
+  baseURL: "http://api.daengbarbershop.my.id",
+  headers: {
+    "Content-Type": "application/json",
   },
 });
 
-const fileFilter = (req, file, cb) => {
-  if (
-    file.mimetype === "image/png" ||
-    file.mimetype === "image/jpg" ||
-    file.mimetype === "image/jpeg"
-    // file.mimetype === "application/pdf" ||
-    // file.mimetype === "text/csv" ||
-    // file.mimetype === "application/vnd.ms-excel" ||
-    // file.mimetype ===
-    //   "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-  ) {
-    cb(null, true);
-  } else {
-    cb(null, false);
-  }
-};
-
-const upload = multer({
-  storage: storage,
-  fileFilter: fileFilter,
-  // fileFilter: (req, file, cb) => {
-  //   const filetypes = /jpeg|jpg|png|gif/;
-  //   const mimetype = filetypes.test(file.mimetype);
-  //   const extname = filetypes.test(
-  //     path.extname(file.originalname).toLowerCase()
-  //   );
-
-  //   if (mimetype && extname) {
-  //     return cb(null, true);
-  //   } else {
-  //     cb(
-  //       "Error: File upload only supports the following filetypes - " +
-  //         filetypes
-  //     );
-  //   }
-  // },
-}).single("image_path"); // Make sure 'image_path' matches the form field name
+//FUNGCTION
 
 // Function to add content with image upload
 const tambah_konten = async (req, res) => {
@@ -61,40 +24,85 @@ const tambah_konten = async (req, res) => {
         .status(500)
         .json({ error: "File upload error: " + err.message });
     }
-    console.log(req);
 
     if (!req.file) {
       return res.status(422).json({ error: "No image file uploaded" });
     }
 
     const { title, description, expiry_date } = req.body;
-    const image_path = req.file ? req.file.filename : null;
-
-    // Log the image path to the console
-    console.log("Image Path:", image_path);
-
-    if (!image_path) {
-      console.error("No image file uploaded");
-      return res.status(422).json({ error: "No image file uploaded" });
-    }
+    const image_path = req.file.path;
 
     try {
-      const response = await axios.post("http://127.0.0.1:8000/api/contents", {
-        title,
-        description,
-        image_path,
-        expiry_date,
+      const formData = new FormData();
+      formData.append("title", title);
+      formData.append("description", description);
+      formData.append("expiry_date", expiry_date);
+      formData.append(
+        "image_path",
+        document.getElementById("image_path").files[0]
+      );
+      const response = await apiClient.post("/api/contents", formData, {
+        headers: {
+          ...formData.getHeaders(),
+        },
       });
 
       res.status(response.status).json(response.data);
     } catch (error) {
-      console.error("Error during API call:", error);
-      res
-        .status(500)
-        .json({ error: error.response?.data?.message || "Error occurred" });
+      if (error.response) {
+        console.error(
+          "Server responded with status code:",
+          error.response.status
+        );
+        console.error("Response data:", error.response.data);
+      } else {
+        console.error("Error during API call:", error.message);
+      }
     }
   });
 };
+// const tambah_konten = async (req, res) => {
+//   upload(req, res, async function (err) {
+//     if (err) {
+//       console.error("File upload error:", err);
+//       return res
+//         .status(500)
+//         .json({ error: "File upload error: " + err.message });
+//     }
+//     console.log(req);
+
+//     if (!req.file) {
+//       return res.status(422).json({ error: "No image file uploaded" });
+//     }
+
+//     const { title, description, expiry_date } = req.body;
+//     const image_path = req.file ? req.file.filename : null;
+
+//     // Log the image path to the console
+//     console.log("Image Path:", image_path);
+
+//     if (!image_path) {
+//       console.error("No image file uploaded");
+//       return res.status(422).json({ error: "No image file uploaded" });
+//     }
+
+//     try {
+//       const response = await apiClient.post("/api/contents", {
+//         title,
+//         description,
+//         image_path,
+//         expiry_date,
+//       });
+
+//       res.status(response.status).json(response.data);
+//     } catch (error) {
+//       console.error("Error during API call:", error);
+//       res
+//         .status(500)
+//         .json({ error: error.response?.data?.message || "Error occurred" });
+//     }
+//   });
+// };
 
 const pageCoba = async (req, res) => {
   try {
@@ -112,7 +120,7 @@ const pageCoba = async (req, res) => {
 
 const data_pelanggan = async (req, res) => {
   try {
-    const response = await axios.get("http://127.0.0.1:8000/api/customers");
+    const response = await apiClient.get("/api/customers");
     const pelanggan = response.data;
     res.json(pelanggan);
   } catch (error) {
@@ -123,7 +131,7 @@ const data_pelanggan = async (req, res) => {
 
 const data_server = async (req, res) => {
   try {
-    const response = await axios.get("http://127.0.0.1:8000/api/servers");
+    const response = await apiClient.get("/api/servers");
     const server = response.data;
     res.json(server);
   } catch (error) {
@@ -134,7 +142,7 @@ const data_server = async (req, res) => {
 
 const data_lokasi = async (req, res) => {
   try {
-    const response = await axios.get("http://127.0.0.1:8000/api/lokasis");
+    const response = await apiClient.get("/api/lokasis");
     const lokasi = response.data;
 
     // Send data to the client
@@ -150,7 +158,7 @@ const tambah_lokasi = async (req, res) => {
   const { nama, alamat, kota, kodepos } = req.body;
 
   try {
-    const response = await axios.post("http://127.0.0.1:8000/api/lokasis", {
+    const response = await apiClient.post("/api/lokasis", {
       nama,
       alamat,
       kota,
@@ -171,9 +179,7 @@ const delete_lokasi = async (req, res) => {
   const { id_lokasi } = req.params;
 
   try {
-    const response = await axios.delete(
-      `http://127.0.0.1:8000/api/lokasis/${id_lokasi}`
-    );
+    const response = await apiClient.delete(`/api/lokasis/${id_lokasi}`);
     res.status(response.status).json(response.data);
   } catch (error) {
     console.error("Error during delete:", error.message);
@@ -189,16 +195,13 @@ const edit_lokasi = async (req, res) => {
   const { nama, alamat, kota, kodepos } = req.body;
 
   try {
-    const response = await axios.put(
-      `http://127.0.0.1:8000/api/lokasis/${id_lokasi}`,
-      {
-        nama,
-        alamat,
-        kota,
-        kodepos,
-        id_lokasi,
-      }
-    );
+    const response = await apiClient.put(`/api/lokasis/${id_lokasi}`, {
+      nama,
+      alamat,
+      kota,
+      kodepos,
+      id_lokasi,
+    });
 
     console.log("Respons dari server setelah update:", response.data);
 
@@ -215,8 +218,8 @@ const edit_lokasi = async (req, res) => {
 //   const { nama, alamat, kota, kodepos } = data;
 
 //   try {
-//     const response = await axios.put(
-//       `http://127.0.0.1:8000/api/lokasis/${id_lokasi}`,
+//     const response = await apiClient.put(
+//       `/api/lokasis/${id_lokasi}`,
 //       {
 //         nama,
 //         alamat,
@@ -253,7 +256,7 @@ const tambah_server = async (req, res) => {
     id_lokasi,
   } = req.body;
   try {
-    const response = await axios.post("http://127.0.0.1:8000/api/addServer", {
+    const response = await apiClient.post("/api/addServer", {
       name,
       password,
       no_telp,
@@ -283,8 +286,8 @@ const resetPassword = async (req, res) => {
   }
 
   try {
-    const response = await axios.post(
-      `http://127.0.0.1:8000/api/changePassword/${id_user}`,
+    const response = await apiClient.post(
+      `/api/changePassword/${id_user}`,
       {
         new_password: newPassword,
       },
@@ -307,7 +310,7 @@ const resetPassword = async (req, res) => {
 
 const data_konten = async (req, res) => {
   try {
-    const response = await axios.get("http://127.0.0.1:8000/api/contents");
+    const response = await apiClient.get("/api/contents");
     const content = response.data;
     res.json(content);
   } catch (error) {
@@ -332,7 +335,7 @@ const data_konten = async (req, res) => {
 //     const imagePath = req.file ? `/uploads/${req.file.filename}` : null;
 
 //     try {
-//       const response = await axios.post("http://127.0.0.1:8000/api/contents", {
+//       const response = await apiClient.post("/api/contents", {
 //         title,
 //         description,
 //         image_path: imagePath,
@@ -354,9 +357,7 @@ const delete_konten = async (req, res) => {
   console.log(`Menghapus konten dengan ID: ${id}`); // Logging tambahan
 
   try {
-    const response = await axios.delete(
-      `http://127.0.0.1:8000/api/contents/${id}`
-    );
+    const response = await apiClient.delete(`/api/contents/${id}`);
     console.log("Response from API:", response.data); // Logging respons dari API
 
     res.status(response.status).json(response.data);
@@ -370,9 +371,7 @@ const delete_konten = async (req, res) => {
 
 const deleteExpiredContent = async (req, res) => {
   try {
-    const response = await axios.delete(
-      "http://127.0.0.1:8000/api/contents/expired/delete"
-    );
+    const response = await apiClient.delete("/api/contents/expired/delete");
 
     res.status(response.status).json(response.data);
   } catch (error) {
@@ -397,4 +396,5 @@ module.exports = {
   tambah_konten,
   delete_konten,
   deleteExpiredContent,
+  apiClient,
 };

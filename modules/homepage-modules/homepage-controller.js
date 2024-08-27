@@ -1,6 +1,15 @@
 const getBaseUrl = require("../../utils/getBaseUrl");
-const { sequelize, Sequelize } = require("../../db");
 const axios = require("axios");
+
+//API UTAMA
+const apiClient = axios.create({
+  baseURL: "http://api.daengbarbershop.my.id",
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
+
+//FUNCTION
 
 const Landingpage = async (req, res) => {
   try {
@@ -30,49 +39,17 @@ const Loginpage = async (req, res) => {
   }
 };
 
-// const loginUser = async (req, res) => {
-//   const { email, password } = req.body;
-
-//   try {
-//     const response = await axios.post("http://127.0.0.1:8000/api/auth/login", {
-//       email: email,
-//       password: password,
-//     });
-
-//     if (response.status != 200) {
-//       return res.status(401).json({ message: "Invalid email or password" });
-//     }
-//     const user = response.data.user;
-
-//     req.session.dataUser = {
-//       role_user: user.id_role,
-//       lokasi: user.id_lokasi,
-//     };
-//     const lokasiUser = user.id_lokasi;
-//     if (user.id_role === 1) {
-//       // Render admin page if id_role is 1
-//       res.redirect(`/admin/coba?lokasi=${lokasiUser}`);
-//     } else if (user.id_role === 2) {
-//       // Render server page if id_role is 2
-//       res.redirect(`/server/dashboard?lokasi=${lokasiUser}`);
-//     } else {
-//       // Handle other cases, maybe render a default page or return an error
-//       return res.status(403).json({ message: "Unauthorized role" });
-//     }
-//   } catch (error) {
-//     console.error(error);
-//     res.status(500).json({ error: "An error occurred while logging in" });
-//   }
-// };
-
 const loginUser = async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    const response = await axios.post("http://127.0.0.1:8000/api/auth/login", {
-      email: email,
-      password: password,
-    });
+    const response = await axios.post(
+      "http://api.daengbarbershop.my.id/api/auth/login",
+      {
+        email: email,
+        password: password,
+      }
+    );
 
     // Periksa apakah respons memiliki status 200 atau 201
     if (response.status !== 200 && response.status !== 201) {
@@ -99,9 +76,9 @@ const loginUser = async (req, res) => {
     const lokasiUser = user.id_lokasi;
 
     // Redirect ke halaman sesuai dengan role pengguna
-    if (user.id_role === 1) {
+    if (user.id_role === "1") {
       res.redirect(`/admin/coba?lokasi=${lokasiUser}`);
-    } else if (user.id_role === 2) {
+    } else if (user.id_role === "2") {
       res.redirect(`/server/dashboard?lokasi=${lokasiUser}`);
     } else {
       return res.status(403).json({ message: "Unauthorized role" });
@@ -131,7 +108,7 @@ const loginUser = async (req, res) => {
 
 const data_pelanggan = async (req, res) => {
   try {
-    const response = await axios.get("http://127.0.0.1:8000/api/customers");
+    const response = await apiClient.get("/api/customers");
     const pelanggan = response.data;
     res.json(pelanggan);
   } catch (error) {
@@ -153,14 +130,11 @@ const view_data_request = async (req, res) => {
     }
 
     // Sertakan token dalam header Authorization
-    const response = await axios.get(
-      "http://127.0.0.1:8000/api/bookings/request",
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    const response = await apiClient.get("/api/bookings/request", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
     // Ambil array request dari response.data
     const request = response.data.bookings;
@@ -188,14 +162,11 @@ const view_data_reserved = async (req, res) => {
     }
 
     // Sertakan token dalam header Authorization
-    const response = await axios.get(
-      "http://127.0.0.1:8000/api/bookings/reserved",
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    const response = await apiClient.get("/api/bookings/reserved", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
     // Ambil array reserved dari response.data
     const reserved = response.data.bookings;
@@ -222,8 +193,8 @@ const view_all_data_booking = async (req, res) => {
     }
 
     // Sertakan token dalam header Authorization
-    const response = await axios.get(
-      "http://127.0.0.1:8000/api/bookings/showAllServerBookings",
+    const response = await apiClient.get(
+      "/api/bookings/showAllServerBookings",
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -255,8 +226,8 @@ const confirmBooking = async (req, res) => {
   }
 
   try {
-    const response = await axios.put(
-      `http://127.0.0.1:8000/api/bookings/${bookingId}/confirm`,
+    const response = await apiClient.put(
+      `/api/bookings/${bookingId}/confirm`,
       {},
       {
         headers: {
@@ -295,8 +266,8 @@ const finishBooking = async (req, res) => {
   }
 
   try {
-    const response = await axios.put(
-      `http://127.0.0.1:8000/api/bookings/${bookingId}/finish`,
+    const response = await apiClient.put(
+      `/api/bookings/${bookingId}/finish`,
       {},
       {
         headers: {
@@ -335,8 +306,8 @@ const canceledBooking = async (req, res) => {
   }
 
   try {
-    const response = await axios.put(
-      `http://127.0.0.1:8000/api/bookings/${bookingId}/reject`,
+    const response = await apiClient.put(
+      `/api/bookings/${bookingId}/reject`,
       {},
       {
         headers: {
@@ -375,7 +346,7 @@ const view_all_data_produk = async (req, res) => {
 
   try {
     // Sertakan token dalam header Authorization
-    const response = await axios.get("http://127.0.0.1:8000/api/stockproduk", {
+    const response = await apiClient.get("/api/stockproduk", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -395,7 +366,7 @@ const view_all_data_produk = async (req, res) => {
 
 const tambah_jenis_produk = async (req, res) => {
   const token = req.session.dataUser.token;
-  const { jenisproduk, nama, deskripsi, gambar, harga, stok } = req.body;
+  const { jenisproduk, nama, deskripsi, harga, stok } = req.body;
 
   if (!token) {
     return res
@@ -404,9 +375,9 @@ const tambah_jenis_produk = async (req, res) => {
   }
 
   try {
-    const response = await axios.post(
-      "http://127.0.0.1:8000/api/produk/tambahjenisproduk",
-      { jenisproduk, nama, deskripsi, gambar, harga, stok },
+    const response = await apiClient.post(
+      "/api/produk/tambahjenisproduk",
+      { jenisproduk, nama, deskripsi, harga, stok },
       {
         headers: {
           "Content-Type": "application/json",
@@ -435,8 +406,8 @@ const update_Produk = async (req, res) => {
   }
 
   try {
-    const response = await axios.put(
-      `http://127.0.0.1:8000/api/produk/update/${id_produk}`,
+    const response = await apiClient.put(
+      `/api/produk/update/${id_produk}`,
       { nama, deskripsi, harga, gambar, jenisproduk, id_produk },
       {
         headers: {
@@ -466,14 +437,11 @@ const hapus_Produk = async (req, res) => {
   }
 
   try {
-    const response = await axios.delete(
-      `http://127.0.0.1:8000/api/produk/hapus/${id_produk}`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    const response = await apiClient.delete(`/api/produk/hapus/${id_produk}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
     res
       .status(response.status)
@@ -497,8 +465,8 @@ const update_stok = async (req, res) => {
   }
 
   try {
-    const response = await axios.put(
-      `http://127.0.0.1:8000/api/stockproduk/${id_stockproduk}`,
+    const response = await apiClient.put(
+      `/api/stockproduk/${id_stockproduk}`,
       {
         stok,
       },
@@ -530,8 +498,8 @@ const resetPassword = async (req, res) => {
   }
 
   try {
-    const response = await axios.post(
-      `http://127.0.0.1:8000/api/changePassword/${id_user}`,
+    const response = await apiClient.post(
+      `/api/changePassword/${id_user}`,
       {
         new_password: newPassword,
       },
@@ -562,8 +530,8 @@ const checkout = async (req, res) => {
   }
 
   try {
-    const response = await axios.post(
-      `http://127.0.0.1:8000/api/transaction`,
+    const response = await apiClient.post(
+      `/api/transaction`,
       {
         metode_pembayaran: metode_pembayaran,
         no_telp: no_telp,
@@ -615,14 +583,11 @@ const data_reserved = async (req, res) => {
     }
 
     // Sertakan token dalam header Authorization
-    const response = await axios.get(
-      "http://127.0.0.1:8000/api/bookings/request",
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    const response = await apiClient.get("/api/bookings/request", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
     // Ambil array bookings dari response.data
     const bookings = response.data.bookings;
@@ -655,4 +620,5 @@ module.exports = {
   hapus_Produk,
   resetPassword,
   checkout,
+  apiClient,
 };
