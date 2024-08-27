@@ -176,7 +176,7 @@ const tambah_lokasi = async (req, res) => {
 
 // Tambah fungsi untuk delete lokasi
 const delete_lokasi = async (req, res) => {
-  const { id_lokasi } = req.params;
+  const { id_lokasi } = req.body;
 
   try {
     const response = await apiClient.delete(`/api/lokasis/${id_lokasi}`);
@@ -191,8 +191,7 @@ const delete_lokasi = async (req, res) => {
 
 // Tambah fungsi untuk edit lokasi
 const edit_lokasi = async (req, res) => {
-  const { id_lokasi } = req.params;
-  const { nama, alamat, kota, kodepos } = req.body;
+  const { nama, alamat, kota, kodepos, id_lokasi } = req.body;
 
   try {
     const response = await apiClient.put(`/api/lokasis/${id_lokasi}`, {
@@ -213,36 +212,6 @@ const edit_lokasi = async (req, res) => {
       .json({ message: "An error occurred", error: error.message });
   }
 };
-// const edit_lokasi = async (req, res) => {
-//   const { data, id_lokasi } = req.body;
-//   const { nama, alamat, kota, kodepos } = data;
-
-//   try {
-//     const response = await apiClient.put(
-//       `/api/lokasis/${id_lokasi}`,
-//       {
-//         nama,
-//         alamat,
-//         kota,
-//         kodepos,
-//       },
-//       {
-//         headers: {
-//           "Content-Type": "application/json",
-//         },
-//       }
-//     );
-
-//     console.log("Respons dari server setelah update:", response.data);
-
-//     res.status(response.status).json(response.data);
-//   } catch (error) {
-//     console.error("Error during update:", error.message);
-//     res
-//       .status(500)
-//       .json({ message: "An error occurred", error: error.message });
-//   }
-// };
 
 const tambah_server = async (req, res) => {
   const {
