@@ -1354,8 +1354,12 @@
         // Function to delete a lokasi
         window.deleteLokasi = function (id_lokasi) {
           if (confirm("Apakah Anda yakin ingin menghapus lokasi ini?")) {
-            fetch(`http://localhost:3000/admin/deleteLokasi/${id_lokasi}`, {
+            fetch("http://localhost:3000/admin/deleteLokasi", {
               method: "DELETE",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ id_lokasi }), // Send id_lokasi in request body
             })
               .then((response) => {
                 if (!response.ok) {
@@ -1375,16 +1379,17 @@
 
         //Edit Lokasi
         function loadLokasiDetails(id_lokasi) {
-          document
-            .getElementById("saveEditLokasi")
-            .addEventListener("click", () => {
+          document.getElementById("saveEditLokasi").addEventListener(
+            "click",
+            () => {
               const form = document.getElementById("editLokasiForm");
               const formData = new FormData(form);
               const data = Object.fromEntries(formData.entries());
 
-              const selectedLokasi = form.getAttribute("data-id-lokasi");
+              // Pastikan id_lokasi juga dimasukkan ke dalam data yang dikirim
+              data.id_lokasi = id;
 
-              fetch(`http://localhost:3000/admin/editLokasi/${id_lokasi}`, {
+              fetch(`http://localhost:8000/api/lokasis/${id}`, {
                 method: "PUT",
                 headers: {
                   "Content-Type": "application/json",
@@ -1403,65 +1408,24 @@
                   console.log("Success:", result);
                   alert("Lokasi Berhasil di Edit");
 
-                  // Close the modal after success
+                  // Tutup modal setelah sukses
                   const modalElement =
                     document.getElementById("editLokasiModal");
                   const modalInstance =
                     bootstrap.Modal.getInstance(modalElement);
                   modalInstance.hide();
 
-                  // Reload the lokasi data
+                  // Reload data lokasi
                   loadLokasi();
                 })
                 .catch((error) => {
                   console.error("Error:", error);
                   alert("Terjadi kesalahan saat mengedit lokasi.");
                 });
-            });
+            },
+            { once: true }
+          );
         }
-
-        // Function to edit a lokasi
-        // document
-        //   .getElementById("saveEditLokasi")
-        //   .addEventListener("click", () => {
-        //     const form = document.getElementById("editLokasiForm");
-        //     const formData = new FormData(form);
-        //     const data = Object.fromEntries(formData.entries());
-
-        //     const selectedLokasi = form.getAttribute("data-id-lokasi");
-
-        //     fetch(`http://localhost:3000/admin/editLokasi/${selectedLokasi}`, {
-        //       method: "PUT",
-        //       headers: {
-        //         "Content-Type": "application/json",
-        //       },
-        //       body: JSON.stringify(data),
-        //     })
-        //       .then((response) => {
-        //         if (!response.ok) {
-        //           return response.json().then((error) => {
-        //             throw error;
-        //           });
-        //         }
-        //         return response.json();
-        //       })
-        //       .then((result) => {
-        //         console.log("Success:", result);
-        //         alert("Lokasi Berhasil di Edit");
-
-        //         // Close the modal after success
-        //         const modalElement = document.getElementById("editLokasiModal");
-        //         const modalInstance = bootstrap.Modal.getInstance(modalElement);
-        //         modalInstance.hide();
-
-        //         // Reload the lokasi data
-        //         loadLokasi();
-        //       })
-        //       .catch((error) => {
-        //         console.error("Error:", error);
-        //         alert("Terjadi kesalahan saat mengedit lokasi.");
-        //       });
-        //   });
       });
 
       // Script for Konten

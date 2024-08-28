@@ -1,15 +1,13 @@
 const getBaseUrl = require("../../utils/getBaseUrl");
-const { sequelize, Sequelize } = require("../../db");
 
 const pageDashboard = async (req, res) => {
   try {
-
     const lokasi = req.query.lokasi;
 
     // Menyimpan lokasi sebagai properti dari objek req
     req.lokasi = lokasi;
 
-      // Query untuk mengambil data booking berdasarkan lokasi
+    // Query untuk mengambil data booking berdasarkan lokasi
     const booking = await sequelize.query(
       "SELECT * FROM bookings WHERE id_lokasi = :lokasi",
       {
@@ -18,7 +16,7 @@ const pageDashboard = async (req, res) => {
       }
     );
 
-    console.log("booking: ", booking)
+    console.log("booking: ", booking);
 
     return res.render("server/dashboardServer", {
       baseUrl: getBaseUrl(req),
@@ -84,9 +82,6 @@ const dataProduk = async (req, res) => {
     res.status(500).json({ error: "An error occurred while fetching data" });
   }
 };
-
-
-
 
 module.exports = {
   pageDashboard,
