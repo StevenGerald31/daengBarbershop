@@ -1456,6 +1456,8 @@
             });
         });
 
+      // Stok Produk
+
       document.addEventListener("DOMContentLoaded", () => {
         // Ambil modal dan form elemen
         const updateStockModal = document.getElementById("updateStockModal");
@@ -1473,7 +1475,6 @@
           }
         });
 
-        // Event listener untuk tombol simpan stok
         saveStockButton.addEventListener("click", async () => {
           const stockInput = document.getElementById("stock");
           const newStock = stockInput.value;
@@ -1523,10 +1524,10 @@
         });
       });
 
+      // Update Produk
       document.addEventListener("DOMContentLoaded", () => {
         let selectedProductId = null;
 
-        // Event delegation untuk tombol update produk
         document.addEventListener("click", (event) => {
           const button = event.target.closest(".update-produk");
           if (button) {
@@ -1545,7 +1546,7 @@
           }
         });
 
-        // Event listener untuk menyimpan perubahan update produk
+        // Update Produk
         document
           .getElementById("saveProdukButton")
           .addEventListener("click", async () => {
@@ -1596,7 +1597,7 @@
             }
           });
 
-        // Event delegation untuk tombol hapus produk
+        //  hapus produk
         document.addEventListener("click", async (event) => {
           const button = event.target.closest(".hapus-produk");
           if (button) {

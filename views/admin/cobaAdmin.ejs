@@ -364,6 +364,7 @@
                 <thead>
                   <tr>
                     <th scope="col">Nama</th>
+                    <th scope="col">Email</th>
                     <th scope="col">No Telp</th>
                     <th scope="col">Jenis Kelamin</th>
                     <th scope="col">Alamat</th>
@@ -478,17 +479,16 @@
                         required
                       />
                     </div>
-                    <!-- <div class="mb-3">
-                      <label for="password" class="form-label">Password</label>
+                    <div class="mb-3">
+                      <label for="email" class="form-label">Email</label>
                       <input
-                        type="text"
+                        type="email"
                         class="form-control"
-                        id="password"
-                        name="password"
+                        id="email"
+                        name="email"
                         required
-                        minlength="8"
                       />
-                    </div> -->
+                    </div>
                     <div class="mb-3">
                       <label for="password" class="form-label">Password</label>
                       <input
@@ -554,17 +554,6 @@
                         required
                       />
                     </div>
-                    <div class="mb-3">
-                      <label for="email" class="form-label">Email</label>
-                      <input
-                        type="email"
-                        class="form-control"
-                        id="email"
-                        name="email"
-                        required
-                      />
-                    </div>
-
                     <div class="mb-3">
                       <label for="id_lokasi" class="form-label"
                         >Pilih Lokasi</label
@@ -1062,6 +1051,7 @@
               const row = `
               <tr>
                 <td>${item.name}</td>
+                <td>${item.email}</td>
                 <td>${item.no_telp}</td>
                 <td>${item.jenis_kelamin}</td>
                 <td>${item.alamat}</td>
@@ -1383,8 +1373,8 @@
           }
         };
 
-        //
-        function loadLokasiDetails(id) {
+        //Edit Lokasi
+        function loadLokasiDetails(id_lokasi) {
           document
             .getElementById("saveEditLokasi")
             .addEventListener("click", () => {
@@ -1394,7 +1384,7 @@
 
               const selectedLokasi = form.getAttribute("data-id-lokasi");
 
-              fetch(`http://localhost:8000/api/lokasis/${id}`, {
+              fetch(`http://localhost:3000/admin/editLokasi/${id_lokasi}`, {
                 method: "PUT",
                 headers: {
                   "Content-Type": "application/json",
@@ -1592,14 +1582,15 @@
         const saveButton = document.getElementById("saveNewKonten");
 
         saveButton.addEventListener("click", async () => {
-          const formData = new FormData(form); // Use FormData to handle the form with file uploads
+          // Menggunakan FormData untuk menangani form termasuk upload file
+          const formData = new FormData(form);
 
           try {
             const response = await fetch(
               "http://localhost:3000/admin/tambahKonten",
               {
                 method: "POST",
-                body: formData, // Directly pass the FormData object
+                body: formData, // Kirim langsung objek FormData
               }
             );
 
@@ -1621,13 +1612,55 @@
 
             // Optionally, clear the form and close the modal
             form.reset();
-            $("#addKontenModal").modal("hide"); // Bootstrap modal close
+            $("#addKontenModal").modal("hide"); // Menutup modal bootstrap
           } catch (error) {
             alert(`Error adding new content: ${error.message}`);
             console.error(error);
           }
         });
       });
+
+      // document.addEventListener("DOMContentLoaded", () => {
+      //   const form = document.getElementById("tambahKonten");
+      //   const saveButton = document.getElementById("saveNewKonten");
+
+      //   saveButton.addEventListener("click", async () => {
+      //     const formData = new FormData(form); // Use FormData to handle the form with file uploads
+
+      //     try {
+      //       const response = await fetch(
+      //         "http://localhost:3000/admin/tambahKonten",
+      //         {
+      //           method: "POST",
+      //           body: formData, // Directly pass the FormData object
+      //         }
+      //       );
+
+      //       if (!response.ok) {
+      //         const contentType = response.headers.get("content-type");
+      //         if (contentType && contentType.includes("application/json")) {
+      //           const errorData = await response.json();
+      //           throw new Error(
+      //             errorData.message || "Error adding new content"
+      //           );
+      //         } else {
+      //           throw new Error("Unexpected error: " + response.statusText);
+      //         }
+      //       }
+
+      //       const data = await response.json();
+      //       alert("Content added successfully");
+      //       console.log(data);
+
+      //       // Optionally, clear the form and close the modal
+      //       form.reset();
+      //       $("#addKontenModal").modal("hide"); // Bootstrap modal close
+      //     } catch (error) {
+      //       alert(`Error adding new content: ${error.message}`);
+      //       console.error(error);
+      //     }
+      //   });
+      // });
     </script>
   </body>
 </html>

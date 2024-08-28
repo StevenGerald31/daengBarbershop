@@ -14,8 +14,6 @@ const apiClient = axios.create({
 });
 
 //FUNGCTION
-
-// Function to add content with image upload
 const tambah_konten = async (req, res) => {
   upload(req, res, async function (err) {
     if (err) {
@@ -36,16 +34,20 @@ const tambah_konten = async (req, res) => {
       const formData = new FormData();
       formData.append("title", title);
       formData.append("description", description);
+      formData.append("image_path", fs.createReadStream(image_path));
       formData.append("expiry_date", expiry_date);
-      formData.append(
-        "image_path",
-        document.getElementById("image_path").files[0]
+
+      const response = await axios.post(
+        "http://api.daengbarbershop.my.id/api/contents",
+        formData,
+        {
+          headers: {
+            ...formData.getHeaders(),
+          },
+        }
       );
-      const response = await apiClient.post("/api/contents", formData, {
-        headers: {
-          ...formData.getHeaders(),
-        },
-      });
+
+      console.log("Response from PHP API:", response.data); // Tambahkan logging respon dari API PHP
 
       res.status(response.status).json(response.data);
     } catch (error) {
@@ -55,12 +57,65 @@ const tambah_konten = async (req, res) => {
           error.response.status
         );
         console.error("Response data:", error.response.data);
+        res.status(error.response.status).json(error.response.data);
       } else {
         console.error("Error during API call:", error.message);
+        res
+          .status(500)
+          .json({ error: "Internal server error: " + error.message });
       }
     }
   });
 };
+
+// Function to add content with image upload
+// const tambah_konten = async (req, res) => {
+//   upload(req, res, async function (err) {
+//     if (err) {
+//       console.error("File upload error:", err);
+//       return res
+//         .status(500)
+//         .json({ error: "File upload error: " + err.message });
+//     }
+
+//     if (!req.file) {
+//       return res.status(422).json({ error: "No image file uploaded" });
+//     }
+
+//     const { title, description, expiry_date } = req.body;
+//     const image_path = req.file.path;
+
+//     try {
+//       const formData = new FormData();
+//       formData.append("title", title);
+//       formData.append("description", description);
+//       formData.append(
+//         "image_path",
+//         document.getElementById("image_path").files[0]
+//       );
+//       formData.append("expiry_date", expiry_date);
+
+//       const response = await apiClient.post("/api/contents", formData, {
+//         headers: {
+//           ...formData.getHeaders(),
+//         },
+//       });
+
+//       res.status(response.status).json(response.data);
+//     } catch (error) {
+//       if (error.response) {
+//         console.error(
+//           "Server responded with status code:",
+//           error.response.status
+//         );
+//         console.error("Response data:", error.response.data);
+//       } else {
+//         console.error("Error during API call:", error.message);
+//       }
+//     }
+//   });
+// };
+
 // const tambah_konten = async (req, res) => {
 //   upload(req, res, async function (err) {
 //     if (err) {
