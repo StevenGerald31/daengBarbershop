@@ -1541,6 +1541,104 @@
       loadKonten();
 
       // script save new content
+      // document.addEventListener("DOMContentLoaded", () => {
+      //   const form = document.getElementById("tambahKonten");
+
+      //   const saveButton = document.getElementById("saveNewKonten");
+
+      //   saveButton.addEventListener("click", async () => {
+      //     // Menggunakan FormData untuk menangani form termasuk upload file
+      //     const formData = new FormData(form);
+      //     const data = Object.fromEntries(formData.entries());
+      //     console.log("form data: ", data);
+
+      //     try {
+      //       const response = await fetch(
+      //         "http://localhost:3000/admin/tambahKonten",
+      //         {
+      //           headers: {
+      //             "Content-Type": "multipart/form-data",
+      //           },
+      //           method: "POST",
+      //           body: data, // Kirim langsung objek FormData
+      //         }
+      //       );
+
+      //       if (!response.ok) {
+      //         const contentType = response.headers.get("content-type");
+      //         if (contentType && contentType.includes("multipart/form-data")) {
+      //           const errorData = await response.json();
+      //           throw new Error(
+      //             errorData.message || "Error adding new content"
+      //           );
+      //         } else {
+      //           throw new Error("Unexpected error: " + response.statusText);
+      //         }
+      //       }
+
+      //       const data = await response.json();
+      //       alert("Content added successfully");
+      //       console.log(data);
+
+      //       // Optionally, clear the form and close the modal
+      //       form.reset();
+      //       $("#addKontenModal").modal("hide"); // Menutup modal bootstrap
+      //     } catch (error) {
+      //       alert(`Error adding new content: ${error.message}`);
+      //       console.error(error);
+      //     }
+      //   });
+      // });
+
+      // document.addEventListener("DOMContentLoaded", () => {
+      //   const form = document.getElementById("tambahKonten");
+
+      //   const saveButton = document.getElementById("saveNewKonten");
+
+      //   saveButton.addEventListener("click", async () => {
+      //     // Menggunakan FormData untuk menangani form termasuk upload file
+      //     const formData = new FormData(form);
+      //     const formEntries = Object.fromEntries(formData.entries());
+      //     console.log("form data: ", formEntries);
+
+      //     try {
+      //       const response = await fetch(
+      //         "http://localhost:3000/admin/tambahKonten",
+      //         {
+      //           headers: {
+      //             // "Content-Type": "multipart/form-data", // Note: This line should be removed when using FormData
+      //           },
+      //           method: "POST",
+      //           body: formEntries, // Kirim langsung objek FormData
+      //         }
+      //       );
+
+      //       if (!response.ok) {
+      //         const contentType = response.headers.get("content-type");
+      //         if (contentType && contentType.includes("application/json")) {
+      //           const errorData = await response.json();
+      //           throw new Error(
+      //             errorData.message || "Error adding new content"
+      //           );
+      //         } else {
+      //           throw new Error("Unexpected error: " + response.statusText);
+      //         }
+      //       }
+
+      //       const responseData = await response.json(); // Renamed this variable to avoid conflict
+      //       alert("Content added successfully");
+      //       console.log(responseData);
+
+      //       // Optionally, clear the form and close the modal
+      //       form.reset();
+      //       $("#addKontenModal").modal("hide"); // Menutup modal bootstrap
+      //     } catch (error) {
+      //       alert(`Error adding new content: ${error.message}`);
+      //       console.error(error);
+      //     }
+      //   });
+      // });
+
       document.addEventListener("DOMContentLoaded", () => {
         const form = document.getElementById("tambahKonten");
         const saveButton = document.getElementById("saveNewKonten");
@@ -1570,9 +1668,9 @@
               }
             }
 
-            const data = await response.json();
+            const responseData = await response.json(); // Renamed this variable to avoid conflict
             alert("Content added successfully");
-            console.log(data);
+            console.log(responseData);
 
             // Optionally, clear the form and close the modal
             form.reset();
