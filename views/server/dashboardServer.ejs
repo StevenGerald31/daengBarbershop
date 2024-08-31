@@ -1712,7 +1712,7 @@
             // buat card untuk produk snack
             data.forEach((item) => {
               const harga = item.harga;
-              const formattedHarga = `Rp${harga.toLocaleString("id-ID")}`;
+              const formattedHarga = `Rp${hargaInt.toLocaleString("id-ID")}`;
               const card = document.createElement("div");
               card.className = "card col-3 m-2";
               card.innerHTML = `

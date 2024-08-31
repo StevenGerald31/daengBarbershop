@@ -2,22 +2,6 @@ const getBaseUrl = require("../../utils/getBaseUrl");
 
 const pageDashboard = async (req, res) => {
   try {
-    const lokasi = req.query.lokasi;
-
-    // Menyimpan lokasi sebagai properti dari objek req
-    req.lokasi = lokasi;
-
-    // Query untuk mengambil data booking berdasarkan lokasi
-    const booking = await sequelize.query(
-      "SELECT * FROM bookings WHERE id_lokasi = :lokasi",
-      {
-        replacements: { lokasi: lokasi },
-        type: Sequelize.QueryTypes.SELECT,
-      }
-    );
-
-    console.log("booking: ", booking);
-
     return res.render("server/dashboardServer", {
       baseUrl: getBaseUrl(req),
     });
