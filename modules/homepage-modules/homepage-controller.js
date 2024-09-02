@@ -346,7 +346,7 @@ const view_all_data_produk = async (req, res) => {
 
   try {
     // Sertakan token dalam header Authorization
-    const response = await apiClient.get("/api/stockproduk", {
+    const response = await apiClient.get("/api/produk/jenis", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -366,7 +366,7 @@ const view_all_data_produk = async (req, res) => {
 
 const tambah_jenis_produk = async (req, res) => {
   const token = req.session.dataUser.token;
-  const { jenisproduk, nama, deskripsi, harga, stok } = req.body;
+  const { jenisproduk, nama, deskripsi, harga, stok, gambar } = req.body;
 
   if (!token) {
     return res
@@ -377,7 +377,7 @@ const tambah_jenis_produk = async (req, res) => {
   try {
     const response = await apiClient.post(
       "/api/produk/tambahjenisproduk",
-      { jenisproduk, nama, deskripsi, harga, stok },
+      { jenisproduk, nama, deskripsi, harga, stok, gambar },
       {
         headers: {
           "Content-Type": "application/json",

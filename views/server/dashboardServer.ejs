@@ -460,7 +460,7 @@
                         required
                       />
                     </div>
-                    <!-- <div class="mb-3">
+                    <div class="mb-3">
                       <label for="gambar" class="form-label">Gambar</label>
                       <input
                         type="file"
@@ -469,7 +469,7 @@
                         name="gambar"
                         accept="image/*"
                       />
-                    </div> -->
+                    </div>
                     <div class="mb-3">
                       <label for="stok" class="form-label">Jumlah Stok</label>
                       <input
@@ -1340,39 +1340,117 @@
             );
             daftarProduk.innerHTML = ""; // clear existing cards
 
-            // buat card untuk produk snack
-            data.forEach((item) => {
-              const harga = item.harga;
+            // Assuming the API response structure based on Postman
+            const jasaProduk = data.data.jasa;
+            const barangProduk = data.data.barang;
+            const snackProduk = data.data.snack;
+
+            // Tampilkan JASA
+            jasaProduk.forEach((item) => {
+              const harga = parseFloat(item.harga); // Parse harga to a number
               const formattedHarga = `Rp${harga.toLocaleString("id-ID")}`;
               const card = document.createElement("div");
               card.className = "card col-3 m-2";
               card.innerHTML = `
-            <div
-                    class="card-img d-flex justify-content-center align-items-center m-1"
-                  >
-                    <img
-                      src="${item.gambar}"
-                      class="card-img-top"
-                      alt="Nama Produk"
-                    />
-                  </div>
-                  <div class="card-body">
-                    <h6 class="card-title text-center fw-bold">${item.nama_produk}</h6>
-                    <p class="card-text text-center">${formattedHarga}</p>
-                    <p class="card-text text-center">Stok: ${item.stok}</p>
-                    <div class="d-flex justify-content-center">
-                      <button type="button" class=" update-stok btn btn-success m-1" data-bs-toggle="modal" data-bs-target="#updateStockModal" data-id="${item.id_stockproduk}">
-                        Stok
-                      </button>
-                      <button type="button" class="update-produk btn btn-primary m-1" data-bs-toggle="modal" data-bs-target="#updateProdukModal" data-id="${item.id_produk}">Update</button>
-                      <button type="button" class="hapus-produk btn btn-danger m-1" data-id="${item.id_produk}">Hapus</button>
-                    </div>
-                  </div>
-            `;
+          <div class="card-img d-flex justify-content-center align-items-center m-1">
+            <img
+              src="${item.gambar}"
+              class="card-img-top"
+              alt="Nama Produk"
+            />
+          </div>  
+          <div class="card-body">
+            <h6 class="card-title text-center fw-bold">${item.nama}</h6>
+            <p class="card-text text-center">${formattedHarga}</p>
+            <p class="card-text text-center">Stok: ${item.stockproduks.stok}</p>
+            <div class="d-flex justify-content-center">
+              <button type="button" class="update-stok btn btn-success m-1" data-bs-toggle="modal" data-bs-target="#updateStockModal" data-id="${item.stockproduk?.id_stockproduk}">
+                Stok
+              </button>
+              <button type="button" class="update-produk btn btn-primary m-1" data-bs-toggle="modal" data-bs-target="#updateProdukModal" data-id="${item.id_produk}">
+                Update
+              </button>
+              <button type="button" class="hapus-produk btn btn-danger m-1" data-id="${item.id_produk}">
+                Hapus
+              </button>
+            </div>
+          </div>
+        `;
 
               daftarProduk.append(card);
             });
-          });
+
+            // Tampilkan Barang
+            barangProduk.forEach((item) => {
+              const harga = parseFloat(item.harga); // Parse harga to a number
+              const formattedHarga = `Rp${harga.toLocaleString("id-ID")}`;
+              const card = document.createElement("div");
+              card.className = "card col-3 m-2";
+              card.innerHTML = `
+          <div class="card-img d-flex justify-content-center align-items-center m-1">
+            <img
+              src="${item.gambar}"
+              class="card-img-top"
+              alt="Nama Produk"
+            />
+          </div>  
+          <div class="card-body">
+            <h6 class="card-title text-center fw-bold">${item.nama}</h6>
+            <p class="card-text text-center">${formattedHarga}</p>
+            <p class="card-text text-center">Stok: ${item.stockproduks.stok}</p>
+            <div class="d-flex justify-content-center">
+              <button type="button" class="update-stok btn btn-success m-1" data-bs-toggle="modal" data-bs-target="#updateStockModal" data-id="${item.stockproduk?.id_stockproduk}">
+                Stok
+              </button>
+              <button type="button" class="update-produk btn btn-primary m-1" data-bs-toggle="modal" data-bs-target="#updateProdukModal" data-id="${item.id_produk}">
+                Update
+              </button>
+              <button type="button" class="hapus-produk btn btn-danger m-1" data-id="${item.id_produk}">
+                Hapus
+              </button>
+            </div>
+          </div>
+        `;
+
+              daftarProduk.append(card);
+            });
+
+            // Tampilkan SNACK
+            snackProduk.forEach((item) => {
+              const harga = parseFloat(item.harga); // Parse harga to a number
+              const formattedHarga = `Rp${harga.toLocaleString("id-ID")}`;
+              const card = document.createElement("div");
+              card.className = "card col-3 m-2";
+              card.innerHTML = `
+          <div class="card-img d-flex justify-content-center align-items-center m-1">
+            <img
+              src="${item.gambar}"
+              class="card-img-top"
+              alt="Nama Produk"
+            />
+          </div>  
+          <div class="card-body">
+            <h6 class="card-title text-center fw-bold">${item.nama}</h6>
+            <p class="card-text text-center">${formattedHarga}</p>
+            <p class="card-text text-center">Stok: ${item.stockproduks.stok}</p>
+            <div class="d-flex justify-content-center">
+              <button type="button" class="update-stok btn btn-success m-1" data-bs-toggle="modal" data-bs-target="#updateStockModal" data-id="${item.stockproduk?.id_stockproduk}">
+                Stok
+              </button>
+              <button type="button" class="update-produk btn btn-primary m-1" data-bs-toggle="modal" data-bs-target="#updateProdukModal" data-id="${item.id_produk}">
+                Update
+              </button>
+              <button type="button" class="hapus-produk btn btn-danger m-1" data-id="${item.id_produk}">
+                Hapus
+              </button>
+            </div>
+          </div>
+        `;
+
+              daftarProduk.append(card);
+            });
+          })
+          .catch((error) => console.error("Error loading produk:", error));
       }
 
       // Initial load

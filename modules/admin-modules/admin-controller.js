@@ -70,7 +70,7 @@ const apiClient = axios.create({
 // };
 
 const tambah_konten = async (req, res) => {
-  const { title, description, expiry_date, image_path } = req.body;
+  const { title, description, expiry_date } = req.body;
   // const image_path = req.file.path;
 
   // Logging image_path
@@ -83,16 +83,12 @@ const tambah_konten = async (req, res) => {
     formData.append("image_path", fs.createReadStream(image_path));
     formData.append("expiry_date", expiry_date);
 
-    const response = await axios.post(
-      "http://api.daengbarbershop.my.id/api/contents",
-      formData,
-      {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          ...formData.getHeaders(),
-        },
-      }
-    );
+    const response = await axios.post("/api/contents", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        ...formData.getHeaders(),
+      },
+    });
 
     console.log("Response from PHP API:", response.data); // Tambahkan logging respon dari API PHP
 
@@ -113,6 +109,29 @@ const tambah_konten = async (req, res) => {
     }
   }
 };
+
+// const tambah_konten = async (req, res) => {
+//   const { title, description, expiry_date } = req.body;
+
+//   try {
+//     const response = await apiClient.post(
+//       "/api/contents",
+//       { title, description, expiry_date },
+//       {
+//         headers: {
+//           "Content-Type": "application/json",
+//         },
+//       }
+//     );
+
+//     res.status(response.status).json(response.data);
+//   } catch (error) {
+//     console.error(error);
+//     res
+//       .status(500)
+//       .json({ message: "An error occurred", error: error.message });
+//   }
+// };
 
 // Function to add content with image upload
 // const tambah_konten = async (req, res) => {
