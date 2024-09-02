@@ -828,10 +828,19 @@
                   );
                   daftarProduk.innerHTML = ""; // clear existing cards
 
+                  // Access the nested arrays correctly
+                  const allProducts = [
+                    ...(data.data.jasa || []),
+                    ...(data.data.barang || []),
+                    ...(data.data.snack || []),
+                  ];
+
                   // buat card untuk produk snack
-                  data.forEach((item) => {
+                  allProducts.forEach((item) => {
                     const harga = item.harga;
                     const formattedHarga = `Rp${harga.toLocaleString("id-ID")}`;
+                    const stok = item.stockproduks[0]?.stok || "N/A";
+
                     const card = document.createElement("div");
                     card.className = "card col-3 m-2";
                     card.innerHTML = `
@@ -839,15 +848,15 @@
                                 <img
                                   src="${item.gambar}"
                                   class="card-img-top"
-                                  alt="${item.nama_produk}"
+                                  alt="${item.nama}"
                                 />
                               </div>
                               <div class="card-body">
-                                <h6 class="card-title text-center fw-bold">${item.nama_produk}</h6>
+                                <h6 class="card-title text-center fw-bold">${item.nama}</h6>
                                 <p class="card-text text-center">${formattedHarga}</p>
-                                <p class="card-text text-center">Stok: ${item.stok}</p>
+                                <p class="card-text text-center">Stok: ${stok}</p>
                                 <div class="d-flex justify-content-center">
-                                  <button type="button" class="btn btn-success m-1 add-to-cart" data-id="${item.id_produk}" data-nama="${item.nama_produk}" data-harga="${formattedHarga}">
+                                  <button type="button" class="btn btn-success m-1 add-to-cart" data-id="${item.id_produk}" data-nama="${item.nama}" data-harga="${formattedHarga}">
                                     <i class="bi bi-plus-lg"></i>
                                   </button>
                                 </div>
@@ -870,126 +879,6 @@
                       });
                     });
                 });
-              //         // Tambahkan card rekap di bawah semua item
-              //         const container = document.querySelector(
-              //           ".container-item-pembelian"
-              //         );
-              //         const recapCard = document.createElement("div");
-              //         recapCard.className = "card mt-4";
-              //         recapCard.innerHTML = `
-              //   <div class="card-body">
-              //     <h5 class="card-title">Rekap Total</h5>
-              //     <p class="card-text">Total Item: <span id="total-items">0</span></p>
-              //     <p class="card-text">Total Harga: <span id="total-price">Rp0</span></p>
-              //     <button type="button" class="btn btn-success d-flex align-items-center" id="checkout-btn">
-              //       <i class="bi bi-check-lg me-2"></i> Checkout
-              //     </button>
-              //   </div>
-              // `;
-              //         container.append(recapCard);
-
-              //         function addToCart(id, nama, harga) {
-              //           // Periksa apakah produk sudah ada di keranjang
-              //           let item = container.querySelector(`.item[data-id="${id}"]`);
-
-              //           if (item) {
-              //             // Update jumlah jika produk sudah ada
-              //             const quantity = item.querySelector(".quantity");
-              //             quantity.textContent = parseInt(quantity.textContent) + 1;
-              //             updateTotalPrice(item);
-              //           } else {
-              //             // Buat elemen baru untuk produk
-              //             const newItem = document.createElement("div");
-              //             newItem.className = "row mt-2 item";
-              //             newItem.setAttribute("data-id", id);
-              //             newItem.setAttribute("data-harga", harga); // Simpan harga satuan
-              //             newItem.innerHTML = `
-              //       <div class="col-12">
-              //         <div class="card">
-              //           <div class="row g-0">
-              //             <div class="col-md-5">
-              //               <div class="card-body">
-              //                 <p class="card-title" style="font-size: 1em">${nama}</p>
-              //                 <p class="card-text" style="font-size: 0.8em">Harga: ${harga}</p>
-              //                 <p class="card-text" style="font-size: 0.8em">Total: <span class="total-price">${harga}</span></p>
-              //               </div>
-              //             </div>
-              //             <div class="col-md-6 d-flex align-items-center justify-content-center">
-              //               <button class="btn btn-outline-secondary decrease">-</button>
-              //               <span class="mx-3 quantity">1</span>
-              //               <button class="btn btn-outline-secondary increase">+</button>
-              //               <button class="btn btn-danger btn-sm ms-3 remove">hapus</button>
-              //             </div>
-              //           </div>
-              //         </div>
-              //       </div>
-              //     `;
-
-              //             container.append(newItem);
-
-              //             // Tambahkan event listener untuk tombol decrease, increase, dan remove
-              //             newItem
-              //               .querySelector(".decrease")
-              //               .addEventListener("click", () => {
-              //                 const quantity = newItem.querySelector(".quantity");
-              //                 let qty = parseInt(quantity.textContent);
-              //                 if (qty > 1) {
-              //                   quantity.textContent = qty - 1;
-              //                   updateTotalPrice(newItem);
-              //                 }
-              //               });
-
-              //             newItem
-              //               .querySelector(".increase")
-              //               .addEventListener("click", () => {
-              //                 const quantity = newItem.querySelector(".quantity");
-              //                 quantity.textContent = parseInt(quantity.textContent) + 1;
-              //                 updateTotalPrice(newItem);
-              //               });
-
-              //             newItem
-              //               .querySelector(".remove")
-              //               .addEventListener("click", () => {
-              //                 newItem.remove();
-              //                 updateRecap(); // Update recap setelah item dihapus
-              //               });
-              //           }
-
-              //           updateRecap(); // Update recap setelah item ditambahkan
-              //         }
-
-              //         function updateTotalPrice(item) {
-              //           const quantity = item.querySelector(".quantity").textContent;
-              //           const harga = parseInt(
-              //             item.getAttribute("data-harga").replace(/[^\d]/g, "")
-              //           );
-              //           const totalPrice = quantity * harga;
-              //           item.querySelector(
-              //             ".total-price"
-              //           ).textContent = `Rp${totalPrice.toLocaleString("id-ID")}`;
-              //         }
-
-              //         function updateRecap() {
-              //           const items = container.querySelectorAll(".item");
-              //           let totalItems = 0;
-              //           let totalPrice = 0;
-
-              //           items.forEach((item) => {
-              //             const quantity = parseInt(
-              //               item.querySelector(".quantity").textContent
-              //             );
-              //             const harga = parseInt(
-              //               item.getAttribute("data-harga").replace(/[^\d]/g, "")
-              //             );
-              //             totalItems += quantity;
-              //             totalPrice += quantity * harga;
-              //           });
-
-              //           document.getElementById("total-items").textContent = totalItems;
-              //           document.getElementById(
-              //             "total-price"
-              //           ).textContent = `Rp${totalPrice.toLocaleString("id-ID")}`;
-              //         }
             }
             targetTab.style.display = "block";
           }
@@ -1326,7 +1215,6 @@
           });
       };
 
-      // daftar stok produk
       function loadProduk() {
         fetch("http://localhost:3000/web/allDataProduk", {
           method: "GET",
@@ -1338,114 +1226,44 @@
             const daftarProduk = document.querySelector(
               ".card-produk-container"
             );
-            daftarProduk.innerHTML = ""; // clear existing cards
+            daftarProduk.innerHTML = ""; // Bersihkan kartu yang ada
 
-            // Assuming the API response structure based on Postman
-            const jasaProduk = data.data.jasa;
-            const barangProduk = data.data.barang;
-            const snackProduk = data.data.snack;
+            // Gabungkan semua produk menjadi satu array
+            const semuaProduk = [
+              ...(data.data.jasa || []),
+              ...(data.data.barang || []),
+              ...(data.data.snack || []),
+            ];
 
-            // Tampilkan JASA
-            jasaProduk.forEach((item) => {
+            // Iterasi melalui array gabungan untuk menampilkan kartu produk
+            semuaProduk.forEach((item) => {
               const harga = parseFloat(item.harga); // Parse harga to a number
               const formattedHarga = `Rp${harga.toLocaleString("id-ID")}`;
+              const stok = item.stockproduks[0]?.stok || 0; // Ambil stok pertama atau set ke 0 jika tidak ada
+
               const card = document.createElement("div");
               card.className = "card col-3 m-2";
               card.innerHTML = `
-          <div class="card-img d-flex justify-content-center align-items-center m-1">
-            <img
-              src="${item.gambar}"
-              class="card-img-top"
-              alt="Nama Produk"
-            />
-          </div>  
-          <div class="card-body">
-            <h6 class="card-title text-center fw-bold">${item.nama}</h6>
-            <p class="card-text text-center">${formattedHarga}</p>
-            <p class="card-text text-center">Stok: ${item.stockproduks.stok}</p>
-            <div class="d-flex justify-content-center">
-              <button type="button" class="update-stok btn btn-success m-1" data-bs-toggle="modal" data-bs-target="#updateStockModal" data-id="${item.stockproduk?.id_stockproduk}">
-                Stok
-              </button>
-              <button type="button" class="update-produk btn btn-primary m-1" data-bs-toggle="modal" data-bs-target="#updateProdukModal" data-id="${item.id_produk}">
-                Update
-              </button>
-              <button type="button" class="hapus-produk btn btn-danger m-1" data-id="${item.id_produk}">
-                Hapus
-              </button>
-            </div>
-          </div>
-        `;
-
-              daftarProduk.append(card);
-            });
-
-            // Tampilkan Barang
-            barangProduk.forEach((item) => {
-              const harga = parseFloat(item.harga); // Parse harga to a number
-              const formattedHarga = `Rp${harga.toLocaleString("id-ID")}`;
-              const card = document.createElement("div");
-              card.className = "card col-3 m-2";
-              card.innerHTML = `
-          <div class="card-img d-flex justify-content-center align-items-center m-1">
-            <img
-              src="${item.gambar}"
-              class="card-img-top"
-              alt="Nama Produk"
-            />
-          </div>  
-          <div class="card-body">
-            <h6 class="card-title text-center fw-bold">${item.nama}</h6>
-            <p class="card-text text-center">${formattedHarga}</p>
-            <p class="card-text text-center">Stok: ${item.stockproduks.stok}</p>
-            <div class="d-flex justify-content-center">
-              <button type="button" class="update-stok btn btn-success m-1" data-bs-toggle="modal" data-bs-target="#updateStockModal" data-id="${item.stockproduk?.id_stockproduk}">
-                Stok
-              </button>
-              <button type="button" class="update-produk btn btn-primary m-1" data-bs-toggle="modal" data-bs-target="#updateProdukModal" data-id="${item.id_produk}">
-                Update
-              </button>
-              <button type="button" class="hapus-produk btn btn-danger m-1" data-id="${item.id_produk}">
-                Hapus
-              </button>
-            </div>
-          </div>
-        `;
-
-              daftarProduk.append(card);
-            });
-
-            // Tampilkan SNACK
-            snackProduk.forEach((item) => {
-              const harga = parseFloat(item.harga); // Parse harga to a number
-              const formattedHarga = `Rp${harga.toLocaleString("id-ID")}`;
-              const card = document.createElement("div");
-              card.className = "card col-3 m-2";
-              card.innerHTML = `
-          <div class="card-img d-flex justify-content-center align-items-center m-1">
-            <img
-              src="${item.gambar}"
-              class="card-img-top"
-              alt="Nama Produk"
-            />
-          </div>  
-          <div class="card-body">
-            <h6 class="card-title text-center fw-bold">${item.nama}</h6>
-            <p class="card-text text-center">${formattedHarga}</p>
-            <p class="card-text text-center">Stok: ${item.stockproduks.stok}</p>
-            <div class="d-flex justify-content-center">
-              <button type="button" class="update-stok btn btn-success m-1" data-bs-toggle="modal" data-bs-target="#updateStockModal" data-id="${item.stockproduk?.id_stockproduk}">
-                Stok
-              </button>
-              <button type="button" class="update-produk btn btn-primary m-1" data-bs-toggle="modal" data-bs-target="#updateProdukModal" data-id="${item.id_produk}">
-                Update
-              </button>
-              <button type="button" class="hapus-produk btn btn-danger m-1" data-id="${item.id_produk}">
-                Hapus
-              </button>
-            </div>
-          </div>
-        `;
+                <div class="card-img d-flex justify-content-center align-items-center m-1">
+                    <img src="${item.gambar}" class="card-img-top" alt="${item.nama}" />
+                </div>  
+                <div class="card-body">
+                    <h6 class="card-title text-center fw-bold">${item.nama}</h6>
+                    <p class="card-text text-center">${formattedHarga}</p>
+                    <p class="card-text text-center">Stok: ${stok}</p>
+                    <div class="d-flex justify-content-center">
+                        <button type="button" class="update-stok btn btn-success m-1" data-bs-toggle="modal" data-bs-target="#updateStockModal" data-id="${item.stockproduks[0]?.id_stockproduk}">
+                            Stok
+                        </button>
+                        <button type="button" class="update-produk btn btn-primary m-1" data-bs-toggle="modal" data-bs-target="#updateProdukModal" data-id="${item.id_produk}">
+                            Update
+                        </button>
+                        <button type="button" class="hapus-produk btn btn-danger m-1" data-id="${item.id_produk}">
+                            Hapus
+                        </button>
+                    </div>
+                </div>
+            `;
 
               daftarProduk.append(card);
             });
@@ -1455,48 +1273,6 @@
 
       // Initial load
       loadProduk();
-
-      // script tambah jenis produk
-      // document
-      //   .getElementById("saveChangesButton")
-      //   .addEventListener("click", () => {
-      //     const form = document.getElementById("tambahJenisProdukForm");
-      //     const formData = new FormData(form);
-      //     const data = Object.fromEntries(formData.entries());
-
-      //     fetch("http://localhost:3000/web/newJenisProduk", {
-      //       method: "POST",
-      //       headers: {
-      //         "Content-Type": "application/json",
-      //       },
-      //       body: JSON.stringify(data),
-      //     })
-      //       .then((response) => {
-      //         if (!response.ok) {
-      //           return response.json().then((error) => {
-      //             throw error;
-      //           });
-      //         }
-      //         return response.json();
-      //       })
-      //       .then((result) => {
-      //         console.log("Success:", result);
-      //         // Handle the successful response here
-      //         alert("Data berhasil ditambahkan");
-
-      //         // Menutup modal setelah sukses
-      //         const modalElement = document.getElementById("exampleModal");
-      //         const modalInstance = bootstrap.Modal.getInstance(modalElement);
-      //         modalInstance.hide();
-
-      //         // Initial load
-      //         loadProduk();
-      //       })
-      //       .catch((error) => {
-      //         console.error("Error:", error);
-      //         // Handle the error response here
-      //       });
-      //   });
 
       document
         .getElementById("saveChangesButton")
@@ -1773,6 +1549,73 @@
 
       // script untuk pembelian
 
+      // function produkPembelian() {
+      //   // daftar stok produk untuk pembelian
+      //   fetch("http://localhost:3000/web/allDataProduk", {
+      //     method: "GET",
+      //   })
+      //     .then((response) => response.json())
+      //     .then((data) => {
+      //       console.log("produk Pembelian: ", data);
+
+      //       const daftarProduk = document.querySelector(
+      //         ".card-produk-pembelian"
+      //       );
+      //       daftarProduk.innerHTML = ""; // clear existing cards
+      //       // Gabungkan semua produk dari jasa, barang, dan snack
+      //       const allProducts = [
+      //         ...data.data.jasa,
+      //         ...data.data.barang,
+      //         ...data.data.snack,
+      //       ];
+
+      //       // buat card untuk produk snack
+      //       allProducts.forEach((item) => {
+      //         const harga = item.harga;
+      //         const formattedHarga = `Rp${harga.toLocaleString("id-ID")}`;
+      //         const card = document.createElement("div");
+      //         const stok = item.stockproduks[0]?.stok || "N/A";
+
+      //         card.className = "card col-3 m-2";
+      //         card.innerHTML = `
+      //         <div class="card-img d-flex justify-content-center align-items-center m-1">
+      //           <img
+      //             src="/image/minyak-rambut.png"
+      //             class="card-img-top"
+      //             alt="${item.nama}"
+      //           />
+      //         </div>
+      //         <div class="card-body">
+      //           <h6 class="card-title text-center fw-bold">${item.nama}</h6>
+      //           <p class="card-text text-center">${formattedHarga}</p>
+      //           <p class="card-text text-center">Stok: ${stok}</p>
+      //           <div class="d-flex justify-content-center">
+      //             <button type="button" class="btn btn-success m-1 add-to-cart" data-id="${item.id_produk}" data-nama="${item.nama}" data-harga="${formattedHarga}">
+      //               <i class="bi bi-plus-lg"></i>
+      //             </button>
+      //           </div>
+      //         </div>
+      //       `;
+
+      //         daftarProduk.append(card);
+      //       });
+
+      //       // Event listener untuk tombol tambah ke keranjang
+      //       document.querySelectorAll(".add-to-cart").forEach((button) => {
+      //         button.addEventListener("click", (event) => {
+      //           const button = event.currentTarget;
+      //           const id = button.getAttribute("data-id");
+      //           const nama = button.getAttribute("data-nama");
+      //           const harga = button.getAttribute("data-harga");
+
+      //           addToCart(id, nama, harga);
+      //         });
+      //       });
+      //     });
+      // }
+
+      // produkPembelian();
+
       function produkPembelian() {
         // daftar stok produk untuk pembelian
         fetch("http://localhost:3000/web/allDataProduk", {
@@ -1780,40 +1623,49 @@
         })
           .then((response) => response.json())
           .then((data) => {
-            console.log("produk: ", data);
+            console.log("produk: ", data); // Check structure here
 
             const daftarProduk = document.querySelector(
               ".card-produk-pembelian"
             );
             daftarProduk.innerHTML = ""; // clear existing cards
 
-            // buat card untuk produk snack
-            data.forEach((item) => {
+            // Access the nested arrays correctly
+            const allProducts = [
+              ...(data.data.jasa || []),
+              ...(data.data.barang || []),
+              ...(data.data.snack || []),
+            ];
+
+            allProducts.forEach((item) => {
               const harga = item.harga;
-              const formattedHarga = `Rp${hargaInt.toLocaleString("id-ID")}`;
+              const formattedHarga = `Rp${harga.toLocaleString("id-ID")}`;
+              const stok = item.stockproduks[0]?.stok || "N/A";
+
               const card = document.createElement("div");
               card.className = "card col-3 m-2";
               card.innerHTML = `
-              <div class="card-img d-flex justify-content-center align-items-center m-1">
-                <img
-                  src="/image/minyak-rambut.png"
-                  class="card-img-top"
-                  alt="${item.nama_produk}"
-                />
-              </div>
-              <div class="card-body">
-                <h6 class="card-title text-center fw-bold">${item.nama_produk}</h6>
-                <p class="card-text text-center">${formattedHarga}</p>
-                <p class="card-text text-center">Stok: ${item.stok}</p>
-                <div class="d-flex justify-content-center">
-                  <button type="button" class="btn btn-success m-1 add-to-cart" data-id="${item.id_produk}" data-nama="${item.nama_produk}" data-harga="${formattedHarga}">
-                    <i class="bi bi-plus-lg"></i>
-                  </button>
-                </div>
-              </div>
-            `;
+          <div class="card-img d-flex justify-content-center align-items-center m-1">
+            <img
+              src="/image/minyak-rambut.png"
+              class="card-img-top"
+              alt="${item.nama}"
+            />
+          </div>
+          <div class="card-body">
+            <h6 class="card-title text-center fw-bold">${item.nama}</h6>
+            <p class="card-text text-center">${formattedHarga}</p>
+            <p class="card-text text-center">Stok: ${stok}</p>
+            <div class="d-flex justify-content-center">
+              <button type="button" class="btn btn-success m-1 add-to-cart" data-id="${item.id_produk}" data-nama="${item.nama}" data-harga="${formattedHarga}">
+                <i class="bi bi-plus-lg"></i>
+              </button>
+            </div>
+          </div>
+        `;
 
               daftarProduk.append(card);
+              console.log("Card Added to DOM: ", card);
             });
 
             // Event listener untuk tombol tambah ke keranjang
@@ -1827,7 +1679,8 @@
                 addToCart(id, nama, harga);
               });
             });
-          });
+          })
+          .catch((error) => console.error("Error loading produk:", error));
       }
 
       produkPembelian();
