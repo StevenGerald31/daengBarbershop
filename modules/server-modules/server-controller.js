@@ -2,8 +2,19 @@ const getBaseUrl = require("../../utils/getBaseUrl");
 
 const pageDashboard = async (req, res) => {
   try {
+    // Check if the user is logged in by verifying if session data exists
+    if (!req.session || !req.session.dataUser) {
+      return res
+        .status(401)
+        .send(
+          `<script>alert('Silahkan Login terlebih dahulu'); window.location.href='/web/loginpage';</script>`
+        );
+    }
+
+    // If the user is logged in, proceed to render the dashboard page
     return res.render("server/dashboardServer", {
       baseUrl: getBaseUrl(req),
+      lokasiUser: req.session.dataUser.lokasi, // Passing the user's location
     });
   } catch (error) {
     console.log(error);

@@ -226,8 +226,19 @@ const tambah_konten = async (req, res) => {
 
 const pageCoba = async (req, res) => {
   try {
+    // Check if the user is logged in by verifying if session data exists
+    if (!req.session || !req.session.dataUser) {
+      return res
+        .status(401)
+        .send(
+          `<script>alert('Silahkan Login terlebih dahulu'); window.location.href='/web/loginapge';</script>`
+        );
+    }
+
+    // If the user is logged in, proceed to render the cobaAdmin page
     return res.render("admin/cobaAdmin", {
       baseUrl: getBaseUrl(req),
+      lokasiUser: req.session.dataUser.lokasi, // Passing user's location if needed
     });
   } catch (error) {
     console.log(error);
