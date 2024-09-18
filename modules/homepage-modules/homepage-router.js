@@ -5,6 +5,7 @@ const homepageController = require("./homepage-controller");
 router.get("/landingpage", homepageController.Landingpage);
 router.get("/loginpage", homepageController.Loginpage);
 router.post("/login", homepageController.loginUser);
+router.get("/logout", homepageController.logoutUser);
 router.get("/request/:lokasi", homepageController.view_data_request);
 router.get("/reserved/:lokasi", homepageController.view_data_reserved);
 router.get("/allData/:lokasi", homepageController.view_all_data_booking);

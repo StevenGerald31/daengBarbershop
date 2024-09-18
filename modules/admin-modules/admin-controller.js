@@ -69,69 +69,69 @@ const apiClient = axios.create({
 //   });
 // };
 
-const tambah_konten = async (req, res) => {
-  const { title, description, expiry_date } = req.body;
-  // const image_path = req.file.path;
-
-  // Logging image_path
-  console.log("Image path:", image_path);
-
-  try {
-    const formData = new FormData();
-    formData.append("title", title);
-    formData.append("description", description);
-    formData.append("image_path", fs.createReadStream(image_path));
-    formData.append("expiry_date", expiry_date);
-
-    const response = await axios.post("/api/contents", formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-        ...formData.getHeaders(),
-      },
-    });
-
-    console.log("Response from PHP API:", response.data); // Tambahkan logging respon dari API PHP
-
-    res.status(response.status).json(response.data);
-  } catch (error) {
-    if (error.response) {
-      console.error(
-        "Server responded with status code:",
-        error.response.status
-      );
-      console.error("Response data:", error.response.data);
-      res.status(error.response.status).json(error.response.data);
-    } else {
-      console.error("Error during API call:", error.message);
-      res
-        .status(500)
-        .json({ error: "Internal server error: " + error.message });
-    }
-  }
-};
-
 // const tambah_konten = async (req, res) => {
 //   const { title, description, expiry_date } = req.body;
+//   // const image_path = req.file.path;
+
+//   // Logging image_path
+//   console.log("Image path:", image_path);
 
 //   try {
-//     const response = await apiClient.post(
-//       "/api/contents",
-//       { title, description, expiry_date },
-//       {
-//         headers: {
-//           "Content-Type": "application/json",
-//         },
-//       }
-//     );
+//     const formData = new FormData();
+//     formData.append("title", title);
+//     formData.append("description", description);
+//     formData.append("image_path", fs.createReadStream(image_path));
+//     formData.append("expiry_date", expiry_date);
+
+//     const response = await axios.post("/api/contents", formData, {
+//       headers: {
+//         "Content-Type": "multipart/form-data",
+//         ...formData.getHeaders(),
+//       },
+//     });
+
+//     console.log("Response from PHP API:", response.data); // Tambahkan logging respon dari API PHP
 
 //     res.status(response.status).json(response.data);
 //   } catch (error) {
-//     console.error(error);
-//     res
-//       .status(500)
-//       .json({ message: "An error occurred", error: error.message });
+//     if (error.response) {
+//       console.error(
+//         "Server responded with status code:",
+//         error.response.status
+//       );
+//       console.error("Response data:", error.response.data);
+//       res.status(error.response.status).json(error.response.data);
+//     } else {
+//       console.error("Error during API call:", error.message);
+//       res
+//         .status(500)
+//         .json({ error: "Internal server error: " + error.message });
+//     }
 //   }
 // };
+
+const tambah_konten = async (req, res) => {
+  const { title, description, expiry_date } = req.body;
+
+  try {
+    const response = await apiClient.post(
+      "/api/contents",
+      { title, description, expiry_date },
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    res.status(response.status).json(response.data);
+  } catch (error) {
+    console.error(error);
+    res
+      .status(500)
+      .json({ message: "An error occurred", error: error.message });
+  }
+};
 
 // Function to add content with image upload
 // const tambah_konten = async (req, res) => {
@@ -226,8 +226,19 @@ const tambah_konten = async (req, res) => {
 
 const pageCoba = async (req, res) => {
   try {
+    // Check if the user is logged in by verifying if session data exists
+    if (!req.session || !req.session.dataUser) {
+      return res
+        .status(401)
+        .send(
+          `<script>alert('Silahkan Login terlebih dahulu'); window.location.href='/web/loginapge';</script>`
+        );
+    }
+
+    // If the user is logged in, proceed to render the cobaAdmin page
     return res.render("admin/cobaAdmin", {
       baseUrl: getBaseUrl(req),
+      lokasiUser: req.session.dataUser.lokasi, // Passing user's location if needed
     });
   } catch (error) {
     console.log(error);
@@ -311,7 +322,8 @@ const delete_lokasi = async (req, res) => {
 
 // Tambah fungsi untuk edit lokasi
 const edit_lokasi = async (req, res) => {
-  const { nama, alamat, kota, kodepos, id_lokasi } = req.body;
+  const { nama, alamat, kota, kodepos } = req.body;
+  const { id_lokasi } = req.params;
 
   try {
     const response = await apiClient.put(`/api/lokasis/${id_lokasi}`, {

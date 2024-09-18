@@ -23,7 +23,6 @@ body {
   position: fixed;
   top: 0;
   left: 0;
-  overflow-y: auto;
 }
 
 .side-header {
@@ -177,5 +176,651 @@ body {
 
   .main-content {
     margin-left: 0;
+  }
+}
+/* Mengatur styling utama untuk tab Data Pelanggan */
+
+/* Styling untuk bagian judul */
+.dataPelanggan h1 {
+  font-size: 32px;
+  color: #333;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.grid-container {
+  display: grid;
+  place-items: center;
+  padding: 20px;
+}
+
+.table {
+  width: 100%;
+}
+
+.table-pelanggan table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table-pelanggan th,
+.table-pelanggan td {
+  padding: 12px 15px;
+  text-align: center; /* Memusatkan teks di semua sel tabel */
+  border-bottom: 1px solid #ddd;
+}
+
+.table-pelanggan th {
+  background-color: #0e2238;
+  color: white;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.table-pelanggan tbody tr:hover {
+  background-color: #f1f1f1;
+}
+
+.table-pelanggan tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Responsive table */
+@media (max-width: 768px) {
+  .table-pelanggan table,
+  .table-pelanggan thead,
+  .table-pelanggan tbody,
+  .table-pelanggan th,
+  .table-pelanggan td,
+  .table-pelanggan tr {
+    display: block;
+  }
+
+  .table-pelanggan tr {
+    margin-bottom: 15px;
+  }
+
+  .table-pelanggan th {
+    background-color: #f8f9fa;
+    color: #333;
+    padding: 10px;
+    text-align: center; /* Memastikan teks judul tabel juga terpusat */
+  }
+
+  .table-pelanggan td {
+    text-align: right;
+    padding-left: 50%;
+    position: center;
+  }
+
+  .table-pelanggan td:before {
+    content: attr(data-label);
+    position: absolute;
+    left: 0;
+    width: 45%;
+    padding-left: 15px;
+    font-weight: bold;
+    text-align: left;
+    background-color: #f8f9fa;
+    color: #333;
+  }
+}
+.Hero .searchPelanggan {
+  margin-left: 40rem;
+  margin-top: 1rem;
+}
+
+.Hero .dataPelanggan {
+  /* margin-left: 320px; */
+  margin-top: 30px;
+}
+
+.server .searchServer {
+  margin-left: 320px;
+  margin-top: 30px;
+}
+
+.server .dataServer {
+  /* margin-left: 320px; */
+  margin-top: 30px;
+}
+
+.voucher .cardVoucher {
+  border-radius: 7px;
+  background: var(--white-100, #fff);
+  box-shadow: 0px 1px 7.2px 0px rgba(0, 0, 0, 0.2);
+  border: none;
+  padding: 2rem;
+}
+
+/* Style for Table */
+.table {
+  margin-top: 20px;
+}
+
+/* Style for Buttons */
+.btn {
+  margin-top: 10px;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+    margin-bottom: 20px;
+  }
+
+  .main-content {
+    margin-left: 0;
+  }
+}
+/* Mengatur styling utama untuk tab Data Pelanggan */
+
+/* Styling untuk bagian judul */
+.dataPelanggan h1 {
+  font-size: 32px;
+  color: #333;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.grid-container {
+  display: grid;
+  place-items: center;
+  padding: 20px;
+}
+
+.table {
+  width: 100%;
+  max-width: 1200px; /* Maksimal lebar tabel */
+}
+
+.table-pelanggan table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table-pelanggan th,
+.table-pelanggan td {
+  padding: 12px 15px;
+  text-align: center; /* Memusatkan teks di semua sel tabel */
+  border-bottom: 1px solid #ddd;
+}
+
+.table-pelanggan th {
+  background-color: #0e2238;
+  color: white;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.table-pelanggan tbody tr:hover {
+  background-color: #f1f1f1;
+}
+
+.table-pelanggan tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Responsive table */
+@media (max-width: 768px) {
+  .table-pelanggan table,
+  .table-pelanggan thead,
+  .table-pelanggan tbody,
+  .table-pelanggan th,
+  .table-pelanggan td,
+  .table-pelanggan tr {
+    display: block;
+  }
+
+  .table-pelanggan tr {
+    margin-bottom: 15px;
+  }
+
+  .table-pelanggan th {
+    background-color: #f8f9fa;
+    color: #333;
+    padding: 10px;
+    text-align: center; /* Memastikan teks judul tabel juga terpusat */
+  }
+
+  .table-pelanggan td {
+    text-align: right;
+    padding-left: 50%;
+    position: relative;
+  }
+
+  .table-pelanggan td:before {
+    content: attr(data-label);
+    position: absolute;
+    left: 0;
+    width: 45%;
+    padding-left: 15px;
+    font-weight: bold;
+    text-align: left;
+    background-color: #f8f9fa;
+    color: #333;
+  }
+}
+/* Wrapper untuk tabel */
+.table-lokasi {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  background-color: #f8f9fa; /* Latar belakang wrapper */
+  border-radius: 0.5rem; /* Sudut membulat */
+}
+
+/* Tabel */
+.table {
+  width: 100%;
+  max-width: 1200px; /* Maksimal lebar tabel */
+  border-collapse: separate; /* Memungkinkan border-radius */
+  border-spacing: 0; /* Menghilangkan jarak antar sel */
+  background-color: #ffffff; /* Latar belakang tabel */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Bayangan tabel untuk efek */
+  border-radius: 0.5rem; /* Sudut tabel yang membulat */
+  overflow: hidden; /* Menyembunyikan elemen yang meluas */
+}
+
+/* Header dan Body Tabel */
+.table th,
+.table td {
+  padding: 16px; /* Padding yang lebih besar untuk tampilan lebih lapang */
+  text-align: center;
+  border: 1px solid #dee2e6; /* Warna border tabel */
+}
+
+/* Header tabel */
+.table thead th {
+  background-color: #007bff; /* Warna latar belakang header tabel */
+  color: #ffffff; /* Warna teks header tabel */
+  font-weight: 600; /* Font header tabel yang lebih tebal */
+}
+
+/* Baris genap tabel */
+
+/* Baris saat hover */
+
+/* Button Tambah */
+.buttonTambah {
+  display: flex;
+  justify-content: flex-end; /* Posisi tombol di kanan */
+  margin-top: 20px;
+}
+
+.buttonTambah .btn {
+  border-radius: 0.375rem;
+  padding: 10px 20px; /* Padding horizontal ditambah */
+  font-size: 1rem; /* Ukuran font yang lebih besar */
+  background-color: #007bff; /* Warna latar belakang tombol */
+  border: none; /* Menghilangkan border default */
+  color: #ffffff; /* Warna teks tombol */
+  transition: background-color 0.3s ease; /* Efek transisi warna latar belakang */
+}
+
+.buttonTambah .btn:hover {
+  background-color: #0056b3; /* Warna latar belakang tombol saat hover */
+}
+
+/* Judul */
+.Hero h1 {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 2rem;
+  font-weight: bold;
+  color: #343a40; /* Warna teks judul */
+}
+#data-pelanggan {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Memusatkan elemen secara horizontal */
+  padding: 1rem;
+}
+
+.search-container,
+.table-pelanggan {
+  width: 100%; /* Atur lebar kontainer sesuai kebutuhan */
+  max-width: 1200px; /* Atur lebar maksimal konten */
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse; /* Menghilangkan jarak antar sel tabel */
+}
+
+.table th,
+.table td {
+  padding: 12px 15px;
+  text-align: center;
+  border: 1px solid #ddd;
+}
+
+.table thead th {
+  background-color: #007bff;
+  color: #ffffff;
+  font-weight: bold;
+}
+
+.table tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.table tbody tr:hover {
+  background-color: #e9ecef;
+}
+.table-server {
+  display: flex;
+  justify-content: center; /* Memusatkan tabel secara horizontal */
+  overflow-x: auto; /* Menambahkan scroll horizontal jika tabel terlalu lebar */
+}
+
+.table-server table {
+  width: 100%;
+  max-width: 100%; /* Agar tabel tidak melebihi lebar kontainer */
+}
+
+@media (max-width: 768px) {
+  .table-server table {
+    display: block; /* Memastikan tabel dapat di-scroll horizontal jika diperlukan */
+    width: 100%;
+  }
+
+  .table-server thead,
+  .table-server tbody,
+  .table-server th,
+  .table-server td,
+  .table-server tr {
+    display: block;
+    width: 100%;
+  }
+
+  .table-server td {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    box-sizing: border-box;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .table-server thead {
+    display: none; /* Sembunyikan header untuk tampilan mobile */
+  }
+
+  .table-server tr {
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  .table-server td::before {
+    content: attr(data-label); /* Menampilkan label data pada tampilan mobile */
+    font-weight: bold;
+    display: inline-block;
+    width: 100px;
+    margin-right: 10px;
+  }
+}
+.dataPelanggan {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Memusatkan konten secara horizontal */
+}
+
+.table-pelanggan {
+  width: 100%;
+  overflow-x: auto; /* Menambahkan scroll horizontal jika tabel lebih lebar dari kontainer */
+  display: flex;
+  justify-content: center; /* Memusatkan tabel secara horizontal */
+}
+
+.table {
+  width: 100%;
+  max-width: 100%; /* Menghindari tabel melebihi lebar kontainer */
+}
+
+@media (max-width: 768px) {
+  .table-pelanggan table {
+    display: block; /* Tabel ditampilkan sebagai blok pada layar kecil */
+    width: 100%;
+  }
+
+  .table-pelanggan thead,
+  .table-pelanggan tbody,
+  .table-pelanggan th,
+  .table-pelanggan td,
+  .table-pelanggan tr {
+    display: block;
+    width: 100%;
+  }
+
+  .table-pelanggan td {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    box-sizing: border-box;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .table-pelanggan thead {
+    display: none; /* Menyembunyikan header tabel pada tampilan mobile */
+  }
+
+  .table-pelanggan tr {
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  .table-pelanggan td::before {
+    content: attr(data-label); /* Menampilkan label data pada tampilan mobile */
+    font-weight: bold;
+    display: inline-block;
+    width: 100px;
+    margin-right: 10px;
+  }
+}
+/* Styling untuk Hero section */
+.Hero {
+  padding: 2rem;
+  background-color: #f8f9fa;
+}
+
+/* Styling untuk judul */
+.judul h2 {
+  color: #343a40;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+/* Styling untuk tombol-tombol aksi */
+.buttonAction {
+  display: flex;
+  justify-content: center;
+}
+
+.buttonTambahKonten,
+.buttonHapusKontenExp {
+  margin: 0 0.5rem;
+}
+
+.btn {
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 0.3rem;
+  transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.btn-success {
+  background-color: #28a745;
+  border-color: #28a745;
+}
+
+.btn-success:hover {
+  background-color: #218838;
+  border-color: #1e7e34;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  border-color: #dc3545;
+}
+
+.btn-danger:hover {
+  background-color: #c82333;
+  border-color: #bd2130;
+}
+
+.btn i {
+  font-size: 1.2rem;
+}
+
+/* Styling untuk card konten container */
+.card-konten-container {
+  margin-top: 2rem;
+  gap: 1rem;
+}
+
+.card {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.card img {
+  width: 100%;
+  height: auto;
+}
+
+.card-body {
+  padding: 1rem;
+}
+
+.card-title {
+  font-size: 1.25rem;
+  color: #212529;
+}
+
+.card-text {
+  color: #495057;
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+  .card-konten-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .btn {
+    font-size: 0.875rem;
+    padding: 0.5rem;
+  }
+}
+/* Container untuk card-konten */
+.card-konten-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+/* Styling untuk card */
+.card {
+  background-color: #fff;
+  border: none;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  width: 100%;
+  max-width: 20rem; /* Adjust based on your design */
+}
+
+/* Efek hover pada card */
+.card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+}
+
+/* Styling untuk gambar card */
+.card-img {
+  text-align: center;
+  padding: 0.5rem;
+  background-color: #f8f9fa;
+}
+
+.card-img img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-bottom: 2px solid #ddd;
+}
+
+/* Styling untuk body card */
+.card-body {
+  padding: 1rem;
+  background: #fff;
+}
+
+.card-title {
+  font-size: 1.5rem;
+  color: #343a40;
+  margin-bottom: 0.5rem;
+}
+
+.card-text {
+  color: #6c757d;
+  margin-bottom: 1rem;
+}
+
+/* Styling untuk footer card */
+.card-footer {
+  background-color: #f1f3f5;
+  padding: 0.75rem 1rem;
+  border-top: 2px solid #ddd;
+  text-align: right;
+}
+
+.card-footer small {
+  color: #868e96;
+}
+
+/* Styling untuk tombol di dalam card */
+.card-body .btn {
+  width: 100%;
+  padding: 0.75rem;
+  font-size: 1.1rem;
+  border-radius: 0.5rem;
+  border: none;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  color: #fff;
+}
+
+.btn-danger:hover {
+  background-color: #c82333;
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+  .card {
+    max-width: 100%;
+    margin: 0.5rem;
   }
 }

@@ -95,7 +95,7 @@
                 type="button"
                 role="tab"
                 aria-controls="DataPelanggan-pane"
-                aria-selected="false"
+                aria-selected="false",
               >
                 <small style="margin-left: 5px">Data Pelanggan</small>
               </div>
@@ -274,21 +274,6 @@
         aria-labelledby="DataPelanggan"
         tabindex="0"
       >
-        <main class="Hero">
-          <div class="row searchPelanggan d-flex justify-content-center">
-            <div class="col-6">
-              <input
-                type="email"
-                class="form-control"
-                placeholder="Cari id"
-                id="exampleInputEmail1"
-                aria-describedby="emailHelp"
-              />
-            </div>
-            <div class="col-4">
-              <button class="btn btn-primary">Search</button>
-            </div>
-          </div>
           <div class="row dataPelanggan">
             <div class="row pt-3">
               <div class="d-flex justify-content-center">
@@ -329,34 +314,24 @@
             <h2 class="fw-bold pt-3">Data Server</h2>
           </div> -->
           <div class="row searchServer d-flex justify-content-center">
-            <div class="col-6">
-              <input
-                type="email"
-                class="form-control"
-                placeholder="Cari id"
-                id="exampleInputEmail1"
-                aria-describedby="emailHelp"
-              />
-            </div>
-            <div class="col-4">
-              <button class="btn btn-primary">Search</button>
-            </div>
-          </div>
-          <div class="row buttonTambah mt-3">
-            <div class="col-2">
-              <button
-                class="btn btn-primary"
-                data-bs-toggle="modal"
-                data-bs-target="#addServerModal"
-              >
-                Tambah Server
-              </button>
-            </div>
-          </div>
+          
+            
+          
           <div class="row dataServer">
             <div class="row pt-3">
               <div class="d-flex justify-content-center">
                 <h1 class="fw-bold">Data Server</h1>
+              </div>
+            </div>
+            <div class="row buttonTambah mt-3">
+              <div class="col-2">
+                <button
+                  class="btn btn-primary"
+                  data-bs-toggle="modal"
+                  data-bs-target="#addServerModal"
+                >
+                  Tambah Server
+                </button>
               </div>
             </div>
             <div class="row m-3 table-server">
@@ -602,33 +577,21 @@
       >
         <main class="Hero">
           <div class="row searchLokasi d-flex justify-content-center">
-            <div class="col-6">
-              <input
-                type="email"
-                class="form-control"
-                placeholder="Cari id"
-                id="exampleInputEmail1"
-                aria-describedby="emailHelp"
-              />
-            </div>
-            <div class="col-4">
-              <button class="btn btn-primary">Search</button>
-            </div>
-          </div>
           <div class="row dataLokasi">
             <div class="row pt-3">
               <div class="d-flex justify-content-center">
                 <h1 class="fw-bold">Data Lokasi</h1>
               </div>
             </div>
-            <div class="row buttonTambah mt-3">
-              <div class="col-2">
+            <div class="row buttonTambah mt-3 justify-content-end">
+              <div class="col-auto">
                 <button
                   class="btn btn-primary"
                   data-bs-toggle="modal"
                   data-bs-target="#addLokasiModal"
                 >
                   Tambah Lokasi
+                </button>
                 </button>
               </div>
             </div>
@@ -895,7 +858,7 @@
                 ></button>
               </div>
               <div class="modal-body">
-                <form id="tambahKonten">
+                <form id="tambahKonten" enctype="multipart/form-data">
                   <div class="mb-3">
                     <label for="title" class="form-label">Judul</label>
                     <input
@@ -906,7 +869,7 @@
                       required
                     />
                   </div>
-                  <div class="mb-3">
+                  <!-- <div class="mb-3">
                     <label for="image_path" class="form-label"
                       >Upload Gambar</label
                     >
@@ -918,7 +881,7 @@
                       accept="image/*"
                       required
                     />
-                  </div>
+                  </div> -->
                   <div class="mb-3">
                     <label for="description" class="form-label"
                       >Deskripsi</label
@@ -1386,10 +1349,9 @@
               const formData = new FormData(form);
               const data = Object.fromEntries(formData.entries());
 
-              // Pastikan id_lokasi juga dimasukkan ke dalam data yang dikirim
-              data.id_lokasi = id;
+              const selectedLokasi = form.getAttribute("data-id-lokasi");
 
-              fetch(`http://localhost:8000/api/lokasis/${id}`, {
+              fetch(`http://localhost:3000/admin/editLokasi/${id_lokasi}`, {
                 method: "PUT",
                 headers: {
                   "Content-Type": "application/json",
@@ -1649,7 +1611,7 @@
 
           try {
             const response = await fetch(
-              "http://localhost:3000/admin/tambahKonten",
+              "https://daengbarbershop.my.id/admin/tambahKonten",
               {
                 method: "POST",
                 body: formData, // Kirim langsung objek FormData

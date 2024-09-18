@@ -43,13 +43,10 @@ const loginUser = async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    const response = await axios.post(
-      "http://api.daengbarbershop.my.id/api/auth/login",
-      {
-        email: email,
-        password: password,
-      }
-    );
+    const response = await apiClient.post("/api/auth/login", {
+      email: email,
+      password: password,
+    });
 
     // Periksa apakah respons memiliki status 200 atau 201
     if (response.status !== 200 && response.status !== 201) {
@@ -86,6 +83,52 @@ const loginUser = async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "An error occurred while logging in" });
+  }
+};
+
+const logoutUser = async (req, res) => {
+  const token = req.session.dataUser?.token;
+
+  // Pastikan token tersedia sebelum melanjutkan
+  if (!token) {
+    return res
+      .status(401)
+      .send(`<script>alert('Authentication token not provided'); </script>`);
+  }
+
+  try {
+    // Lakukan request logout ke backend
+    const response = await apiClient.post(
+      "/api/auth/logout",
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    // Jika logout berhasil, hapus data session
+    req.session.destroy((err) => {
+      if (err) {
+        console.error("Error destroying session:", err);
+        return res
+          .status(500)
+          .send(`<script>alert('Error logging out');</script>`);
+      }
+
+      // Tampilkan pesan berhasil dan arahkan ke halaman login
+      return res.send(`<script>alert('${response.data.message}'); </script>`);
+    });
+  } catch (error) {
+    console.error("Error during logout:", error);
+    return res
+      .status(500)
+      .send(
+        `<script>alert('An error occurred while logging out: ${
+          error.response?.data?.message || error.message
+        }'); </script>`
+      );
   }
 };
 
@@ -366,7 +409,7 @@ const view_all_data_produk = async (req, res) => {
 
 const tambah_jenis_produk = async (req, res) => {
   const token = req.session.dataUser.token;
-  const { jenisproduk, nama, deskripsi, harga, stok, gambar } = req.body;
+  const { jenisproduk, nama, deskripsi, harga, stok } = req.body;
 
   if (!token) {
     return res
@@ -377,7 +420,7 @@ const tambah_jenis_produk = async (req, res) => {
   try {
     const response = await apiClient.post(
       "/api/produk/tambahjenisproduk",
-      { jenisproduk, nama, deskripsi, harga, stok, gambar },
+      { jenisproduk, nama, deskripsi, harga, stok },
       {
         headers: {
           "Content-Type": "application/json",
@@ -606,6 +649,7 @@ module.exports = {
   Landingpage,
   Loginpage,
   loginUser,
+  logoutUser,
   view_data_request,
   view_data_reserved,
   data_pelanggan,

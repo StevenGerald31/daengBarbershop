@@ -7,35 +7,52 @@
     <!-- css ekstrnal instalasi -->
     <link rel="stylesheet" href="/stylesheets/login.css" />
 
-    <title>Document</title>
+    <title>Login</title>
   </head>
   <body>
-    <html lang="en">
-      <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Login Barbershop</title>
-        <link rel="stylesheet" href="styles.css" />
-      </head>
-      <body>
-        <div class="login-container">
-          <form action="/web/login" method="POST" class="login-form">
-            <div class="Logo">
-              <img src="/image/logo.jpeg" alt="Logo Daeng" />
-            </div>
-            <h2>Login Daeng Barbershop</h2>
-            <div class="input-group">
-              <label for="email">Email</label>
-              <input type="email" id="email" name="email" required />
-            </div>
-            <div class="input-group">
-              <label for="password">Password</label>
-              <input type="password" id="password" name="password" required />
-            </div>
-            <button type="submit">LOGIN</button>
-          </form>
+    <div class="login-container">
+      <form action="/web/login" method="POST" class="login-form">
+        <div class="Logo">
+          <img src="/image/logo.jpeg" alt="Logo Daeng" />
         </div>
-      </body>
-    </html>
+        <h2>Login Daeng Barbershop</h2>
+        <div class="input-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required />
+        </div>
+        <div class="input-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" required />
+          <span class="eye-icon" onclick="togglePassword()">
+            <i class="fa fa-eye" id="eye-icon"></i>
+          </span>
+        </div>
+        <button type="submit">LOGIN</button>
+      </form>
+    </div>
+
+    <!-- Script untuk toggle visibility password -->
+    <script>
+      function togglePassword() {
+        var passwordField = document.getElementById("password");
+        var eyeIcon = document.getElementById("eye-icon");
+
+        if (passwordField.type === "password") {
+          passwordField.type = "text";
+          eyeIcon.classList.remove("fa-eye");
+          eyeIcon.classList.add("fa-eye-slash");
+        } else {
+          passwordField.type = "password";
+          eyeIcon.classList.remove("fa-eye-slash");
+          eyeIcon.classList.add("fa-eye");
+        }
+      }
+    </script>
+
+    <!-- Link Font Awesome (di bagian bawah untuk memastikan halaman lebih cepat dimuat) -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"
+      defer
+    ></script>
   </body>
 </html>

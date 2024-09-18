@@ -72,3 +72,16 @@ button {
   font-size: larger;
   transition: background-color 0.3s;
 }
+
+.input-group {
+  position: relative;
+}
+
+.eye-icon {
+  position: absolute;
+  top: 75%;
+  right: 10px;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #aaa;
+}

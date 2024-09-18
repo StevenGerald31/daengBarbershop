@@ -30,6 +30,10 @@
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
       rel="stylesheet"
     />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+    />
 
     <link rel="stylesheet" href="/stylesheets/dashboardServer.css" />
   </head>
@@ -51,6 +55,7 @@
           <li class="sidebar-item">
             <a href="#dashboard" class="sidebar-link">
               <h5 class="fw-bold">
+                <i class="fas fa-tachometer-alt"></i>
                 <span>Dashboard</span>
               </h5>
             </a>
@@ -58,6 +63,7 @@
           <li class="sidebar-item">
             <a href="#data-pelanggan" class="sidebar-link">
               <h5 class="fw-bold">
+                <i class="fas fa-users"></i>
                 <span>Data Pelanggan</span>
               </h5>
             </a>
@@ -65,14 +71,15 @@
           <li class="sidebar-item">
             <a href="#booking" class="sidebar-link">
               <h5 class="fw-bold">
+                <i class="fas fa-calendar-alt"></i>
                 <span>Booking</span>
               </h5>
             </a>
           </li>
-
           <li class="sidebar-item">
             <a href="#daftarProduk" class="sidebar-link">
               <h5 class="fw-bold">
+                <i class="fas fa-box"></i>
                 <span>Produk</span>
               </h5>
             </a>
@@ -80,13 +87,14 @@
           <li class="sidebar-item">
             <a href="#pembelian-produk" class="sidebar-link">
               <h5 class="fw-bold">
+                <i class="fas fa-shopping-cart"></i>
                 <span>Pembelian Produk</span>
               </h5>
             </a>
           </li>
         </ul>
         <div class="sidebar-footer">
-          <a href="#" class="sidebar-link">
+          <a href="/web/loginpage" id="logoutButton" class="sidebar-link">
             <i class="lni lni-exit"></i>
             <span>Logout</span>
           </a>
@@ -218,6 +226,19 @@
               <h1 class="fw-bold">Data Pelanggan</h1>
             </div>
           </div>
+          <div class="search-container mb-3">
+            <div class="input-group">
+              <span class="input-group-text">
+                <i class="bi bi-search"></i>
+              </span>
+              <input
+                type="text"
+                id="searchInput"
+                placeholder="Cari pelanggan..."
+                class="form-control"
+              />
+            </div>
+          </div>
           <div class="row m-3 table-pelanggan">
             <table class="table">
               <thead>
@@ -317,26 +338,14 @@
           <!-- Judul Start -->
           <div class="row judul-produk m-3">
             <div class="d-flex justify-content-center">
-              <h2 class="fw-bold">Daftar Stok Produk</h2>
+              <h2 class="fw-bold">DAFTAR STOK PRODUK</h2>
             </div>
           </div>
           <!-- Judul End -->
 
           <!-- Form Cari Start -->
           <div class="row pencarian m-2 justify-content-center m-3">
-            <div class="col-4">
-              <form class="d-flex">
-                <input
-                  class="form-control me-2"
-                  type="search"
-                  placeholder="Cari Produk"
-                  aria-label="Cari"
-                />
-                <button class="btn btn-outline-success" type="submit">
-                  Cari
-                </button>
-              </form>
-            </div>
+            <div class="col-4"></div>
             <button
               class="btn btn-success"
               type="submit"
@@ -515,7 +524,7 @@
                         required
                       />
                     </div>
-                    <div class="mb-3">
+                    <!-- <div class="mb-3">
                       <label for="gambar" class="form-label">Gambar</label>
                       <input
                         type="file"
@@ -524,7 +533,7 @@
                         name="gambar"
                         accept="image/*"
                       />
-                    </div>
+                    </div> -->
                     <div class="mb-3">
                       <label for="stok" class="form-label">Jumlah Stok</label>
                       <input
@@ -646,9 +655,7 @@
 
           <div class="container" style="padding: 20px">
             <div class="row daftar-produk m-2 d-flex justify-content-around">
-              <div class="judul d-flex justify-content-center">
-                <h3 class="fw-bold">All Produk</h3>
-              </div>
+              <div class="judul d-flex justify-content-center"></div>
               <div
                 class="card-produk-container d-flex flex-wrap justify-content-around"
                 style="
@@ -1023,7 +1030,28 @@
             }
           });
         });
+      //
+      document
+        .getElementById("searchInput")
+        .addEventListener("input", function (event) {
+          const query = event.target.value.toLowerCase();
+          const rows = document.querySelectorAll(".table-pelanggan tbody tr");
 
+          rows.forEach((row) => {
+            const cells = row.getElementsByTagName("td");
+            let found = false;
+
+            for (let i = 0; i < cells.length - 1; i++) {
+              // Exclude the last cell (action buttons)
+              if (cells[i].textContent.toLowerCase().includes(query)) {
+                found = true;
+                break;
+              }
+            }
+
+            row.style.display = found ? "" : "none";
+          });
+        });
       // Data Booking
       fetch("http://localhost:3000/web/request/:lokasi", {
         method: "GET",
@@ -1041,17 +1069,24 @@
               const requestDiv = document.createElement("div");
               requestDiv.classList.add("row", "daftar-request", "mt-2");
 
-              // Buat kolom pertama (Id Pelanggan dan Nama)
+              // Buat kolom pertama (Id Pelanggan, Nama Pelanggan, dan Nama)
               const col1 = document.createElement("div");
               col1.classList.add("col-md-4");
               const info1 = document.createElement("div");
               info1.classList.add("info");
+
               const idBooking = document.createElement("div");
               idBooking.textContent = `Id Booking: ${request.id_booking}`;
+
               const namaPelanggan = document.createElement("div");
-              namaPelanggan.textContent = request.nama_pelanggan;
+              namaPelanggan.textContent = `Nama Pelanggan: ${request.nama_pelanggan}`;
+
+              const nama = document.createElement("div");
+              nama.textContent = `Layanan: ${request.nama}`; // Display the 'nama' field
+
               info1.appendChild(idBooking);
               info1.appendChild(namaPelanggan);
+              info1.appendChild(nama);
               col1.appendChild(info1);
 
               // Buat kolom kedua (Waktu)
@@ -1062,9 +1097,9 @@
               const waktuLabel = document.createElement("div");
               waktuLabel.textContent = "Waktu:";
               const tanggal = document.createElement("div");
-              tanggal.textContent = request.tanggal;
+              tanggal.textContent = request.tanggal_booking.split(" ")[0]; // Extract date part from tanggal_booking
               const jam = document.createElement("div");
-              jam.textContent = request.tanggal_booking;
+              jam.textContent = request.tanggal_booking.split(" ")[1]; // Extract time part from tanggal_booking
               info2.appendChild(waktuLabel);
               info2.appendChild(tanggal);
               info2.appendChild(jam);
@@ -1133,17 +1168,24 @@
               const reservedDiv = document.createElement("div");
               reservedDiv.classList.add("row", "daftar-reserved", "mt-2");
 
-              // Buat kolom pertama (Id Pelanggan dan Nama)
+              // Buat kolom pertama (Id Booking, Nama Pelanggan, dan Nama)
               const col1 = document.createElement("div");
               col1.classList.add("col-md-4");
               const info1 = document.createElement("div");
               info1.classList.add("info");
+
               const idBooking = document.createElement("div");
-              idBooking.textContent = `Id Pelanggan: ${reserved.id_booking}`;
+              idBooking.textContent = `Id Booking: ${reserved.id_booking}`;
+
               const namaPelanggan = document.createElement("div");
-              namaPelanggan.textContent = reserved.nama_pelanggan;
+              namaPelanggan.textContent = `Nama Pelanggan: ${reserved.nama_pelanggan}`;
+
+              const nama = document.createElement("div");
+              nama.textContent = `Nama: ${reserved.nama}`; // Display the 'nama' field
+
               info1.appendChild(idBooking);
               info1.appendChild(namaPelanggan);
+              info1.appendChild(nama);
               col1.appendChild(info1);
 
               // Buat kolom kedua (Waktu)
@@ -1162,7 +1204,7 @@
               info2.appendChild(jam);
               col2.appendChild(info2);
 
-              // Buat kolom ketiga (Tombol Confirm dan Cancel)
+              // Buat kolom ketiga (Tombol Confirm)
               const col3 = document.createElement("div");
               col3.classList.add(
                 "col-md-4",
@@ -2031,6 +2073,15 @@
               alert(error.message);
               console.error("Terjadi kesalahan:", error);
             });
+        });
+
+      document
+        .getElementById("logoutButton")
+        .addEventListener("click", function (e) {
+          e.preventDefault(); // Mencegah aksi default link
+
+          // Mengarahkan pengguna ke route logout
+          window.location.href = "http://localhost:3000/web/loginpage";
         });
     </script>
   </body>
