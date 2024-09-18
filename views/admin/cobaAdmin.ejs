@@ -44,42 +44,43 @@
     <title id="pageTitle">Dashboard</title>
   </head>
   <body>
-    <!-- SIDEBAR MENU -->
-    <div class="sidebar">
-      <!-- SIDEBAR HEADER -->
-      <div class="side-header">
-        <div class="image">
-          <img src="/image/logoFIX1.png" />
+    <div class="container-fluid">
+      <!-- SIDEBAR MENU -->
+      <div class="sidebar container-fluid">
+        <!-- SIDEBAR HEADER -->
+        <div class="side-header">
+          <div class="image">
+            <img src="/image/logoFIX1.png" />
+          </div>
+          <div class="judul">
+            <h2>Halo Admin</h2>
+          </div>
         </div>
-        <div class="judul">
-          <h2>Halo Admin</h2>
-        </div>
-      </div>
 
-      <!-- SIDEBAR MENU KONTEN -->
-      <div class="side-content">
-        <div class="side-menu">
-          <ul class="nav flex-column" id="myTab" role="tablist">
-            <!-- sidebar dashboard  -->
-            <li
-              id="Dashboard"
-              class="nav-item hover active"
-              style="margin-bottom: 10px"
-            >
-              <div
-                class="a nav-link"
-                id="Dashboards"
-                data-bs-toggle="tab"
-                data-bs-target="#Dashboards-pane"
-                type="button"
-                role="tab"
-                aria-controls="Dashboards-pane"
-                aria-selected="true"
+        <!-- SIDEBAR MENU KONTEN -->
+        <div class="side-content">
+          <div class="side-menu">
+            <ul class="nav flex-column" id="myTab" role="tablist">
+              <!-- sidebar dashboard  -->
+              <li
+                id="Dashboard"
+                class="nav-item hover active"
+                style="margin-bottom: 10px"
               >
-                <i class="bi bi-house-door"></i>
-                <small style="margin-left: 5px">Dashboards</small>
-              </div>
-            </li>
+                <div
+                  class="a nav-link"
+                  id="Dashboards"
+                  data-bs-toggle="tab"
+                  data-bs-target="#Dashboards-pane"
+                  type="button"
+                  role="tab"
+                  aria-controls="Dashboards-pane"
+                  aria-selected="true"
+                >
+                  <i class="bi bi-house-door"></i>
+                  <small style="margin-left: 5px">Dashboards</small>
+                </div>
+              </li>
 
             <!-- sidebar penjelajahan -->
             <li
@@ -101,128 +102,128 @@
               </div>
             </li>
 
-            <!-- sidebar Data Server -->
-            <li
-              id="DataServer"
-              class="nav-item hover"
-              style="margin-bottom: 10px"
-            >
-              <div
-                class="a nav-link"
+              <!-- sidebar Data Server -->
+              <li
                 id="DataServer"
-                data-bs-toggle="tab"
-                data-bs-target="#DataServer-pane"
-                type="button"
-                role="tab"
-                aria-controls="DataServer-pane"
-                aria-selected="false"
+                class="nav-item hover"
+                style="margin-bottom: 10px"
               >
-                <small style="margin-left: 5px">Data Server</small>
-              </div>
-            </li>
+                <div
+                  class="a nav-link"
+                  id="DataServer"
+                  data-bs-toggle="tab"
+                  data-bs-target="#DataServer-pane"
+                  type="button"
+                  role="tab"
+                  aria-controls="DataServer-pane"
+                  aria-selected="false"
+                >
+                  <small style="margin-left: 5px">Data Server</small>
+                </div>
+              </li>
 
-            <!-- sidebar Data Lokasi -->
-            <li
-              id="DataLokasi"
-              class="nav-item hover"
-              style="margin-bottom: 10px"
-            >
-              <div
-                class="a nav-link"
+              <!-- sidebar Data Lokasi -->
+              <li
                 id="DataLokasi"
-                data-bs-toggle="tab"
-                data-bs-target="#DataLokasi-pane"
-                type="button"
-                role="tab"
-                aria-controls="DataLokasi-pane"
-                aria-selected="false"
+                class="nav-item hover"
+                style="margin-bottom: 10px"
               >
-                <small style="margin-left: 5px">Data Lokasi</small>
-              </div>
-            </li>
+                <div
+                  class="a nav-link"
+                  id="DataLokasi"
+                  data-bs-toggle="tab"
+                  data-bs-target="#DataLokasi-pane"
+                  type="button"
+                  role="tab"
+                  aria-controls="DataLokasi-pane"
+                  aria-selected="false"
+                >
+                  <small style="margin-left: 5px">Data Lokasi</small>
+                </div>
+              </li>
 
-            <!-- sidebar Data Konten -->
-            <li
-              id="DataKonten"
-              class="nav-item hover"
-              style="margin-bottom: 10px"
-            >
-              <div
-                class="a nav-link"
+              <!-- sidebar Data Konten -->
+              <li
                 id="DataKonten"
-                data-bs-toggle="tab"
-                data-bs-target="#DataKonten-pane"
-                type="button"
-                role="tab"
-                aria-controls="DataKonten-pane"
-                aria-selected="false"
+                class="nav-item hover"
+                style="margin-bottom: 10px"
               >
-                <small style="margin-left: 5px">Data Konten</small>
-              </div>
-            </li>
-          </ul>
+                <div
+                  class="a nav-link"
+                  id="DataKonten"
+                  data-bs-toggle="tab"
+                  data-bs-target="#DataKonten-pane"
+                  type="button"
+                  role="tab"
+                  aria-controls="DataKonten-pane"
+                  aria-selected="false"
+                >
+                  <small style="margin-left: 5px">Data Konten</small>
+                </div>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
-    </div>
 
-    <!-- KONTEN DASHBOARD -->
-    <div class="main-content tab-content">
-      <!-- MAIN KONTEN DASHBOARD -->
-      <div
-        class="tab-pane fade show active"
-        id="Dashboards-pane"
-        role="tabpanel"
-        aria-labelledby="Dashboards"
-        tabindex="0"
-      >
-        <main class="Dashboard">
-          <div class="row-judul">
-            <h2 class="fw-bold pt-3">Daeng Barbershop</h2>
-            <div class="content-wrap">
-              <div class="content">
-                <section
-                  class="info-boxes d-flex align-items-center justify-content-center"
-                >
-                  <div class="info-box">
-                    <div class="box-icon">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          d="M21 20V4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1zm-2-1H5V5h14v14z"
-                        />
-                        <path
-                          d="M10.381 12.309l3.172 1.586a1 1 0 0 0 1.305-.38l3-5-1.715-1.029-2.523 4.206-3.172-1.586a1.002 1.002 0 0 0-1.305.38l-3 5 1.715 1.029 2.523-4.206z"
-                        />
-                      </svg>
+      <!-- KONTEN DASHBOARD -->
+      <div class="main-content tab-content">
+        <!-- MAIN KONTEN DASHBOARD -->
+        <div
+          class="tab-pane fade show active"
+          id="Dashboards-pane"
+          role="tabpanel"
+          aria-labelledby="Dashboards"
+          tabindex="0"
+        >
+          <main class="Dashboard">
+            <div class="row-judul">
+              <h2 class="fw-bold pt-3">Daeng Barbershop</h2>
+              <div class="content-wrap">
+                <div class="content">
+                  <section
+                    class="info-boxes d-flex align-items-center justify-content-center"
+                  >
+                    <div class="info-box">
+                      <div class="box-icon">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            d="M21 20V4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1zm-2-1H5V5h14v14z"
+                          />
+                          <path
+                            d="M10.381 12.309l3.172 1.586a1 1 0 0 0 1.305-.38l3-5-1.715-1.029-2.523 4.206-3.172-1.586a1.002 1.002 0 0 0-1.305.38l-3 5 1.715 1.029 2.523-4.206z"
+                          />
+                        </svg>
+                      </div>
+                      <div class="box-content">
+                        <span class="big text-center" id="jlhPelanggan"> </span>
+                        Pelanggan
+                      </div>
                     </div>
-                    <div class="box-content">
-                      <span class="big text-center" id="jlhPelanggan"> </span>
-                      Pelanggan
+                    <div class="info-box">
+                      <div class="box-icon">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            d="M20 10H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1V11a1 1 0 0 0-1-1zm-1 10H5v-8h14v8zM5 6h14v2H5zM7 2h10v2H7z"
+                          />
+                        </svg>
+                      </div>
+                      <div class="box-content">
+                        <span class="big text-center" id="jlhServer"> </span>
+                        Server
+                      </div>
                     </div>
-                  </div>
-                  <div class="info-box">
-                    <div class="box-icon">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          d="M20 10H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1V11a1 1 0 0 0-1-1zm-1 10H5v-8h14v8zM5 6h14v2H5zM7 2h10v2H7z"
-                        />
-                      </svg>
-                    </div>
-                    <div class="box-content">
-                      <span class="big text-center" id="jlhServer"> </span>
-                      Server
-                    </div>
-                  </div>
-                  <!-- <div class="info-box">
+                    <!-- <div class="info-box">
                     <div class="box-icon">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -240,31 +241,31 @@
                       Voucher
                     </div>
                   </div> -->
-                  <div class="info-box">
-                    <div class="box-icon">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          d="M12 3C6.486 3 2 6.364 2 10.5c0 2.742 1.982 5.354 5 6.678V21a.999.999 0 0 0 1.707.707l3.714-3.714C17.74 17.827 22 14.529 22 10.5 22 6.364 17.514 3 12 3zm0 13a.996.996 0 0 0-.707.293L9 18.586V16.5a1 1 0 0 0-.663-.941C5.743 14.629 4 12.596 4 10.5 4 7.468 7.589 5 12 5s8 2.468 8 5.5-3.589 5.5-8 5.5z"
-                        />
-                      </svg>
+                    <div class="info-box">
+                      <div class="box-icon">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            d="M12 3C6.486 3 2 6.364 2 10.5c0 2.742 1.982 5.354 5 6.678V21a.999.999 0 0 0 1.707.707l3.714-3.714C17.74 17.827 22 14.529 22 10.5 22 6.364 17.514 3 12 3zm0 13a.996.996 0 0 0-.707.293L9 18.586V16.5a1 1 0 0 0-.663-.941C5.743 14.629 4 12.596 4 10.5 4 7.468 7.589 5 12 5s8 2.468 8 5.5-3.589 5.5-8 5.5z"
+                          />
+                        </svg>
+                      </div>
+                      <div class="box-content">
+                        <span class="big text-center" id="jlhCabang"> </span>
+                        Cabang
+                      </div>
                     </div>
-                    <div class="box-content">
-                      <span class="big text-center" id="jlhCabang"> </span>
-                      Cabang
-                    </div>
-                  </div>
-                </section>
+                  </section>
+                </div>
               </div>
             </div>
-          </div>
-        </main>
-      </div>
-      <!-- MAIN KONTEN DASHBOARD AKHIR -->
+          </main>
+        </div>
+        <!-- MAIN KONTEN DASHBOARD AKHIR -->
 
       <!-- Pelanggan mulai -->
       <div
@@ -301,16 +302,16 @@
       </div>
       <!-- Pelanggan Selesai-->
 
-      <!-- Server mulai -->
-      <div
-        class="tab-pane fade"
-        id="DataServer-pane"
-        role="tabpanel"
-        aria-labelledby="DataServer"
-        tabindex="0"
-      >
-        <main class="Hero">
-          <!-- <div class="row judul">
+        <!-- Server mulai -->
+        <div
+          class="tab-pane fade"
+          id="DataServer-pane"
+          role="tabpanel"
+          aria-labelledby="DataServer"
+          tabindex="0"
+        >
+          <main class="Hero">
+            <!-- <div class="row judul">
             <h2 class="fw-bold pt-3">Data Server</h2>
           </div> -->
           <div class="row searchServer d-flex justify-content-center">
@@ -353,219 +354,221 @@
             </div>
           </div>
 
-          <!-- modal ganti password  -->
-          <div
-            class="modal fade"
-            id="resetPassword"
-            tabindex="-1"
-            aria-labelledby="resetPasswordLabel"
-            aria-hidden="true"
-            data-bs-backdrop="false"
-          >
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h1 class="modal-title fs-5" id="resetPasswordLabel">
-                    Reset Password
-                  </h1>
-                  <button
-                    type="button"
-                    class="btn-close"
-                    data-bs-dismiss="modal"
-                    aria-label="Close"
-                  ></button>
-                </div>
-                <div class="modal-body">
-                  <form id="resetPasswordForm">
-                    <div class="mb-3">
-                      <label for="password" class="form-label"
-                        >Password Baru</label
-                      >
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="password"
-                        name="password"
-                        required
-                        minlength="8"
-                        oninput="checkPassword()"
-                      />
-                      <div
-                        class="password-warning"
-                        style="color: red; display: none"
-                      >
-                        Password must be at least 8 characters long.
+            <!-- modal ganti password  -->
+            <div
+              class="modal fade"
+              id="resetPassword"
+              tabindex="-1"
+              aria-labelledby="resetPasswordLabel"
+              aria-hidden="true"
+              data-bs-backdrop="false"
+            >
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="resetPasswordLabel">
+                      Reset Password
+                    </h1>
+                    <button
+                      type="button"
+                      class="btn-close"
+                      data-bs-dismiss="modal"
+                      aria-label="Close"
+                    ></button>
+                  </div>
+                  <div class="modal-body">
+                    <form id="resetPasswordForm">
+                      <div class="mb-3">
+                        <label for="password" class="form-label"
+                          >Password Baru</label
+                        >
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="password"
+                          name="password"
+                          required
+                          minlength="8"
+                          oninput="checkPassword()"
+                        />
+                        <div
+                          class="password-warning"
+                          style="color: red; display: none"
+                        >
+                          Password must be at least 8 characters long.
+                        </div>
                       </div>
-                    </div>
-                  </form>
-                </div>
-                <div class="modal-footer">
-                  <button
-                    type="button"
-                    class="btn btn-secondary"
-                    data-bs-dismiss="modal"
-                  >
-                    Close
-                  </button>
-                  <button
-                    type="button"
-                    class="btn btn-primary"
-                    id="saveNewPassButton"
-                  >
-                    Save changes
-                  </button>
+                    </form>
+                  </div>
+                  <div class="modal-footer">
+                    <button
+                      type="button"
+                      class="btn btn-secondary"
+                      data-bs-dismiss="modal"
+                    >
+                      Close
+                    </button>
+                    <button
+                      type="button"
+                      class="btn btn-primary"
+                      id="saveNewPassButton"
+                    >
+                      Save changes
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <!-- Reset password Selesai -->
+            <!-- Reset password Selesai -->
 
-          <!-- Modal Tambah Server-->
-          <div
-            class="modal fade"
-            id="addServerModal"
-            tabindex="-1"
-            aria-labelledby="addServerModalLabel"
-            aria-hidden="true"
-            data-bs-backdrop="false"
-          >
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="addServerModalLabel">
-                    Tambah Server
-                  </h5>
-                  <button
-                    type="button"
-                    class="btn-close"
-                    data-bs-dismiss="modal"
-                    aria-label="Close"
-                  ></button>
-                </div>
-                <div class="modal-body">
-                  <form action="" id="tambahServer">
-                    <div class="mb-3">
-                      <label for="name" class="form-label">Nama</label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="name"
-                        name="name"
-                        required
-                      />
-                    </div>
-                    <div class="mb-3">
-                      <label for="email" class="form-label">Email</label>
-                      <input
-                        type="email"
-                        class="form-control"
-                        id="email"
-                        name="email"
-                        required
-                      />
-                    </div>
-                    <div class="mb-3">
-                      <label for="password" class="form-label">Password</label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="password"
-                        name="password"
-                        required
-                        minlength="8"
-                        oninput="checkPassword()"
-                      />
-                      <div
-                        class="password-warning"
-                        style="color: red; display: none"
-                      >
-                        Password must be at least 8 characters long.
+            <!-- Modal Tambah Server-->
+            <div
+              class="modal fade"
+              id="addServerModal"
+              tabindex="-1"
+              aria-labelledby="addServerModalLabel"
+              aria-hidden="true"
+              data-bs-backdrop="false"
+            >
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="addServerModalLabel">
+                      Tambah Server
+                    </h5>
+                    <button
+                      type="button"
+                      class="btn-close"
+                      data-bs-dismiss="modal"
+                      aria-label="Close"
+                    ></button>
+                  </div>
+                  <div class="modal-body">
+                    <form action="" id="tambahServer">
+                      <div class="mb-3">
+                        <label for="name" class="form-label">Nama</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="name"
+                          name="name"
+                          required
+                        />
                       </div>
-                    </div>
-                    <div class="mb-3">
-                      <label for="no_telp" class="form-label">Nomor HP</label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="no_telp"
-                        name="no_telp"
-                        required
-                      />
-                    </div>
-                    <div class="mb-3">
-                      <label for="tanggal_lahir" class="form-label"
-                        >Tanggal Lahir</label
-                      >
-                      <input
-                        type="date"
-                        class="form-control"
-                        id="tanggal_lahir"
-                        name="tanggal_lahir"
-                        required
-                      />
-                    </div>
-                    <div class="mb-3">
-                      <label for="jenis_kelamin" class="form-label"
-                        >Jenis Kelamin</label
-                      >
-                      <select
-                        class="form-control"
-                        id="jenis_kelamin"
-                        name="jenis_kelamin"
-                        required
-                      >
-                        <option value="">Pilih Jenis Kelamin</option>
-                        <option value="laki-laki">Laki-laki</option>
-                        <option value="perempuan">Perempuan</option>
-                      </select>
-                    </div>
-                    <div class="mb-3">
-                      <label for="alamat" class="form-label">Alamat</label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="alamat"
-                        name="alamat"
-                        required
-                      />
-                    </div>
-                    <div class="mb-3">
-                      <label for="id_lokasi" class="form-label"
-                        >Pilih Lokasi</label
-                      >
-                      <select
-                        class="form-control"
-                        id="id_lokasi"
-                        name="id_lokasi"
-                        required
-                      >
-                        <option value="">Pilih lokasi</option>
-                      </select>
-                    </div>
-                  </form>
-                </div>
-                <div class="modal-footer">
-                  <button
-                    type="button"
-                    class="btn btn-secondary"
-                    data-bs-dismiss="modal"
-                  >
-                    Close
-                  </button>
-                  <button
-                    type="button"
-                    class="btn btn-primary"
-                    id="saveNewServer"
-                  >
-                    Save changes
-                  </button>
+                      <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input
+                          type="email"
+                          class="form-control"
+                          id="email"
+                          name="email"
+                          required
+                        />
+                      </div>
+                      <div class="mb-3">
+                        <label for="password" class="form-label"
+                          >Password</label
+                        >
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="password"
+                          name="password"
+                          required
+                          minlength="8"
+                          oninput="checkPassword()"
+                        />
+                        <div
+                          class="password-warning"
+                          style="color: red; display: none"
+                        >
+                          Password must be at least 8 characters long.
+                        </div>
+                      </div>
+                      <div class="mb-3">
+                        <label for="no_telp" class="form-label">Nomor HP</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="no_telp"
+                          name="no_telp"
+                          required
+                        />
+                      </div>
+                      <div class="mb-3">
+                        <label for="tanggal_lahir" class="form-label"
+                          >Tanggal Lahir</label
+                        >
+                        <input
+                          type="date"
+                          class="form-control"
+                          id="tanggal_lahir"
+                          name="tanggal_lahir"
+                          required
+                        />
+                      </div>
+                      <div class="mb-3">
+                        <label for="jenis_kelamin" class="form-label"
+                          >Jenis Kelamin</label
+                        >
+                        <select
+                          class="form-control"
+                          id="jenis_kelamin"
+                          name="jenis_kelamin"
+                          required
+                        >
+                          <option value="">Pilih Jenis Kelamin</option>
+                          <option value="laki-laki">Laki-laki</option>
+                          <option value="perempuan">Perempuan</option>
+                        </select>
+                      </div>
+                      <div class="mb-3">
+                        <label for="alamat" class="form-label">Alamat</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="alamat"
+                          name="alamat"
+                          required
+                        />
+                      </div>
+                      <div class="mb-3">
+                        <label for="id_lokasi" class="form-label"
+                          >Pilih Lokasi</label
+                        >
+                        <select
+                          class="form-control"
+                          id="id_lokasi"
+                          name="id_lokasi"
+                          required
+                        >
+                          <option value="">Pilih lokasi</option>
+                        </select>
+                      </div>
+                    </form>
+                  </div>
+                  <div class="modal-footer">
+                    <button
+                      type="button"
+                      class="btn btn-secondary"
+                      data-bs-dismiss="modal"
+                    >
+                      Close
+                    </button>
+                    <button
+                      type="button"
+                      class="btn btn-primary"
+                      id="saveNewServer"
+                    >
+                      Save changes
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </main>
-      </div>
-      <!-- Tambah Server Selesai-->
+          </main>
+        </div>
+        <!-- Tambah Server Selesai-->
 
       <!-- Lokasi mulai -->
       <div
@@ -613,227 +616,227 @@
             </div>
           </div>
 
-          <!-- Modal Edit Lokasi-->
-          <div
-            class="modal fade"
-            id="editLokasiModal"
-            tabindex="-1"
-            aria-labelledby="editLokasiModalLabel"
-            aria-hidden="true"
-            data-bs-backdrop="false"
-          >
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="editLokasiModalLabel">
-                    Edit Lokasi
-                  </h5>
-                  <button
-                    type="button"
-                    class="btn-close"
-                    data-bs-dismiss="modal"
-                    aria-label="Close"
-                  ></button>
-                </div>
-                <div class="modal-body">
-                  <form id="editLokasiForm">
-                    <input type="hidden" id="editIdLokasi" />
-                    <div class="mb-3">
-                      <label for="nama" class="form-label">Nama</label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="nama"
-                        name="nama"
-                        required
-                      />
-                    </div>
-                    <div class="mb-3">
-                      <label for="alamat" class="form-label">Alamat</label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="alamat"
-                        name="alamat"
-                        required
-                      />
-                    </div>
-                    <div class="mb-3">
-                      <label for="kota" class="form-label">Kota</label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="kota"
-                        name="kota"
-                        required
-                      />
-                    </div>
-                    <div class="mb-3">
-                      <label for="kodepos" class="form-label">Kode Pos</label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="kodepos"
-                        name="kodepos"
-                        required
-                      />
-                    </div>
-                  </form>
-                </div>
-                <div class="modal-footer">
-                  <button
-                    type="button"
-                    class="btn btn-secondary"
-                    data-bs-dismiss="modal"
-                  >
-                    Close
-                  </button>
-                  <button
-                    type="button"
-                    class="btn btn-primary"
-                    id="saveEditLokasi"
-                  >
-                    Save changes
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Modal Tambah Lokasi-->
-          <div
-            class="modal fade"
-            id="addLokasiModal"
-            tabindex="-1"
-            aria-labelledby="addLokasiModalLabel"
-            aria-hidden="true"
-            data-bs-backdrop="false"
-          >
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="addLokasiModalLabel">
-                    Tambah Lokasi
-                  </h5>
-                  <button
-                    type="button"
-                    class="btn-close"
-                    data-bs-dismiss="modal"
-                    aria-label="Close"
-                  ></button>
-                </div>
-                <div class="modal-body">
-                  <form id="tambahLokasi">
-                    <div class="mb-3">
-                      <label for="nama" class="form-label">Nama</label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="nama"
-                        name="nama"
-                        required
-                      />
-                    </div>
-                    <div class="mb-3">
-                      <label for="alamat" class="form-label">Alamat</label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="alamat"
-                        name="alamat"
-                        required
-                      />
-                    </div>
-                    <div class="mb-3">
-                      <label for="kota" class="form-label">Kota</label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="kota"
-                        name="kota"
-                        required
-                      />
-                    </div>
-                    <div class="mb-3">
-                      <label for="kodepos" class="form-label">Kode Pos</label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="kodepos"
-                        name="kodepos"
-                        required
-                      />
-                    </div>
-                  </form>
-                </div>
-                <div class="modal-footer">
-                  <button
-                    type="button"
-                    class="btn btn-secondary"
-                    data-bs-dismiss="modal"
-                  >
-                    Close
-                  </button>
-                  <button
-                    type="button"
-                    class="btn btn-primary"
-                    id="saveNewLokasi"
-                  >
-                    Save changes
-                  </button>
+            <!-- Modal Edit Lokasi-->
+            <div
+              class="modal fade"
+              id="editLokasiModal"
+              tabindex="-1"
+              aria-labelledby="editLokasiModalLabel"
+              aria-hidden="true"
+              data-bs-backdrop="false"
+            >
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="editLokasiModalLabel">
+                      Edit Lokasi
+                    </h5>
+                    <button
+                      type="button"
+                      class="btn-close"
+                      data-bs-dismiss="modal"
+                      aria-label="Close"
+                    ></button>
+                  </div>
+                  <div class="modal-body">
+                    <form id="editLokasiForm">
+                      <input type="hidden" id="editIdLokasi" />
+                      <div class="mb-3">
+                        <label for="nama" class="form-label">Nama</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="nama"
+                          name="nama"
+                          required
+                        />
+                      </div>
+                      <div class="mb-3">
+                        <label for="alamat" class="form-label">Alamat</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="alamat"
+                          name="alamat"
+                          required
+                        />
+                      </div>
+                      <div class="mb-3">
+                        <label for="kota" class="form-label">Kota</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="kota"
+                          name="kota"
+                          required
+                        />
+                      </div>
+                      <div class="mb-3">
+                        <label for="kodepos" class="form-label">Kode Pos</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="kodepos"
+                          name="kodepos"
+                          required
+                        />
+                      </div>
+                    </form>
+                  </div>
+                  <div class="modal-footer">
+                    <button
+                      type="button"
+                      class="btn btn-secondary"
+                      data-bs-dismiss="modal"
+                    >
+                      Close
+                    </button>
+                    <button
+                      type="button"
+                      class="btn btn-primary"
+                      id="saveEditLokasi"
+                    >
+                      Save changes
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </main>
-      </div>
-      <!-- Lokasi Selesai-->
 
-      <!-- konten start -->
-      <div
-        class="tab-pane fade"
-        id="DataKonten-pane"
-        role="tabpanel"
-        aria-labelledby="DataKonten"
-        tabindex="=0"
-      >
-        <main class="Hero">
-          <div class="row judul">
-            <h2 class="fw-bold pt-3">Data Konten</h2>
-          </div>
-          <div
-            class="col-12 buttonAction d-flex justify-content-start align-items-center mt-3 mb-3"
-          >
-            <div class="buttonTambahKonten me-2">
-              <button
-                class="btn btn-success"
-                data-bs-toggle="modal"
-                data-bs-target="#addKontenModal"
-              >
-                <i class="bi bi-plus me-2"></i>
-                Tambah Konten
-              </button>
+            <!-- Modal Tambah Lokasi-->
+            <div
+              class="modal fade"
+              id="addLokasiModal"
+              tabindex="-1"
+              aria-labelledby="addLokasiModalLabel"
+              aria-hidden="true"
+              data-bs-backdrop="false"
+            >
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="addLokasiModalLabel">
+                      Tambah Lokasi
+                    </h5>
+                    <button
+                      type="button"
+                      class="btn-close"
+                      data-bs-dismiss="modal"
+                      aria-label="Close"
+                    ></button>
+                  </div>
+                  <div class="modal-body">
+                    <form id="tambahLokasi">
+                      <div class="mb-3">
+                        <label for="nama" class="form-label">Nama</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="nama"
+                          name="nama"
+                          required
+                        />
+                      </div>
+                      <div class="mb-3">
+                        <label for="alamat" class="form-label">Alamat</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="alamat"
+                          name="alamat"
+                          required
+                        />
+                      </div>
+                      <div class="mb-3">
+                        <label for="kota" class="form-label">Kota</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="kota"
+                          name="kota"
+                          required
+                        />
+                      </div>
+                      <div class="mb-3">
+                        <label for="kodepos" class="form-label">Kode Pos</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="kodepos"
+                          name="kodepos"
+                          required
+                        />
+                      </div>
+                    </form>
+                  </div>
+                  <div class="modal-footer">
+                    <button
+                      type="button"
+                      class="btn btn-secondary"
+                      data-bs-dismiss="modal"
+                    >
+                      Close
+                    </button>
+                    <button
+                      type="button"
+                      class="btn btn-primary"
+                      id="saveNewLokasi"
+                    >
+                      Save changes
+                    </button>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="buttonHapusKontenExp">
-              <button
-                class="btn btn-danger"
-                onclick="confirmDeleteExpiredContents()"
-              >
-                <i class="bi bi-trash me-2"></i>
-                Hapus Konten Expired
-              </button>
-            </div>
-          </div>
+          </main>
+        </div>
+        <!-- Lokasi Selesai-->
 
-          <div
-            class="card-konten-container d-flex flex-wrap justify-content-around"
-            style="
-              display: flex;
-              flex-wrap: wrap;
-              justify-content: space-around;
-            "
-          ></div>
-        </main>
+        <!-- konten start -->
+        <div
+          class="tab-pane fade"
+          id="DataKonten-pane"
+          role="tabpanel"
+          aria-labelledby="DataKonten"
+          tabindex="=0"
+        >
+          <main class="Hero">
+            <div class="row judul">
+              <h2 class="fw-bold pt-3">Data Konten</h2>
+            </div>
+            <div
+              class="col-12 buttonAction d-flex justify-content-start align-items-center mt-3 mb-3"
+            >
+              <div class="buttonTambahKonten me-2">
+                <button
+                  class="btn btn-success"
+                  data-bs-toggle="modal"
+                  data-bs-target="#addKontenModal"
+                >
+                  <i class="bi bi-plus me-2"></i>
+                  Tambah Konten
+                </button>
+              </div>
+              <div class="buttonHapusKontenExp">
+                <button
+                  class="btn btn-danger"
+                  onclick="confirmDeleteExpiredContents()"
+                >
+                  <i class="bi bi-trash me-2"></i>
+                  Hapus Konten Expired
+                </button>
+              </div>
+            </div>
+
+            <div
+              class="card-konten-container d-flex flex-wrap justify-content-around"
+              style="
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: space-around;
+              "
+            ></div>
+          </main>
 
         <!-- modal tambah content -->
         <div
@@ -895,35 +898,36 @@
                     ></textarea>
                   </div>
 
-                  <div class="mb-3">
-                    <label for="expiry_date" class="form-label"
-                      >Tanggal Expired</label
-                    >
-                    <input
-                      type="date"
-                      class="form-control"
-                      id="expiry_date"
-                      name="expiry_date"
-                      required
-                    />
-                  </div>
-                </form>
-              </div>
-              <div class="modal-footer">
-                <button
-                  type="button"
-                  class="btn btn-secondary"
-                  data-bs-dismiss="modal"
-                >
-                  Close
-                </button>
-                <button
-                  type="button"
-                  class="btn btn-primary"
-                  id="saveNewKonten"
-                >
-                  Save changes
-                </button>
+                    <div class="mb-3">
+                      <label for="expiry_date" class="form-label"
+                        >Tanggal Expired</label
+                      >
+                      <input
+                        type="date"
+                        class="form-control"
+                        id="expiry_date"
+                        name="expiry_date"
+                        required
+                      />
+                    </div>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-bs-dismiss="modal"
+                  >
+                    Close
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-primary"
+                    id="saveNewKonten"
+                  >
+                    Save changes
+                  </button>
+                </div>
               </div>
             </div>
           </div>

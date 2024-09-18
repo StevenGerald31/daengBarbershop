@@ -16,6 +16,7 @@ body {
 }
 
 /* Style for Sidebar */
+/* Style for Sidebar */
 .sidebar {
   width: 25rem;
   height: 100vh;
@@ -66,6 +67,49 @@ body {
 
 .side-menu .nav-link:hover {
   background-color: #495057;
+}
+
+/* Responsive for tablet screens */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 20px;
+    height: auto;
+  }
+
+  .side-header {
+    padding: 2rem;
+    text-align: center;
+  }
+
+  .side-content {
+    padding: 0.5rem;
+  }
+
+  .side-menu .nav-link {
+    padding: 1rem 1.5rem;
+  }
+
+  .side-menu li {
+    margin-bottom: 5px;
+  }
+
+  /* Ensure the content stays next to the sidebar */
+  .main-content {
+    margin-left: 20rem;
+    padding: 1rem;
+  }
+}
+
+@media (min-width: 769px) {
+  .main-content {
+    margin-left: 25rem;
+    padding: 2rem;
+  }
+}
+
+/* Ensure the main content doesn't go below the sidebar */
+.main-content {
+  padding: 2rem;
 }
 
 /* Style for Main Content */
