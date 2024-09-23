@@ -263,7 +263,19 @@ a.sidebar-link:hover {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 100px; /* Tinggi tetap */
+  height: 120px; /* Tinggi tetap */
+}
+.daftar-confirmed {
+  border: 2px solid #1b253d; /* Garis biru */
+  padding: 20px;
+  margin: 20px;/* Sudut melengkung (opsional) */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+  padding: 10px;
+  border-radius: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 120px; /* Tinggi tetap */
 }
 .daftar-reserved {
   border: 2px solid #1b253d; /* Garis biru */
@@ -275,7 +287,7 @@ a.sidebar-link:hover {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 100px; /* Tinggi tetap */
+  height: 120px; /* Tinggi tetap */
  
 }
 .info {

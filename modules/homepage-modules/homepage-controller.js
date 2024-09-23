@@ -48,22 +48,16 @@ const loginUser = async (req, res) => {
       password: password,
     });
 
-    // Periksa apakah respons memiliki status 200 atau 201
-    if (response.status !== 200 && response.status !== 201) {
-      return res.status(401).json({ message: "Invalid email or password" });
-    }
-
     const user = response.data.user;
-    const token = response.data.access_token; // Sesuaikan dengan respons API Anda
+    const token = response.data.access_token;
 
-    // Pastikan token tersedia sebelum menyimpan ke session
     if (!token) {
-      return res
-        .status(401)
-        .json({ message: "Authentication token not provided" });
+      // Jika token tidak tersedia, kirim pesan kesalahan ke template
+      return res.render("Login", {
+        error: "Autentikasi gagal. Silakan coba lagi.",
+      });
     }
 
-    // Simpan data pengguna dan token dalam session
     req.session.dataUser = {
       role_user: user.id_role,
       lokasi: user.id_lokasi,
@@ -72,17 +66,42 @@ const loginUser = async (req, res) => {
 
     const lokasiUser = user.id_lokasi;
 
-    // Redirect ke halaman sesuai dengan role pengguna
     if (user.id_role === "1") {
-      res.redirect(`/admin/coba?lokasi=${lokasiUser}`);
+      return res.redirect(`/admin/coba?lokasi=${lokasiUser}`);
     } else if (user.id_role === "2") {
-      res.redirect(`/server/dashboard?lokasi=${lokasiUser}`);
+      return res.redirect(`/server/dashboard?lokasi=${lokasiUser}`);
     } else {
-      return res.status(403).json({ message: "Unauthorized role" });
+      // Jika role tidak dikenali, kirim pesan kesalahan
+      return res.render("Login", {
+        error: "Role pengguna tidak dikenali.",
+      });
     }
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "An error occurred while logging in" });
+
+    // Jika ada error dari server atau kredensial salah
+    if (error.response) {
+      if (error.response.status === 401) {
+        // Kredensial salah, kirim pesan kesalahan
+        return res.render("Login", { error: "Email atau password salah." });
+      } else {
+        // Error lain dari server
+        return res.render("Login", {
+          error: "Terjadi kesalahan pada server. Silakan coba lagi nanti.",
+        });
+      }
+    } else if (error.request) {
+      // Tidak ada respons dari server
+      return res.render("Login", {
+        error: "Tidak ada respons dari server. Periksa koneksi Anda.",
+      });
+    } else {
+      // Error saat mengatur permintaan
+      return res.render("Login", {
+        error:
+          "Terjadi kesalahan saat memproses permintaan. Silakan coba lagi.",
+      });
+    }
   }
 };
 
@@ -93,10 +112,13 @@ const logoutUser = async (req, res) => {
   if (!token) {
     return res
       .status(401)
-      .send(`<script>alert('Authentication token not provided'); </script>`);
+      .send(
+        `<script>alert('Authentication token not provided'); window.location.href='/web/loginpage';</script>`
+      );
   }
 
   try {
+    delete req.session.dataUser;
     // Lakukan request logout ke backend
     const response = await apiClient.post(
       "/api/auth/logout",
@@ -114,11 +136,15 @@ const logoutUser = async (req, res) => {
         console.error("Error destroying session:", err);
         return res
           .status(500)
-          .send(`<script>alert('Error logging out');</script>`);
+          .send(
+            `<script>alert('Error logging out'); window.location.href='/web/dashboard';</script>`
+          );
       }
 
       // Tampilkan pesan berhasil dan arahkan ke halaman login
-      return res.send(`<script>alert('${response.data.message}'); </script>`);
+      return res.send(
+        `<script>alert('${response.data.message}'); window.location.href='/web/loginpage';</script>`
+      );
     });
   } catch (error) {
     console.error("Error during logout:", error);
@@ -127,27 +153,10 @@ const logoutUser = async (req, res) => {
       .send(
         `<script>alert('An error occurred while logging out: ${
           error.response?.data?.message || error.message
-        }'); </script>`
+        }'); window.location.href='/web/dashboard';</script>`
       );
   }
 };
-
-// const data_pelanggan = async (req, res) => {
-//   try {
-//     const lokasiUser = req.session.dataUser.lokasi;
-//     const pelanggan = await sequelize.query(
-//       "SELECT * FROM users WHERE id_lokasi = :lokasi AND id_role = 3",
-//       {
-//         replacements: { lokasi: lokasiUser },
-//         type: Sequelize.QueryTypes.SELECT,
-//       }
-//     );
-//     res.json(pelanggan);
-//   } catch (error) {
-//     console.error(error);
-//     res.status(500).json({ error: "An error occurred while fetching data" });
-//   }
-// };
 
 const data_pelanggan = async (req, res) => {
   try {
@@ -215,6 +224,38 @@ const view_data_reserved = async (req, res) => {
     const reserved = response.data.bookings;
 
     res.json(reserved);
+  } catch (error) {
+    console.error(error);
+    res.status(error.response?.status || 500).json({
+      error: error.response?.data || "An error occurred while fetching data",
+    });
+  }
+};
+
+const view_data_confirm = async (req, res) => {
+  try {
+    // Ambil token dari session
+    const token = req.session.dataUser.token;
+
+    // Pastikan token tersedia
+    if (!token) {
+      return res
+        .status(401)
+        .json({ error: "Authentication token not provided" });
+    }
+
+    // Sertakan token dalam header Authorization
+    const response = await apiClient.get("/api/bookings/confirm", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    // Ambil array reserved dari response.data
+    const confirmed = response.data.bookings;
+
+    console.log("Data confirmed: ", confirmed);
+    res.json(confirmed);
   } catch (error) {
     console.error(error);
     res.status(error.response?.status || 500).json({
@@ -613,35 +654,45 @@ const checkout = async (req, res) => {
   }
 };
 
-const data_reserved = async (req, res) => {
+const checkout_nonmember = async (req, res) => {
+  const token = req.session.dataUser.token;
+  const { metode_pembayaran, items } = req.body;
+
+  // Pastikan token tersedia
+  if (!token) {
+    return res.status(401).json({ error: "Authentication token not provided" });
+  }
+
   try {
-    // Ambil token dari session
-    const token = req.session.dataUser.token;
-
-    // Pastikan token tersedia
-    if (!token) {
-      return res
-        .status(401)
-        .json({ error: "Authentication token not provided" });
-    }
-
-    // Sertakan token dalam header Authorization
-    const response = await apiClient.get("/api/bookings/request", {
-      headers: {
-        Authorization: `Bearer ${token}`,
+    // Mengirimkan permintaan POST ke API transaksi non-member
+    const response = await apiClient.post(
+      `/api/transactions/non-member`,
+      {
+        metode_pembayaran: metode_pembayaran,
+        items: items,
       },
-    });
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
 
-    // Ambil array bookings dari response.data
-    const bookings = response.data.bookings;
-
-    console.log("Data booking: ", bookings);
-    res.json(bookings);
+    // Jika transaksi berhasil, teruskan data ke frontend
+    res.status(response.status).json(response.data);
   } catch (error) {
     console.error(error);
-    res.status(error.response?.status || 500).json({
-      error: error.response?.data || "An error occurred while fetching data",
-    });
+
+    // Jika error dari server Laravel
+    if (error.response && error.response.status === 400) {
+      return res.status(400).json({ error: error.response.data.error });
+    }
+
+    // Jika terjadi error lain
+    res
+      .status(500)
+      .json({ message: "An error occurred", error: error.message });
   }
 };
 
@@ -652,6 +703,7 @@ module.exports = {
   logoutUser,
   view_data_request,
   view_data_reserved,
+  view_data_confirm,
   data_pelanggan,
   confirmBooking,
   canceledBooking,
@@ -664,5 +716,6 @@ module.exports = {
   hapus_Produk,
   resetPassword,
   checkout,
+  checkout_nonmember,
   apiClient,
 };

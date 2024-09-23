@@ -1,8 +1,15 @@
 const express = require("express");
 const router = express.Router();
 const adminController = require("./admin-controller");
+const middleware = require("../middleware/middleware");
 
-router.get("/coba", adminController.pageCoba);
+router.get(
+  "/coba",
+  middleware.isAuthenticated,
+  middleware.authorize(["1"]),
+  adminController.pageCoba
+);
+router.get("/logout", adminController.logoutUser);
 router.get("/pelanggan", adminController.data_pelanggan);
 router.get("/server", adminController.data_server);
 router.get("/lokasi", adminController.data_lokasi);

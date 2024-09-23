@@ -14,6 +14,7 @@ const apiClient = axios.create({
 });
 
 //FUNGCTION
+
 // const tambah_konten = async (req, res) => {
 //   upload(req, res, async function (err) {
 //     if (err) {
@@ -224,6 +225,59 @@ const tambah_konten = async (req, res) => {
 //   });
 // };
 
+const logoutUser = async (req, res) => {
+  const token = req.session.dataUser?.token;
+
+  // Pastikan token tersedia sebelum melanjutkan
+  if (!token) {
+    return res
+      .status(401)
+      .send(
+        `<script>alert('Authentication token not provided'); window.location.href='/web/loginpage';</script>`
+      );
+  }
+
+  try {
+    delete req.session.dataUser;
+    // Lakukan request logout ke backend
+    const response = await apiClient.post(
+      "/api/auth/logout",
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    // Jika logout berhasil, hapus data session
+    req.session.destroy((err) => {
+      if (err) {
+        console.error("Error destroying session:", err);
+        return res
+          .status(500)
+          .send(
+            `<script>alert('Error logging out'); window.location.href='/admin/coba';</script>`
+          );
+      }
+
+      // Tampilkan pesan berhasil dan arahkan ke halaman login
+      return res.send(
+        `<script>alert('${response.data.message}'); window.location.href='/web/loginpage';</script>`
+      );
+    });
+  } catch (error) {
+    console.error("Error during logout:", error);
+    return res
+      .status(500)
+      .send(
+        `<script>alert('An error occurred while logging out: ${
+          error.response?.data?.message || error.message
+        }'); window.location.href='/admin/coba';</script>`
+      );
+  }
+};
+
 const pageCoba = async (req, res) => {
   try {
     // Check if the user is logged in by verifying if session data exists
@@ -231,7 +285,7 @@ const pageCoba = async (req, res) => {
       return res
         .status(401)
         .send(
-          `<script>alert('Silahkan Login terlebih dahulu'); window.location.href='/web/loginapge';</script>`
+          `<script>alert('Silahkan Login terlebih dahulu'); window.location.href='/web/loginpage';</script>`
         );
     }
 
@@ -485,6 +539,7 @@ const deleteExpiredContent = async (req, res) => {
 
 module.exports = {
   pageCoba,
+  logoutUser,
   data_pelanggan,
   data_server,
   data_lokasi,

@@ -94,7 +94,7 @@
           </li>
         </ul>
         <div class="sidebar-footer">
-          <a href="/web/loginpage" id="logoutButton" class="sidebar-link">
+          <a href="#" id="logoutButton" class="sidebar-link">
             <i class="lni lni-exit"></i>
             <span>Logout</span>
           </a>
@@ -324,6 +324,12 @@
             </div>
           </div>
           <div class="request-container"></div>
+          <div class="row judul pt-4">
+            <div class="d-flex justify-content-start">
+              <h3 class="fw-bold">Daftar Menunggu Pembayaran</h3>
+            </div>
+          </div>
+          <div class="confirmed-container"></div>
           <div class="row judul pt-4">
             <div class="d-flex justify-content-start">
               <h3 class="fw-bold">Daftar Reserved</h3>
@@ -691,13 +697,30 @@
                         <label for="stock" class="form-label"
                           >Jumlah Stok Baru</label
                         >
-                        <input
-                          type="number"
-                          class="form-control"
-                          id="stock"
-                          name="stock"
-                          required
-                        />
+                        <div class="input-group">
+                          <button
+                            type="button"
+                            class="btn btn-outline-secondary"
+                            id="decreaseStock"
+                          >
+                            -
+                          </button>
+                          <input
+                            type="number"
+                            class="form-control"
+                            id="stock"
+                            name="stock"
+                            value="0"
+                            required
+                          />
+                          <button
+                            type="button"
+                            class="btn btn-outline-secondary"
+                            id="increaseStock"
+                          >
+                            +
+                          </button>
+                        </div>
                       </div>
                     </form>
                   </div>
@@ -846,6 +869,71 @@
                     type="button"
                     class="btn btn-success"
                     id="finishTransaction"
+                  >
+                    Transaksi Selesai
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- modal metode pembayaran Non-Member -->
+          <div
+            class="modal fade"
+            id="metodePembayaranNonMember"
+            tabindex="-1"
+            aria-labelledby="metodePembayaranNonMemberLabel"
+            aria-hidden="true"
+          >
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1
+                    class="modal-title fs-5"
+                    id="metodePembayaranNonMemberLabel"
+                  >
+                    Metode Pembayaran Non-Member
+                  </h1>
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
+                </div>
+                <div class="modal-body">
+                  <form id="metodePembayaranNonMemberForm">
+                    <div class="mb-3">
+                      <label for="metode_pembayarannonmember" class="form-label"
+                        >Metode Pembayaran</label
+                      >
+                      <select
+                        class="form-control"
+                        id="metode_pembayarannonmember"
+                        name="metode_pembayarannonmember"
+                        required
+                      >
+                        <option value="">Pilih Metode Pembayaran</option>
+                        <option value="Qrish">Qris</option>
+                        <option value="Cash">Cash</option>
+                        <option value="Transfer">Transfer</option>
+                        <option value="Point">Point</option>
+                      </select>
+                    </div>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-bs-dismiss="modal"
+                  >
+                    Close
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-success"
+                    id="finishTransactionNonMember"
                   >
                     Transaksi Selesai
                   </button>
@@ -1147,6 +1235,104 @@
           }
         });
 
+      // Data Pembayaran Booking
+      fetch("http://localhost:3000/web/confirm/:lokasi", {
+        method: "GET",
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          // Ambil elemen tempat untuk meletakkan kartu booking
+          const confirmedContainer = document.querySelector(
+            ".confirmed-container"
+          );
+          if (data.length >= 1) {
+            console.log("Data Confirmed: ", data);
+
+            // Iterasi melalui setiap data booking
+            data.forEach((confirmed) => {
+              // Buat elemen div untuk row daftar-request
+              const confirmedDiv = document.createElement("div");
+              confirmedDiv.classList.add("row", "daftar-confirmed", "mt-2");
+
+              // Buat kolom pertama (Id Pelanggan, Nama Pelanggan, dan Nama)
+              const col1 = document.createElement("div");
+              col1.classList.add("col-md-4");
+              const info1 = document.createElement("div");
+              info1.classList.add("info");
+
+              const idBooking = document.createElement("div");
+              idBooking.textContent = `Id Booking: ${confirmed.id_booking}`;
+
+              const namaPelanggan = document.createElement("div");
+              namaPelanggan.textContent = `Nama Pelanggan: ${confirmed.nama_pelanggan}`;
+
+              const nama = document.createElement("div");
+              nama.textContent = `Layanan: ${confirmed.nama}`; // Display the 'nama' field
+
+              info1.appendChild(idBooking);
+              info1.appendChild(namaPelanggan);
+              info1.appendChild(nama);
+              col1.appendChild(info1);
+
+              // Buat kolom kedua (Waktu)
+              const col2 = document.createElement("div");
+              col2.classList.add("col-md-4");
+              const info2 = document.createElement("div");
+              info2.classList.add("info");
+              const waktuLabel = document.createElement("div");
+              waktuLabel.textContent = "Waktu:";
+              const tanggal = document.createElement("div");
+              tanggal.textContent = confirmed.tanggal_booking.split(" ")[0]; // Extract date part from tanggal_booking
+              const jam = document.createElement("div");
+              jam.textContent = confirmed.tanggal_booking.split(" ")[1]; // Extract time part from tanggal_booking
+              info2.appendChild(waktuLabel);
+              info2.appendChild(tanggal);
+              info2.appendChild(jam);
+              col2.appendChild(info2);
+
+              // Buat kolom ketiga (Tombol Confirm dan Cancel)
+              const col3 = document.createElement("div");
+              col3.classList.add(
+                "col-md-3",
+                "d-flex",
+                "justify-content-center"
+              );
+              const buttonsDiv = document.createElement("div");
+              buttonsDiv.classList.add("buttons");
+              // const confirmButton = document.createElement("button");
+              // confirmButton.classList.add("button", "confirm");
+              // confirmButton.textContent = "Confirm";
+              const cancelButton = document.createElement("button");
+              cancelButton.classList.add("button", "cancel");
+              cancelButton.textContent = "Cancel";
+              // buttonsDiv.appendChild(confirmButton);
+              buttonsDiv.appendChild(cancelButton);
+              col3.appendChild(buttonsDiv);
+
+              // Add event listener for confirm button
+              // confirmButton.addEventListener("click", () =>
+              //   confirmRequest(request.id_booking)
+              // );
+              cancelButton.addEventListener("click", () =>
+                cancelBooking(confirmed.id_booking)
+              );
+
+              // Masukkan kolom-kolom ke dalam row daftar-confirm
+              confirmedDiv.appendChild(col1);
+              confirmedDiv.appendChild(col2);
+              confirmedDiv.appendChild(col3);
+
+              // Masukkan row daftar-request ke dalam container confirm
+              confirmedContainer.appendChild(confirmedDiv);
+            });
+          } else {
+            const noDataText = document.createElement("h4");
+            noDataText.textContent =
+              "Data Pelanggan Proses Pembayaran Belum Tersedia";
+            confirmedContainer.appendChild(noDataText);
+          }
+        });
+
       // Data Reserved
       fetch("http://localhost:3000/web/reserved/:lokasi", {
         method: "GET",
@@ -1240,7 +1426,7 @@
           }
         });
 
-      // Function to confirm booking
+      // Function to finish booking
       const finishBooking = (bookingId) => {
         // Log the bookingId to the console
         console.log("Confirming booking with ID:", bookingId);
@@ -1304,7 +1490,7 @@
           });
       };
 
-      // Function to confirm booking
+      // Function to cancel booking
       const cancelBooking = (bookingId) => {
         // Log the bookingId to the console
         console.log("Confirming booking with ID:", bookingId);
@@ -1437,6 +1623,9 @@
         // Ambil modal dan form elemen
         const updateStockModal = document.getElementById("updateStockModal");
         const saveStockButton = document.getElementById("saveStockButton");
+        const stockInput = document.getElementById("stock");
+        const decreaseStockButton = document.getElementById("decreaseStock");
+        const increaseStockButton = document.getElementById("increaseStock");
 
         // Variabel untuk menyimpan ID produk yang akan diupdate
         let selectedStockProductId = null;
@@ -1450,8 +1639,20 @@
           }
         });
 
+        // Logika untuk menambah stok
+        increaseStockButton.addEventListener("click", () => {
+          let currentStock = parseInt(stockInput.value, 10);
+          stockInput.value = currentStock + 1;
+        });
+
+        // Logika untuk mengurangi stok
+        decreaseStockButton.addEventListener("click", () => {
+          let currentStock = parseInt(stockInput.value, 10);
+          // Mengizinkan stok negatif
+          stockInput.value = currentStock - 1;
+        });
+
         saveStockButton.addEventListener("click", async () => {
-          const stockInput = document.getElementById("stock");
           const newStock = stockInput.value;
 
           console.log("Nilai stok baru: ", newStock); // Debugging
@@ -1823,12 +2024,20 @@
           <h5 class="card-title">Rekap Total</h5>
           <p class="card-text">Total Item: <span id="total-items">0</span></p>
           <p class="card-text">Total Harga: <span id="total-price">Rp0</span></p>
-          <button type="button" class="btn btn-success d-flex align-items-center d-none" id="checkout-btn" data-bs-toggle="modal"
-                data-bs-target="#metodePembayaran" >
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="memberType" id="isMember" value="member" >
+            <label class="form-check-label" for="isMember">Member</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="memberType" id="isNonMember" value="nonmember">
+            <label class="form-check-label" for="isNonMember">Non-Member</label>
+          </div>
+          <button type="button" class="btn btn-success d-flex align-items-center d-none" id="checkout-btn">
             <i class="bi bi-check-lg me-2"></i> Checkout
           </button>
         </div>
       `;
+
       container.append(recapCard);
 
       function addToCart(id, nama, harga) {
@@ -1939,6 +2148,33 @@
         }
       }
 
+      // Event listener untuk tombol CHECKOUT MEMBER
+      // Event listener untuk tombol CHECKOUT
+      document.getElementById("checkout-btn").addEventListener("click", () => {
+        const memberType = document.querySelector(
+          'input[name="memberType"]:checked'
+        );
+
+        if (!memberType) {
+          alert("Silakan pilih jenis member sebelum melanjutkan.");
+          return;
+        }
+
+        // Tampilkan modal metode pembayaran sesuai dengan jenis member
+        if (memberType.value === "member") {
+          const modalElement = document.getElementById("metodePembayaran");
+          const modalInstance = new bootstrap.Modal(modalElement);
+          modalInstance.show();
+        } else if (memberType.value === "nonmember") {
+          const modalElement = document.getElementById(
+            "metodePembayaranNonMember"
+          );
+          const modalInstance = new bootstrap.Modal(modalElement);
+          modalInstance.show();
+        }
+      });
+
+      // Listener untuk tombol "Transaksi Selesai" di dalam modal member
       document
         .getElementById("finishTransaction")
         .addEventListener("click", () => {
@@ -1946,8 +2182,81 @@
             document.getElementById("metode_pembayaran").value;
           const no_telp = document.getElementById("no_telp").value;
 
-          if (!metode_pembayaran || !no_telp) {
-            alert("Silakan isi semua field sebelum melanjutkan.");
+          const memberType = document.querySelector(
+            'input[name="memberType"]:checked'
+          );
+          const memberStatus = memberType ? memberType.value : null;
+
+          if (!metode_pembayaran || !no_telp || !memberStatus) {
+            alert(
+              "Silakan isi semua field dan pilih jenis member sebelum melanjutkan."
+            );
+            return;
+          }
+
+          // Ambil item dari keranjang
+          const items = [];
+          document.querySelectorAll(".item").forEach((item) => {
+            const id_produk = item.getAttribute("data-id");
+            const kuantitas = item.querySelector(".quantity").textContent;
+
+            items.push({
+              id_produk: parseInt(id_produk),
+              kuantitas: parseInt(kuantitas),
+            });
+          });
+
+          const checkoutData = {
+            metode_pembayaran: metode_pembayaran,
+            no_telp: no_telp,
+            member_status: memberStatus,
+            items: items,
+          };
+
+          fetch("http://localhost:3000/web/checkout", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(checkoutData),
+          })
+            .then((response) => {
+              if (response.status === 400) {
+                return response.json().then((data) => {
+                  throw new Error(
+                    data.error || "Terjadi kesalahan saat melakukan transaksi"
+                  );
+                });
+              }
+              return response.json();
+            })
+            .then((data) => {
+              console.log("Transaksi berhasil:", data);
+              alert("Transaksi Berhasil");
+              // Menutup modal setelah sukses
+              const modalElement = document.getElementById("metodePembayaran");
+              const modalInstance = bootstrap.Modal.getInstance(modalElement);
+              modalInstance.hide();
+              // Reset keranjang
+              produkPembelian();
+              resetKeranjang();
+            })
+            .catch((error) => {
+              alert(error.message);
+              console.error("Terjadi kesalahan:", error);
+            });
+        });
+
+      // Listener untuk tombol "Transaksi Selesai" di dalam modal Non-Member
+      document
+        .getElementById("finishTransactionNonMember")
+        .addEventListener("click", () => {
+          const metode_pembayaran = document.getElementById(
+            "metode_pembayarannonmember"
+          ).value;
+
+          if (!metode_pembayaran) {
+            alert("Silakan pilih metode pembayaran sebelum melanjutkan.");
             return;
           }
 
@@ -1962,60 +2271,12 @@
             });
           });
 
-          // const checkoutData = {
-          //   metode_pembayaran: metode_pembayaran,
-          //   no_telp: no_telp, // Now using the phone number instead of user ID
-          //   items: items,
-          // };
-
-          // fetch("http://localhost:3000/web/checkout", {
-          //   method: "POST",
-          //   headers: {
-          //     "Content-Type": "application/json",
-          //   },
-          //   body: JSON.stringify(checkoutData),
-          // })
-          //   .then((response) => response.json())
-          //   .then((data) => {
-          //     console.log("Transaksi berhasil:", data);
-
-          //     // Handle the successful response here
-          //     alert("Transaksi Berhasil");
-
-          //     // Menutup modal setelah sukses
-          //     const modalElement = document.getElementById("metodePembayaran");
-          //     const modalInstance = bootstrap.Modal.getInstance(modalElement);
-          //     modalInstance.hide();
-
-          //     // Initial load
-          //     produkPembelian();
-
-          //     // Clear only the items in the "item pembelian" container
-          //     document
-          //       .querySelectorAll(".item")
-          //       .forEach((item) => item.remove());
-
-          //     // Optionally, reset the total items and total price display
-          //     document.getElementById("total-items").textContent = "0";
-          //     document.getElementById("total-price").textContent = "Rp0";
-
-          //     // Hide the checkout button
-          //     document.getElementById("checkout-btn").classList.add("d-none");
-
-          //     // Hide the checkout button
-          //     document.getElementById("checkout-btn").classList.add("d-none");
-          //   })
-          //   .catch((error) => {
-          //     console.error(error);
-          //   });
-
           const checkoutData = {
             metode_pembayaran: metode_pembayaran,
-            no_telp: no_telp, // Now using the phone number instead of user ID
             items: items,
           };
 
-          fetch("http://localhost:3000/web/checkout", {
+          fetch("http://localhost:3000/web/checkout_nonmember", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -2023,57 +2284,41 @@
             body: JSON.stringify(checkoutData),
           })
             .then((response) => {
-              // Cek jika statusnya 400 (bad request)
               if (response.status === 400) {
                 return response.json().then((data) => {
-                  // Cek jika errornya karena poin tidak cukup
-                  if (data.error === "Point tidak cukup") {
-                    throw new Error(
-                      "Poin yang Anda miliki tidak cukup untuk melakukan pembayaran"
-                    );
-                  }
-                  // Lemparkan error lain jika ada
                   throw new Error(
                     data.error || "Terjadi kesalahan saat melakukan transaksi"
                   );
                 });
               }
-
-              // Jika respons sukses, return JSON-nya
               return response.json();
             })
             .then((data) => {
-              console.log("Transaksi berhasil:", data);
-
-              // Tampilkan alert transaksi berhasil
+              console.log("Transaksi Non-Member berhasil:", data);
               alert("Transaksi Berhasil");
-
               // Menutup modal setelah sukses
-              const modalElement = document.getElementById("metodePembayaran");
+              const modalElement = document.getElementById(
+                "metodePembayaranNonMember"
+              );
               const modalInstance = bootstrap.Modal.getInstance(modalElement);
               modalInstance.hide();
-
-              // Initial load
+              // Reset keranjang
               produkPembelian();
-
-              // Hapus hanya item di container "item pembelian"
-              document
-                .querySelectorAll(".item")
-                .forEach((item) => item.remove());
-
-              // Reset tampilan total items dan total price
-              document.getElementById("total-items").textContent = "0";
-              document.getElementById("total-price").textContent = "Rp0";
-
-              // Sembunyikan tombol checkout
-              document.getElementById("checkout-btn").classList.add("d-none");
+              resetKeranjang();
             })
             .catch((error) => {
-              // Menampilkan alert dengan pesan error yang sesuai
               alert(error.message);
               console.error("Terjadi kesalahan:", error);
             });
         });
+
+      // Fungsi untuk mereset keranjang
+      function resetKeranjang() {
+        document.querySelectorAll(".item").forEach((item) => item.remove());
+        document.getElementById("total-items").textContent = "0";
+        document.getElementById("total-price").textContent = "Rp0";
+        document.getElementById("checkout-btn").classList.add("d-none");
+      }
 
       document
         .getElementById("logoutButton")
@@ -2081,7 +2326,7 @@
           e.preventDefault(); // Mencegah aksi default link
 
           // Mengarahkan pengguna ke route logout
-          window.location.href = "http://localhost:3000/web/loginpage";
+          window.location.href = "http://localhost:3000/web/logout";
         });
     </script>
   </body>

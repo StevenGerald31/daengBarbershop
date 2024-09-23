@@ -31,6 +31,12 @@
       </form>
     </div>
 
+    <% if (typeof error !== 'undefined') { %>
+    <script>
+      alert("<%= error %>");
+    </script>
+    <% } %>
+
     <!-- Script untuk toggle visibility password -->
     <script>
       function togglePassword() {

@@ -14,11 +14,9 @@ body {
   list-style-type: none;
   box-sizing: border-box;
 }
-
-/* Style for Sidebar */
 /* Style for Sidebar */
 .sidebar {
-  width: 25rem;
+  width: 22rem; /* Ubah lebar sidebar menjadi lebih kecil */
   height: 100vh;
   background-color: #031425;
   position: fixed;
@@ -27,24 +25,25 @@ body {
 }
 
 .side-header {
-  padding: 3rem;
+  padding: 0.5rem; /* Sesuaikan padding header agar lebih ramping */
 }
+
 .sidebar .side-header h2 {
-  padding: 1rem;
-  font-size: 2rem;
+  padding: 0.3rem; /* Kurangi padding pada header untuk menghemat ruang */
+  font-size: 1.5rem; /* Kurangi ukuran font untuk header */
   text-align: center;
   color: #ffffff;
 }
 
 .sidebar .side-header img {
-  display: flex;
-  flex: 1 1 10rem;
-  width: 100%;
+  display: block; /* Ubah dari flex ke block agar lebih teratur */
+  width: 80%; /* Sesuaikan lebar gambar agar sesuai dengan ukuran sidebar */
+  margin: 0 auto; /* Pusatkan gambar */
 }
 
 .side-content {
-  padding: 1rem;
-  font-size: 1.3rem;
+  padding: 0.2rem; /* Sesuaikan padding agar lebih ringkas */
+  font-size: 1.1rem; /* Kurangi ukuran font */
   text-align: left;
 }
 
@@ -54,14 +53,14 @@ body {
 
 .side-menu li {
   list-style: none;
-  margin-bottom: 10px;
+  margin-bottom: 0.5rem; /* Kurangi margin untuk item menu */
 }
 
 .side-menu .nav-link {
   color: #ffffff;
-  padding: 1.5rem 2rem;
+  padding: 1rem 1.5rem; /* Sesuaikan padding untuk link menu */
   display: block;
-  border-radius: 1.2rem;
+  border-radius: 1rem; /* Kurangi radius border */
   transition: background-color 0.3s ease;
 }
 
@@ -69,54 +68,64 @@ body {
   background-color: #495057;
 }
 
-/* Responsive for tablet screens */
-@media (max-width: 768px) {
-  .sidebar {
-    width: 20px;
-    height: auto;
-  }
+/* Style for Sidebar */
+/*.sidebar {*/
+/*  width: 25rem; */
+/*  height: 100vh;*/
+/*  background-color: #031425;*/
+/*  position: fixed;*/
+/*  top: 0;*/
+/*  left: 0;*/
+/*}*/
 
-  .side-header {
-    padding: 2rem;
-    text-align: center;
-  }
+/*.side-header {*/
+/*  padding: 3rem;*/
+/*}*/
+/*.sidebar .side-header h2 {*/
+/*  padding: 1rem;*/
+/*  font-size: 2rem;*/
+/*  text-align: center;*/
+/*  color: #ffffff;*/
+/*}*/
 
-  .side-content {
-    padding: 0.5rem;
-  }
+/*.sidebar .side-header img {*/
+/*  display: flex;*/
+/*  flex: 1 1 10rem;*/
+/*  width: 100%;*/
+/*}*/
 
-  .side-menu .nav-link {
-    padding: 1rem 1.5rem;
-  }
+/*.side-content {*/
+/*  padding: 1rem;*/
+/*  font-size: 1.3rem;*/
+/*  text-align: left;*/
+/*}*/
 
-  .side-menu li {
-    margin-bottom: 5px;
-  }
+/*.side-menu ul {*/
+/*  padding: 0;*/
+/*}*/
 
-  /* Ensure the content stays next to the sidebar */
-  .main-content {
-    margin-left: 20rem;
-    padding: 1rem;
-  }
-}
+/*.side-menu li {*/
+/*  list-style: none;*/
+/*  margin-bottom: 10px;*/
+/*}*/
 
-@media (min-width: 769px) {
-  .main-content {
-    margin-left: 25rem;
-    padding: 2rem;
-  }
-}
+/*.side-menu .nav-link {*/
+/*  color: #ffffff;*/
+/*  padding: 1.5rem 2rem;*/
+/*  display: block;*/
+/*  border-radius: 1.2rem;*/
+/*  transition: background-color 0.3s ease;*/
+/*}*/
 
-/* Ensure the main content doesn't go below the sidebar */
-.main-content {
-  padding: 2rem;
-}
+/*.side-menu .nav-link:hover {*/
+/*  background-color: #495057;*/
+/*}*/
 
 /* Style for Main Content */
 .main-content {
   display: flex;
   justify-content: center;
-  margin-left: 25rem;
+  margin-left: 22rem;
   padding: 2rem;
 }
 
@@ -170,24 +179,12 @@ body {
   fill: #4b84fe;
 }
 
-/* search  */
-.Hero .searchPelanggan {
-  margin-left: 40rem;
-  margin-top: 1rem;
-}
-
 .Hero .dataPelanggan {
-  /* margin-left: 320px; */
   margin-top: 30px;
 }
 
 .server .searchServer {
   margin-left: 320px;
-  margin-top: 30px;
-}
-
-.server .dataServer {
-  /* margin-left: 320px; */
   margin-top: 30px;
 }
 
@@ -202,6 +199,7 @@ body {
 /* Style for Table */
 .table {
   margin-top: 20px;
+  width: 100%;
 }
 
 /* Style for Buttons */
@@ -326,7 +324,7 @@ body {
 
 .server .dataServer {
   /* margin-left: 320px; */
-  margin-top: 30px;
+  /*margin-top: 30px;*/
 }
 
 .voucher .cardVoucher {
@@ -338,9 +336,9 @@ body {
 }
 
 /* Style for Table */
-.table {
-  margin-top: 20px;
-}
+/*.table {*/
+/*  margin-top: 20px;*/
+/*}*/
 
 /* Style for Buttons */
 .btn {
@@ -355,10 +353,6 @@ body {
     position: relative;
     margin-bottom: 20px;
   }
-
-  .main-content {
-    margin-left: 0;
-  }
 }
 /* Mengatur styling utama untuk tab Data Pelanggan */
 
@@ -367,7 +361,7 @@ body {
   font-size: 32px;
   color: #333;
   text-align: center;
-  margin-bottom: 20px;
+  /*margin-bottom: 20px;*/
 }
 
 .grid-container {
@@ -543,7 +537,7 @@ body {
 }
 
 .table thead th {
-  background-color: #007bff;
+  /*background-color: #007bff;*/
   color: #ffffff;
   font-weight: bold;
 }
